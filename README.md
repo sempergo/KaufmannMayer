@@ -99,6 +99,29 @@ Titel in der Schnittmenge); die Vorschau bettet Schriften, Bilder, CSS und
 JavaScript in eine Datei ein, die ohne Server im Browser läuft.
 Lighthouse-Berichte (HTML und JSON) landen in `tools/berichte/`.
 
+## Vorschau auf GitHub Pages
+
+Der Workflow `.github/workflows/pages.yml` veröffentlicht `site/` bei jedem Push
+auf den Arbeitsbranch (oder `main`) unter
+
+**https://sempergo.github.io/KaufmannMayer/**
+
+`tools/pages.py` stellt dafür alle Wurzelpfade (`/css/…`, `/img/…`, `/`) auf den
+Unterpfad `/KaufmannMayer/` um und sperrt die Kopie für Suchmaschinen
+(`noindex`, `robots.txt`), damit sie der späteren Domain keine Konkurrenz macht.
+`_headers` gilt dort nicht (keine CSP) – maßgeblich für den Livegang bleibt
+Cloudflare Pages.
+
+**Einmalig einschalten:** *Settings → Pages → Build and deployment → Source:
+„GitHub Actions“*. Das Repo ist privat: Pages für private Repos braucht GitHub
+Pro (oder ein öffentliches Repo), und die Seite selbst ist dann trotzdem
+öffentlich erreichbar. Danach unter *Actions → GitHub Pages → Run workflow*
+einmal starten oder einfach pushen.
+
+```bash
+python3 -I tools/pages.py /KaufmannMayer   # lokal nachbauen nach _pages/
+```
+
 ## Deployen auf Cloudflare Pages
 
 **Variante A – mit Git (empfohlen).** Im Cloudflare-Dashboard unter

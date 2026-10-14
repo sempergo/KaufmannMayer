@@ -7,7 +7,8 @@ description: Verwenden, wenn der Auftraggeber im Chat eine Änderung an der Kauf
 
 Eine Runde ist erst fertig, wenn der Auftraggeber das Ergebnis **selbst ansehen kann**. Er startet
 keinen Server, und für den Branch gibt es keine Cloudflare-Vorschau. Er bekommt jedes Mal die
-Einzeldatei-Vorschau in den Chat.
+Einzeldatei-Vorschau in den Chat – und, wenn der Workflow „GitHub Pages“ für den Push grün ist,
+zusätzlich den Link https://sempergo.github.io/KaufmannMayer/.
 
 ## Was am Ende einer Runde steht
 
@@ -45,7 +46,10 @@ Einzeldatei-Vorschau in den Chat.
 9. **Vorschau:** `python3 -I tools/vorschau.py` und dann `SendUserFile` mit
    `tools/berichte/vorschau/kaufmann-mayer-startseite.html`, `display: "attach"`, Bildunterschrift:
    herunterladen, im Browser öffnen, wo die Änderung zu sehen ist.
-10. **Antworten:** nach Wünschen gegliedert, was jetzt anders ist; eigene Entscheidungen und
+10. **GitHub Pages:** Lauf des Workflows `pages.yml` für den Push prüfen (`actions_list`,
+    `list_workflow_runs`). Grün: Link in die Antwort. Rot: Ursache aus dem Log nennen, die Datei
+    reicht als Ansicht.
+11. **Antworten:** nach Wünschen gegliedert, was jetzt anders ist; eigene Entscheidungen und
     Abweichungen mit Grund; Prüfergebnis in einem Satz; offene Fragen am Ende.
 
 ## Häufige Fehler
