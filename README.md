@@ -112,11 +112,10 @@ Unterpfad `/KaufmannMayer/` um und sperrt die Kopie für Suchmaschinen
 `_headers` gilt dort nicht (keine CSP) – maßgeblich für den Livegang bleibt
 Cloudflare Pages.
 
-**Einmalig einschalten:** *Settings → Pages → Build and deployment → Source:
-„GitHub Actions“*. Das Repo ist privat: Pages für private Repos braucht GitHub
-Pro (oder ein öffentliches Repo), und die Seite selbst ist dann trotzdem
-öffentlich erreichbar. Danach unter *Actions → GitHub Pages → Run workflow*
-einmal starten oder einfach pushen.
+**Eingerichtet am 15.10.2026:** Repo öffentlich, *Settings → Pages → Build and
+deployment → Source: „GitHub Actions“* (öffentlich stellen allein schaltet Pages
+nicht ein). Seitdem geht jeder Push mit Änderungen in `site/` automatisch
+online; per Hand unter *Actions → GitHub Pages → Run workflow*.
 
 ```bash
 python3 -I tools/pages.py /KaufmannMayer   # lokal nachbauen nach _pages/
