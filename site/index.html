@@ -147,8 +147,6 @@
   <symbol id="i-muenzen" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="5.5" ry="2.5"/><path d="M3.5 7v4c0 1.4 2.5 2.5 5.5 2.5M3.5 11v4c0 1.4 2.5 2.5 5.5 2.5"/><ellipse cx="15" cy="13" rx="5.5" ry="2.5"/><path d="M9.5 13v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4"/></symbol>
   <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3.5 17.5 9.5 11.5l4 4 7-7.5M15 8h5.5v5.5"/></symbol>
   <symbol id="i-puls" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6H21"/></symbol>
-  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6.5v11M15 6.5v11"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.5 6v12l9.5-6z"/></symbol>
   <symbol id="i-extern" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
@@ -218,7 +216,7 @@
         </div>
       </div>
       <!-- Vertrauensleiste als Laufband: so breit wie die Abschnitte, an den Kanten ausgeblendet. Hält beim
-           Überfahren, bei Fokus und über den Pause-Knopf an (js/site.js); ohne JavaScript und bei reduzierter
+           Überfahren, beim Antippen und bei Tastaturfokus an (js/site.js); ohne JavaScript und bei reduzierter
            Bewegung steht sie still -->
       <div class="laufband">
         <div class="laufband__fenster">
@@ -231,11 +229,6 @@
             </ul>
           </div>
         </div>
-        <button class="laufband__pause" type="button" aria-pressed="false" hidden>
-          <svg class="icon icon--sm icon-pause" aria-hidden="true"><use href="#i-pause"/></svg>
-          <svg class="icon icon--sm icon-play" aria-hidden="true"><use href="#i-play"/></svg>
-          <span class="visually-hidden">Laufband anhalten</span>
-        </button>
       </div>
       <figure class="ph hero__media">
         <figcaption class="ph__caption">

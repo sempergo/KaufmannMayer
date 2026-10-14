@@ -53,7 +53,7 @@
   --schiefer: #28353e;   /* Logo: Schriftzug und Haus – Text, Überschriften, Buttons */
   --schiefer-hell: #3a4853; /* Hover */
   --schiefer-tief: #1c262d; /* Schrift auf Orange und Grün */
-  --blau-700: #1f4f8f;   /* Primärbuttons (weiße Schrift 8,2:1) */
+  --blau-800: #1a4274;   /* Primärbuttons (weiße Schrift 10:1) */
   --navy-700: #2c4266;   /* Icons */
   --blue-600: #2a5ea8;   /* Eyebrow-Zeilen (6,5:1 auf Weiß) */
   --slate-600: #4a5666;  /* Nebentext */
@@ -312,15 +312,15 @@ strong { font-weight: 600; }
 .btn--lg { min-height: 3.375rem; padding-inline: 1.75rem; font-size: 1.0625rem; }
 .btn--xl { min-height: 3.75rem; padding-inline: 2.125rem; font-size: 1.125rem; }
 .btn--primary {
-  border-color: rgb(255 255 255 / 0.32);
+  border-color: rgb(255 255 255 / 0.1);
   background:
-    radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.34), transparent 58%),
-    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(10 30 60 / 0.12))
-    rgb(31 79 143 / 0.9);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), inset 0 -2px 8px rgb(10 30 60 / 0.22), 0 0 0 1px rgb(31 79 143 / 0.15), 0 12px 26px -12px rgb(31 79 143 / 0.65);
+    radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.2), transparent 58%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(8 24 48 / 0.1))
+    rgb(26 66 116 / 0.92);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), 0 6px 16px -10px rgb(26 66 116 / 0.6);
   color: var(--white);
 }
-.btn--primary:hover { background-color: rgb(42 94 168 / 0.92); }
+.btn--primary:hover { background-color: rgb(34 82 142 / 0.94); }
 .btn--primary .icon { color: var(--orange-400); }
 .btn--outline {
   border-color: rgb(255 255 255 / 0.8);
@@ -701,30 +701,9 @@ strong { font-weight: 600; }
 .laeuft:focus-within .laufband__spur,
 .ist-angehalten .laufband__spur { animation-play-state: paused; }
 @keyframes laufband { to { transform: translateX(-50%); } }
-/* Pause-Knopf liegt rechts über der ausgeblendeten Zone */
-.laufband__pause {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  translate: 0 -50%;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid rgb(255 255 255 / 0.8);
-  border-radius: 50%;
-  background: rgb(255 255 255 / 0.5);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 0 1px var(--line);
-  color: var(--slate-600);
-  cursor: pointer;
-  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
-}
-.laufband__pause[hidden] { display: none; }
-.laufband__pause:hover { color: var(--schiefer); background: rgb(255 255 255 / 0.85); }
-.laufband__pause .icon-play, .laufband__pause[aria-pressed="true"] .icon-pause { display: none; }
-.laufband__pause[aria-pressed="true"] .icon-play { display: block; }
+/* Anhalten ohne eigenen Knopf: Überfahren, Antippen (Klasse ist-angehalten) oder Tastaturfokus auf dem Band */
+.laeuft { cursor: default; }
+.laeuft:focus-visible { outline-offset: 2px; border-radius: var(--r); }
 @media (min-width: 60em) {
   .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center; }
   .hero__text { grid-column: 1 / span 7; grid-row: 1; }

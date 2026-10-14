@@ -5,7 +5,7 @@
 // 2 Scrollspy: markiert den Menüpunkt der sichtbaren Sektion (aria-current).
 // 3 Portal-Fenster: Reiter (Tabs) wählen den Bereich beim Überfahren, Antippen und per Pfeiltasten.
 // 4 Werterhalt-Animation: läuft einmal, sobald die Grafik zur Hälfte im Bild ist.
-// 5 Laufband der Vertrauensleiste mit Pause-Knopf.
+// 5 Laufband der Vertrauensleiste.
 (function () {
   var toggle = document.querySelector(".menu-toggle");
   var nav = document.getElementById("hauptnavigation");
@@ -134,20 +134,19 @@
   }
 
   // 5 Laufband: eine Kopie der Liste macht den Lauf nahtlos (für Screenreader verborgen). Bewegung, die
-  //   von selbst startet, braucht einen Pause-Knopf (WCAG 2.2.2). Bei reduzierter Bewegung bleibt alles stehen.
+  //   von selbst startet, muss anhaltbar sein (WCAG 2.2.2) – ohne sichtbaren Knopf (Wunsch des Auftraggebers):
+  //   Überfahren hält an (CSS), Antippen schaltet um, mit der Tastatur ist das Band ein Tab-Halt und steht,
+  //   solange es den Fokus hat. Bei reduzierter Bewegung bleibt alles stehen.
   var band = document.querySelector(".laufband");
   if (band && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var spur = band.querySelector(".laufband__spur");
     var kopie = spur.querySelector(".trust").cloneNode(true);
     kopie.setAttribute("aria-hidden", "true");
     spur.appendChild(kopie);
-    var knopf = band.querySelector(".laufband__pause");
-    knopf.hidden = false;
-    knopf.addEventListener("click", function () {
-      var an = knopf.getAttribute("aria-pressed") !== "true";
-      knopf.setAttribute("aria-pressed", String(an));
-      band.classList.toggle("ist-angehalten", an);
-    });
+    band.setAttribute("role", "group");
+    band.setAttribute("aria-label", "Bewertung und Auszeichnungen – angehalten, solange ausgewählt");
+    band.tabIndex = 0;
+    band.addEventListener("click", function () { band.classList.toggle("ist-angehalten"); });
     band.classList.add("laeuft");
   }
 })();

@@ -25,8 +25,10 @@ Gewünscht:
 - hell (Weiß, kühles Blau) und ruhig, Struktur wie relaxa-immobilien.de
 - Logofarben exakt; Orange und Grün als Signalfarben, je Abschnitt eine, an einzelnen Stellen gemischt
 - leicht abgerundete Boxen; freistehende Leisten (Navigation, Vertrauensleiste, Schnellleiste)
-- Buttons als Glas-Pillen in Blau („blauer und mehr in dem glass-pill-look“), leichter Schein hinter den Boxen
-- Vertrauensleiste als dezentes Laufband ohne Rahmen, das an der Abschnittskante ausblendet
+- Buttons als Glas-Pillen in dunklem Blau („blauer und mehr in dem glass-pill-look“, dann „etwas dunkler
+  und nicht so wuchtig mit der umrandung“), leichter Schein hinter den Boxen
+- Vertrauensleiste als dezentes Laufband ohne Rahmen, das an der Abschnittskante ausblendet – ohne
+  sichtbaren Pause-Knopf („mach den raus“)
 - je Kartenart ein eigener, dezenter Hover-Effekt
 - kompakte Abschnitte; große Skyline im Hero
 - Buttons: „Termin vereinbaren“ oder „Kontakt aufnehmen“, nie „Angebot anfordern“
@@ -39,7 +41,7 @@ Effekte nur, wenn sie ein gemeldetes Problem lösen – und dann in der Antwort 
 | Was | Regel |
 |---|---|
 | Text | `--schiefer` #28353e (Logo-Schriftzug) |
-| Buttons | Glas-Pillen (`border-radius: 999px`): primär `--blau-700` #1f4f8f, sekundär Milchglas, Akzent Orange; Licht von oben, helle Kante, `backdrop-filter` |
+| Buttons | Glas-Pillen (`border-radius: 999px`): primär `--blau-800` #1a4274, sekundär Milchglas, Akzent Orange; sanftes Licht von oben, nur feine Kante (keine dicken Ringe), `backdrop-filter` |
 | Signalfarben | `--orange-500` #ec720f, `--gruen-500` #61a210; als Text nur `--orange-700` / `--gruen-700` |
 | Schrift auf Orange | `--schiefer-tief` (Schiefer erreicht dort nur 4,2:1) |
 | Blau | `--blue-600`: Skyline, Schnittmenge „Werterhalt“; blaue Boxen `--bg-blau` |
@@ -59,8 +61,10 @@ Effekte nur, wenn sie ein gemeldetes Problem lösen – und dann in der Antwort 
 - **Animationen:** Fortschritt 0…1 als CSS-Variablen, gesetzt aus `js/site.js`. Ohne JavaScript und
   bei reduzierter Bewegung steht das Endbild. Einmal abspielen, wenn im Bild. Mobil eine eigene
   Anordnung statt kleiner skalieren.
-- **Bewegung, die von selbst startet** (z. B. Laufband): Pause beim Überfahren und bei Fokus plus
-  ein Pause-Knopf mit `aria-pressed` (WCAG 2.2.2); bei reduzierter Bewegung steht sie. Vor dem
+- **Bewegung, die von selbst startet** (z. B. Laufband) muss anhaltbar sein (WCAG 2.2.2) – einen
+  sichtbaren Pause-Knopf will der Auftraggeber nicht. Deshalb: Überfahren hält an, Antippen schaltet
+  um, per Tastatur ein Tab-Halt (`role="group"`, Name, `tabIndex = 0` aus dem Skript), der bei Fokus
+  anhält; bei reduzierter Bewegung steht sie. Vor dem
   Skript muss das Element schon so hoch sein wie danach, sonst springt der Inhalt (CLS) – den
   Endzustand per `.js`-Klasse und `prefers-reduced-motion: no-preference` im CSS vorwegnehmen.
 - **Breite Kinder in Grids:** einspaltige Raster mit `grid-template-columns: minmax(0, 1fr)`, sonst

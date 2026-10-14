@@ -35,10 +35,10 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,66 s** | 0,38 s |
+| Largest Contentful Paint | < 2,5 s | **1,52 s** | 0,34 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 0,91 s | 0,31 s |
-| Total Blocking Time | – | 0 ms | 0 ms |
+| First Contentful Paint | – | 1,02 s | 0,24 s |
+| Total Blocking Time | – | 2 ms | 0 ms |
 | Übertragene Daten | – | 102 KB | 98 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
@@ -190,7 +190,7 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--bg-blau` | `#eef3fa` | blaue Boxen; Kacheln und Karten in weißen Boxen |
 | `--bg-tint` / `--hero-oben` | `#eaf1fa` / `#d6e3f3` | Icon-Kreise / Beginn des Hero-Verlaufs |
 | `--schiefer` | `#28353e` | Logo (Schriftzug, Haus): Text (12,6:1), Überschriften, Karte „Verwalterwechsel“ |
-| `--blau-700` | `#1f4f8f` | Primärbuttons (weiße Schrift 8,2:1) |
+| `--blau-800` | `#1a4274` | Primärbuttons (weiße Schrift 10:1) |
 | `--schiefer-tief` | `#1c262d` | Schrift auf Orange (5,1:1) |
 | `--blue-600` / `--navy-700` | `#2a5ea8` / `#2c4266` | Skyline, Schnittmenge „Werterhalt“ / Icons |
 | `--slate-600` | `#4a5666` | Nebentext (7,5:1) |
@@ -221,19 +221,20 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 - **Vertrauensleiste (Hero):** dezentes Laufband ohne Rahmen – Bewertung,
   Zertifizierung, IHK-Prüfer und Erfahrung mit kleinen grünen Icons laufen
   langsam (48 s je Durchgang) und blenden an der Kante der Abschnitte aus, nicht
-  am Bildschirmrand. Hält beim Überfahren und bei Tastaturfokus an; rechts ein
-  kleiner Pause-Knopf, weil Bewegung, die von selbst startet, anhaltbar sein
-  muss (WCAG 2.2.2). Ohne JavaScript und bei reduzierter Bewegung steht die
-  Leiste als umbrechende Zeile. Die Liste ist für Screenreader einmal da; die
+  am Bildschirmrand. Ohne sichtbaren Knopf (Wunsch des Auftraggebers)
+  anhaltbar, weil Bewegung, die von selbst startet, das sein muss (WCAG 2.2.2):
+  Überfahren hält an, Antippen schaltet um, mit der Tastatur ist das Band ein
+  Tab-Halt und steht, solange es ausgewählt ist. Ohne JavaScript und bei
+  reduzierter Bewegung steht die Leiste als umbrechende Zeile. Die Liste ist für Screenreader einmal da; die
   Kopie für den nahtlosen Lauf ist verborgen.
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
   Sektion bekommt einen orangen Strich. Darüber eine schlichte Infozeile auf
   dem Hero-Verlauf. Das Mobilmenü öffnet als eigene Box unter der Leiste.
-- **Buttons:** Glas-Pillen – primär Blau (`--blau-700`, zu 90 % deckend,
-  Hintergrund weich gezeichnet, Licht von oben, helle Kante, innerer Schatten
-  unten), weiße Schrift und oranger Pfeil; sekundär weißes Milchglas mit feinem
+- **Buttons:** Glas-Pillen – primär dunkles Blau (`--blau-800`, zu 92 %
+  deckend, Hintergrund weich gezeichnet, sanftes Licht von oben, nur eine
+  feine helle Kante, kleiner Schatten), weiße Schrift und oranger Pfeil; sekundär weißes Milchglas mit feinem
   blauem Ring; einmal Orange als Akzent (Karte „Verwalterwechsel geplant?“).
   Auch der Menüknopf ist eine Pille; Boxen und Karten bleiben leicht abgerundet. Texte: „Termin vereinbaren“
   (Hero, Kontakt, Schnellleiste) und „Kontakt aufnehmen“ (Navigation, Karte
@@ -462,6 +463,11 @@ eine Layoutverschiebung von 0,025, weil die Liste vor dem Skript mehrzeilig
 und danach einzeilig stand; die Einzeiligkeit steht jetzt schon im CSS (bei
 reduzierter Bewegung nicht), CLS wieder 0. Der Pause-Knopf liegt über der
 ausgeblendeten Zone, damit das Band genau an der Abschnittskante endet.
+
+Runde „Buttons dunkler, Laufband ohne Knopf“: Primärblau von #1f4f8f auf
+#1a4274, weiße Kante von 32 % auf 10 % Deckkraft, äußerer Ring weg, Schatten
+halb so groß. Der Pause-Knopf am Laufband ist entfernt; damit das Band
+anhaltbar bleibt, hält es jetzt auch beim Antippen und bei Tastaturfokus.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit
