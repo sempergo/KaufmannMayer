@@ -9,7 +9,7 @@ const { spawn, spawnSync } = require("child_process");
 const net = require("net"), path = require("path"), fs = require("fs");
 
 const DIR = __dirname;
-const REIHE = ["konsole", "seo", "a11y", "mobil", "kontrast", "lighthouse"];
+const REIHE = ["konsole", "seo", "a11y", "mobil", "grafik", "kontrast", "lighthouse"];
 const filter = process.argv.slice(2);
 const auswahl = filter.length ? REIHE.filter(n => filter.some(f => n.includes(f))) : REIHE;
 

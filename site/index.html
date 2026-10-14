@@ -262,6 +262,7 @@
                   <radialGradient id="wh-gc"><stop offset="0" stop-color="#2a5ea8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5ea8" stop-opacity="0"/></radialGradient>
                   <radialGradient id="wh-bo"><stop offset="0" stop-color="#28353e" stop-opacity=".2"/><stop offset="1" stop-color="#28353e" stop-opacity="0"/></radialGradient>
                   <clipPath id="wh-clip-l" clipPathUnits="userSpaceOnUse"><circle class="wh-shift-l" cx="330" cy="340" r="320"/></clipPath>
+                  <clipPath id="wh-clip-r" clipPathUnits="userSpaceOnUse"><circle class="wh-shift-r" cx="1050" cy="340" r="320"/></clipPath>
                 </defs>
                 <ellipse class="wh-boden" cx="690" cy="668" rx="600" ry="12"/>
                 <g class="wh-shift-l">
@@ -278,6 +279,9 @@
                 </g>
                 <circle class="wh-schein" cx="690" cy="340" r="230"/>
                 <g clip-path="url(#wh-clip-l)"><circle class="wh-shift-r wh-fill wh-fill--c" cx="1050" cy="340" r="320"/></g>
+                <!-- blaue Umrandung der Schnittmenge: jeder Kreisrand, beschnitten auf den anderen Kreis -->
+                <g class="wh-linse" clip-path="url(#wh-clip-l)"><circle class="wh-shift-r" cx="1050" cy="340" r="320"/></g>
+                <g class="wh-linse" clip-path="url(#wh-clip-r)"><circle class="wh-shift-l" cx="330" cy="340" r="320"/></g>
                 <circle class="wh-puls" cx="690" cy="340" r="140"/>
               </svg>
               <div class="wh-anchor wh-l wh-y1"><div class="wh-head wh-v-lh"><b>Kaufmännisch</b><i></i></div></div>
