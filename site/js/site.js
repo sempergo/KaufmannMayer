@@ -3,7 +3,6 @@
 //   Escape und Klick außerhalb schließen, der Fokus kehrt zum Knopf zurück.
 //   Ohne JavaScript bleibt die Navigation sichtbar (Klasse no-js im HTML).
 // 2 Scrollspy: markiert den Menüpunkt der sichtbaren Sektion (aria-current).
-// 3 Lichtkante: Karten mit .card--spot bekommen die Mausposition als --mx/--my.
 (function () {
   var toggle = document.querySelector(".menu-toggle");
   var nav = document.getElementById("hauptnavigation");
@@ -56,16 +55,5 @@
       });
     }, { rootMargin: "-40% 0px -55% 0px" });
     ziele.forEach(function (a, s) { io.observe(s); });
-  }
-
-  // 3 Lichtkante – nur mit Maus, nicht auf Touch-Geräten
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    document.addEventListener("pointermove", function (e) {
-      var karte = e.target.closest && e.target.closest(".card--spot");
-      if (!karte) return;
-      var r = karte.getBoundingClientRect();
-      karte.style.setProperty("--mx", (e.clientX - r.left) + "px");
-      karte.style.setProperty("--my", (e.clientY - r.top) + "px");
-    }, { passive: true });
   }
 })();

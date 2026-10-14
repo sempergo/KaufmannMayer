@@ -16,6 +16,9 @@ const breiten = process.argv.slice(3).map(Number).filter(Boolean);
     const p = await ctx.newPage();
     await p.goto(B + "/", { waitUntil: "networkidle" });
     await p.evaluate(() => document.fonts.ready);
+    // einmal ans Ende scrollen, damit Bilder mit loading="lazy" geladen sind
+    await p.evaluate(async () => { window.scrollTo(0, document.body.scrollHeight); await new Promise(r => setTimeout(r, 400)); window.scrollTo(0, 0); });
+    await p.waitForLoadState("networkidle");
     await p.screenshot({ path: path.join(ziel, `startseite-${w}-oben.png`) });
     await p.screenshot({ path: path.join(ziel, `startseite-${w}.png`), fullPage: true });
     console.log("  " + w + " px gespeichert");

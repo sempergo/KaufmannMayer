@@ -5,15 +5,18 @@
 Quelle: quellen/logo-wix-original.jpg (786 x 613 px, JPEG, weisser Grund),
 geladen von https://static.wixstatic.com/media/4166e8_4d72d9020c0f451b9509d870510bda9e~mv2.jpg
 
-Die Seite hat einen dunkelblauen Grund. Das Original (weisser Grund, dunkler
-Schriftzug) waere darauf ein weisser Kasten mit unlesbarer Schrift. Deshalb:
-- das Haus steht unverändert auf einer weissen, abgerundeten Kachel (wie ein App-Icon),
-- der Schriftzug wird freigestellt: "KAUFMANN &" weiss, "MAYER" im Original-Orange,
-- beides nebeneinander (horizontales Lockup), transparenter Grund.
+Das Original ist gestapelt (Haus oben, Schriftzug unten); in einer Kopfzeile
+waere der Schriftzug kaum 7 px hoch. Deshalb stehen Haus und Schriftzug
+nebeneinander (horizontales Lockup), beide Teile unverändert. Zwei Fassungen:
+- hell: Original auf weissem Grund – für die weisse Navigationsleiste,
+- dunkel: das Haus auf weisser, abgerundeter Kachel (wie ein App-Icon), der
+  Schriftzug freigestellt ("KAUFMANN &" weiss, "MAYER" orange) – für den
+  dunkelblauen Footer.
 Sobald das Logo als Vektor vorliegt, ersetzt es diese Dateien.
 
 Ausgabe nach site/img/ und site/:
-  logo-{1,2,3}x.{avif,webp}, logo-2x.png   Navigation und Footer
+  logo-hell-{1,2,3}x.{avif,webp}, logo-hell-2x.png       Navigation
+  logo-dunkel-{1,2,3}x.{avif,webp}, logo-dunkel-2x.png   Footer
   favicon.ico, apple-touch-icon.png
 """
 from pathlib import Path
@@ -75,7 +78,22 @@ def wortmarke(hoehe):
     return out.resize((b, hoehe), Image.LANCZOS)
 
 
-def lockup(hoehe):
+def lockup_hell(hoehe):
+    """Original auf weissem Grund: Haus links, Schriftzug rechts."""
+    src = Image.open(SRC).convert("RGB")
+    emblem, wort = src.crop(EMBLEM), src.crop(WORTMARKE)
+    eb = round(emblem.width * hoehe / emblem.height)
+    emblem = emblem.resize((eb, hoehe), Image.LANCZOS)
+    wh = round(hoehe * 0.32)
+    wort = wort.resize((round(wort.width * wh / wort.height), wh), Image.LANCZOS)
+    gap = round(hoehe * 0.2)
+    out = Image.new("RGB", (eb + gap + wort.width, hoehe), "white")
+    out.paste(emblem, (0, 0))
+    out.paste(wort, (eb + gap, round(hoehe * 0.6 - wh / 2)))
+    return out
+
+
+def lockup_dunkel(hoehe):
     k = kachel(hoehe)
     wm = wortmarke(round(hoehe * SCHRIFT_ANTEIL))
     gap = round(hoehe * ABSTAND_ANTEIL)
@@ -87,13 +105,14 @@ def lockup(hoehe):
 
 def main():
     IMG.mkdir(parents=True, exist_ok=True)
-    for f in (1, 2, 3):
-        im = lockup(CSS_HOEHE * f)
-        im.save(IMG / f"logo-{f}x.avif", quality=80)
-        im.save(IMG / f"logo-{f}x.webp", quality=90, method=6)
-        if f == 2:
-            im.save(IMG / "logo-2x.png", optimize=True)
-        print(f"logo-{f}x", im.size)
+    for name, bau in (("hell", lockup_hell), ("dunkel", lockup_dunkel)):
+        for f in (1, 2, 3):
+            im = bau(CSS_HOEHE * f)
+            im.save(IMG / f"logo-{name}-{f}x.avif", quality=80)
+            im.save(IMG / f"logo-{name}-{f}x.webp", quality=90, method=6)
+            if f == 2:
+                im.save(IMG / f"logo-{name}-2x.png", optimize=True)
+            print(f"logo-{name}-{f}x", im.size)
 
     # Favicon und Touch-Icon: das Haus auf weisser Kachel
     k = kachel(180)

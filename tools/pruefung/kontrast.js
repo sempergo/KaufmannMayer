@@ -23,10 +23,12 @@ let fehler = 0;
         const buf = await el.screenshot({ animations: "disabled" });
         const liste = await probe.evaluate(async (d) => {
           const img = new Image(); await new Promise(r => { img.onload = r; img.src = d; });
-          // 4 px Rand abschneiden: Ecken (Radius) und Rahmen zeigen sonst den Untergrund
-          const R = img.width > 16 && img.height > 16 ? 4 : 0;
-          const cv = document.createElement("canvas"); cv.width = img.width - 2 * R; cv.height = img.height - 2 * R;
-          const x = cv.getContext("2d"); x.drawImage(img, -R, -R);
+          // Rand abschneiden: Ecken und Rahmen zeigen sonst den Untergrund. Seitlich so viel
+          // wie der größtmögliche Radius (halbe Höhe, bei Pillen-Buttons), oben/unten 4 px.
+          const RY = img.width > 16 && img.height > 16 ? 4 : 0;
+          const RX = RY ? Math.min(Math.round(img.height / 2), Math.round(img.width / 4)) : 0;
+          const cv = document.createElement("canvas"); cv.width = img.width - 2 * RX; cv.height = img.height - 2 * RY;
+          const x = cv.getContext("2d"); x.drawImage(img, -RX, -RY);
           const px = x.getImageData(0, 0, cv.width, cv.height).data; const h = new Map();
           for (let i = 0; i < px.length; i += 4) { const k = (px[i] >> 2 << 12) | (px[i + 1] >> 2 << 6) | (px[i + 2] >> 2); h.set(k, (h.get(k) || 0) + 1); }
           const tot = px.length / 4;
