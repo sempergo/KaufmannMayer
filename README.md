@@ -5,12 +5,12 @@ Frankfurt am Main. Gedacht als Pitch an den Inhaber: Er soll zeigen, dass ein
 schneller, logisch aufgebauter Auftritt mehr Reichweite bei Google und mehr
 Mandatsanfragen bringt als die heutige Wix-Seite.
 
-Statisches HTML und CSS, rund 2,5 KB JavaScript, kein Baukasten, kein
+Statisches HTML und CSS, rund 6 KB JavaScript, kein Baukasten, kein
 Build-Schritt, deploybar auf Cloudflare Pages. Inhalte und Logo stammen von
 [kaufmann-mayer.de](https://www.kaufmann-mayer.de); Layout, Farben, Schriften
 und Bildsprache sind neu: hell und ruhig (Weiß und kühles Off-White),
-Dunkelblau als Zweitfarbe, Orange als Akzent, leicht abgerundete Elemente und
-zwei erklärende Grafiken. Als Stilreferenz diente
+Dunkelblau als Zweitfarbe, Orange als Akzent, leicht abgerundete Elemente,
+eine animierte und eine interaktive Grafik sowie ein bedienbares Portal-Fenster. Als Stilreferenz diente
 [relaxa-immobilien.de](https://relaxa-immobilien.de/) (Struktur, Ruhe,
 Grafiken) – übernommen wurde die Haltung, nicht die Gestaltung.
 
@@ -23,7 +23,7 @@ Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller Stand: freistehende Leiste, Abschnitte als Boxen) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 14.10.2026 (aktueller Stand: Werterhalt-Animation, Portal-Fenster, Boxen im Wechsel) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
@@ -34,11 +34,11 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,44 s** | 0,34 s |
+| Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,34 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
 | First Contentful Paint | – | 0,76 s | 0,20 s |
 | Total Blocking Time | – | 0 ms | 0 ms |
-| Übertragene Daten | – | 89 KB | 86 KB |
+| Übertragene Daten | – | 96 KB | 92 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97). Live auf Cloudflare können die Werte etwas anders
@@ -126,7 +126,7 @@ site/                     Website (Ausgabeverzeichnis für Cloudflare Pages)
   index.html              Startseite
   404.html                Fehlerseite (noindex)
   css/site.css            Design-Tokens und alle Stile
-  js/site.js              Mobilmenü und Markierung des aktiven Menüpunkts (einziges Skript)
+  js/site.js              Mobilmenü, aktiver Menüpunkt, Portal-Reiter, Werterhalt-Animation (einziges Skript)
   fonts/                  Source Serif 4 (Display, 500), Instrument Sans (variabel), nur latin
   img/                    Logo 1x–3x als AVIF/WebP/PNG, Emblem für die Netzwerk-Grafik, og-image.jpg
   _headers                Sicherheits-Header (CSP) und Cache-Regeln
@@ -158,11 +158,12 @@ keine Sperre über Functions.
 | 9 | Anfrage / Kontakt | zur Anfrage führen: großer Button, Telefon, Ansprechpartner, Antwortzeit |
 | 10 | Footer | Orientierung, Rechtliches, Einsatzgebiet für die lokale Suche |
 
-Mobil bleibt die Reihenfolge; die Leistungen werden zur Liste, die
-Vertrauensleiste rückt direkt unter die Buttons, die Grafiken skalieren mit
-(mobil bis an den Boxrand, damit die Beschriftung ab 360 px lesbar bleibt),
-und eine freistehende weiße Leiste unten hält „Anrufen“ und „Angebot
-anfordern“ im Griff.
+Mobil bleibt die Reihenfolge; die Leistungs-Kacheln stehen untereinander, die
+Vertrauensleiste rückt direkt unter die Buttons, die Grafiken reichen bis an den
+Boxrand, in der Werterhalt-Animation stehen die Begriffe mobil als Liste unter
+den Kreisen, das Portal-Fenster stapelt Reiter und Inhalt, und eine
+freistehende weiße Leiste unten hält „Anrufen“ und „Angebot anfordern“ im
+Griff.
 
 ## Designsystem
 
@@ -170,8 +171,10 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 
 | Token | Wert | Einsatz |
 |---|---|---|
-| `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Seitengrund weiß, Boxen Off-White |
-| `--bg-tint` | `#eaf1fa` | helles Blau: Hero, Kontakt, Icon-Kreise |
+| `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Seitengrund und weiße Boxen / Off-White für Leisten im Portal |
+| `--bg-blau` | `#eef3fa` | blaue Boxen; Kacheln und Karten in weißen Boxen |
+| `--bg-tint` / `--hero-oben` | `#eaf1fa` / `#d6e3f3` | Icon-Kreise / Beginn des Hero-Verlaufs |
+| `--blue-600` | `#2a5ea8` | Eyebrow-Zeilen über den H2 (6,5:1 auf Weiß) |
 | `--navy-900` | `#14243b` | Text (15,6:1), Überschriften, Primärbutton, Karte „Verwalterwechsel“ |
 | `--navy-700` | `#2c4266` | Icons |
 | `--slate-600` | `#4a5666` | Nebentext (7,5:1) |
@@ -180,12 +183,15 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--line` | `#dfe5ee` | feine Linien und Kartenränder |
 | `--r-sm` / `--r` / `--r-lg` / `--r-box` | 4 / 6 / 8 / 12 px | leicht abgerundete Ecken; 12 px für Boxen und Leisten |
 | `--box-pad` / `--box-gap` | 16–64 px / 12–20 px | Innenabstand der Boxen, Abstand zwischen ihnen |
+| `--glow` | weicher blauer Schein | hinter jeder Box, hinter der Kontakt-Box etwas kräftiger |
 
-- **Struktur:** Hero ganzflächig im hellblauen Verlauf; alle Abschnitte danach
-  als leicht abgerundete Boxen (Off-White, feine Linie) auf weißem Grund, mit
-  kleinem Abstand untereinander; die Kontakt-Box im hellblauen Verlauf. Inhalte
-  im 12-Spalten-Raster (max. 1200 px). Karten weiß mit feiner Linie und weichem
-  Schatten.
+- **Struktur:** Hero ganzflächig im Blauverlauf; alle Abschnitte danach als
+  leicht abgerundete Boxen auf weißem Grund mit leichtem Schein dahinter, im
+  Wechsel weiß und blau: Über uns (weiß), Stärken (blau), Leistungen (weiß),
+  Referenz (blau), Portal (weiß), Partner (blau), Kontakt (kräftigerer
+  Blauverlauf). Weiße Boxen tragen ihr Blau in einem Verlauf oben rechts, in
+  den Karten und in der Eyebrow-Zeile (blaue Versalien mit orangem Strich) über
+  jeder H2. Inhalte im 12-Spalten-Raster (max. 1200 px).
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
@@ -193,13 +199,26 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   dem Hero-Verlauf. Das Mobilmenü öffnet als eigene Box unter der Leiste.
 - **Buttons:** Primär Dunkelblau mit weißer Schrift und orangem Pfeil, sekundär
   weiß mit Rand, einmal Orange als Akzent (Karte „Verwalterwechsel geplant?“).
-  Beim Überfahren ändert sich nur die Farbe.
-- **Grafiken (inline SVG, keine Bilddateien):**
-  „Steuerberater trifft Ingenieur“ – zwei Kreise, kaufmännisch und technisch,
-  in der Schnittmenge der Werterhalt der Immobilie;
+  Beim Überfahren ändert sich die Farbe, ein Pfeil rückt 3 px nach rechts.
+- **Grafiken (inline SVG und HTML, keine Bilddateien):**
+  „Steuerberater trifft Ingenieur“ – Werterhalt-Animation nach der gelieferten
+  Vorlage `werterhalt-venn.html`: Die Kreise „Kaufmännisch“ und „Technisch“
+  zeichnen sich, ihre Begriffe blenden ein, die Kreise rücken zusammen, in der
+  Schnittmenge erscheint „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s),
+  sobald die Grafik zur Hälfte im Bild ist. Angepasst an die Seite: lokale
+  Schriften statt Google Fonts (DSGVO), alle Inline-Styles als Klassen (CSP),
+  Skript in `js/site.js`, Endbild ohne JavaScript und bei reduzierter Bewegung,
+  eigene Mobilfassung.
   „Regional vernetzt“ – das Logo in der Mitte, verbunden mit Eigentümern,
-  Beirat, Kanzleien, Notaren, Handwerk und Portal. Beide zeigen nur Inhalte
-  aus den Texten. Dazu das schematische Portal-Fenster.
+  Beirat, Kanzleien, Notaren, Handwerk und Portal; beim Überfahren leuchtet die
+  jeweilige Verbindung orange. Beide zeigen nur Inhalte aus den Texten.
+- **Portal-Fenster (Sektion 7):** schematisches, bedienbares Fenster mit fünf
+  Reitern (Abrechnungen, Protokolle, Einladungen, Schäden, Termine). Überfahren,
+  Antippen oder Pfeiltasten wählen den Bereich; eine weiße Markierung gleitet
+  zum Reiter, der Inhalt blendet gestaffelt ein, Platzhalterzeilen ziehen sich
+  auf, im Kalender pulsiert der gewählte Tag einmal. Umgesetzt als Tabs nach
+  WAI-ARIA (Rollen, aria-selected, wandernder Fokus); ohne JavaScript sind die
+  Reiter deaktiviert und der erste Bereich steht da.
 - **Schrift:** Source Serif 4 (Display-Schnitt) für Überschriften und
   Kennzahlen, Instrument Sans für Fließtext und Bedienelemente. Selbst gehostet,
   zusammen 51 KB, beide vorgeladen. Lizenz: SIL Open Font License 1.1
@@ -207,12 +226,22 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Layoutsprünge beim Laden.
 - **Wiedererkennung:** der orange Strich zwischen K und M im Logo als Linie
   neben der H1 und der Kernaussage.
-- **Bewegung:** Farbübergänge beim Überfahren, sanftes Scrollen zu
-  Sprungmarken; einzige Ausnahme sind die drei Säulen unter „Was unsere
-  Hausverwaltung in Frankfurt auszeichnet“: beim Überfahren hebt sich die Karte
-  um 4 px, der Icon-Kreis wird dunkelblau mit orangem Icon, und unten zieht sich
-  der orange Logo-Strich von links nach rechts. Nur auf Geräten mit Maus; bei
-  `prefers-reduced-motion` ohne Bewegung.
+- **Bewegung:** jede Kartenart hat ihren eigenen, dezenten Hover-Effekt (nur
+  auf Geräten mit Maus; bei `prefers-reduced-motion` ohne Übergänge):
+  - Säulen (Stärken): Karte hebt sich um 4 px, Icon-Kreis wird dunkelblau,
+    unten zieht sich der orange Logo-Strich von links nach rechts;
+  - Leistungs-Kacheln: Fläche wird weiß mit Schatten, links wächst ein oranger
+    Strich, das Icon kippt leicht, der Pfeil-Kreis füllt sich und rückt vor;
+  - Kachel „Verwalterwechsel“: oben rechts glimmt Orange auf;
+  - Personenkarten: unter dem Namen zieht sich ein oranger Strich;
+  - Netzwerk-Grafik: Verbindung, Punkt und Knoten werden orange, der Knoten
+    wächst;
+  - Partner: gestrichelter Rahmen wird durchgezogen, ein Pfeil fährt ein;
+  - Kontaktdaten: Icon-Kreis wird orange und kippt;
+  - Navigation (Desktop): Unterstrich wächst aus der Mitte;
+  - Buttons und Pfeil-Links: Pfeil rückt nach rechts.
+  Dazu sanftes Scrollen zu Sprungmarken, die Werterhalt-Animation und das
+  Portal-Fenster.
 - **Platzhalter:** ruhige graublaue Foto-Flächen mit weißer Beschriftung;
   fehlende Angaben stehen als `[Platzhalter]` mit gestricheltem Rahmen im Text.
 
@@ -289,7 +318,14 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Wunsch ergänzt; sie zeigen nur Inhalte aus den Texten.
 - **Portal-Fenster** in Sektion 7 ist eine schematische Darstellung der
   Funktionen aus dem Text (Abrechnungen, Protokolle, Einladungen, Schäden,
-  Termine), kein Screenshot von Portal24 und ohne erfundene Daten.
+  Termine), kein Screenshot von Portal24 und ohne erfundene Daten: nur
+  allgemeine Dokumentarten, „TOP 1–3“, Platzhalterzeilen und ein Kalender ohne
+  Monat. Die Leiste trägt den Hinweis „Beispielansicht“.
+- **Leistungen** verlinken über den Titel der Kachel (statt „Mehr erfahren“) –
+  der Linktext nennt die Leistung, das hilft Suchmaschinen und Screenreadern.
+- **Werterhalt-Animation:** „Werterhalt“ steht in Source Serif 4 statt in der
+  kursiven Newsreader aus der Vorlage, damit keine dritte Schrift geladen werden
+  muss.
 
 ## Selbstkritik nach den Screenshots
 
@@ -316,6 +352,17 @@ jetzt in einer Zeile, der Text darunter über die volle Kartenbreite. Die beiden
 Grafiken reichen mobil bis an den Boxrand, sonst wäre ihre Beschriftung
 geschrumpft. Der Hero läuft hinter die Kopfzeile, damit die freistehende Leiste
 auf dem hellblauen Verlauf steht statt auf einem weißen Streifen.
+
+Runde „Portal, Animation, Boxen im Wechsel“: Im alten Portal-Fenster lagen
+die Icon-Kreise halb auf dem Rand (eine allgemeine Listenregel überschrieb den
+Innenabstand) – das Fenster ist neu gebaut. Bei 1440 px sind die Leistungen von
+1.232 auf 756 px und die Referenz von 1.027 auf 670 px gestaucht (mobil 1.881 →
+1.584 und 1.097 → 1.002 px): kompakte Kacheln mit Icon, Titel und Pfeil in
+einer Zeile, Kennzahlen der Referenz in einer Reihe. Die ganze Seite ist am
+Desktop trotz Animation rund 700 px kürzer (7.293 → 6.576 px). Die Werterhalt-Animation war bei
+960 px neben dem Text zu eng („Werterhalt“ ragte aus der Schnittmenge) – sie
+steht deshalb erst ab 1200 px neben dem Text, darunter in voller Breite; mobil
+überlappten Begriffe und Titel, daher die Listenfassung unter den Kreisen.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

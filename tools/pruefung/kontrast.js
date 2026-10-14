@@ -7,7 +7,7 @@ const B = process.env.BASE || "http://localhost:8788";
 const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
   return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-const ZIELE = [".btn", ".more", ".tag", ".chip", ".tbd", ".nav__list a", ".topline__links a", ".trust__item", ".mock__list li", ".footer__legal a"];
+const ZIELE = [".btn", ".more", ".tag", ".chip", ".tbd", ".eyebrow", ".nav__list a", ".topline__links a", ".trust__item", ".pui__tab", ".pui__chip", ".pui__btn", ".footer__legal a"];
 let fehler = 0;
 (async () => {
   const br = await chromium.launch();
