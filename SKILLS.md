@@ -35,6 +35,23 @@ Videos). Übernommen wurden Ablauf und Regeln – Prüfen im Verhältnis zur
 für diese Seite neu geschrieben (`tools/pruefung/`); der Testserver
 `tools/server.js` ist aus `tools/pruefung/server.js` übernommen.
 
+## Eigene Skills dieses Projekts
+
+Auf Wunsch des Auftraggebers (14.10.2026) entstehen bei der Arbeit eigene
+Skills, wenn sie künftige Ergebnisse verbessern (Regel in `CLAUDE.md`). Jeder
+wurde vorher mit einem Vergleichslauf ohne Skill getestet und danach mit Skill
+gegengeprüft.
+
+| Skill | Wofür | Lücke, die der Vergleichslauf ohne Skill zeigte |
+|---|---|---|
+| `aenderungswunsch-umsetzen` | Ablauf einer Änderungsrunde vom Chat-Wunsch bis zur Übergabe | Keine ansehbare Vorschau für den Auftraggeber (stattdessen „lokal Server starten“ oder eine nicht vorhandene Branch-Vorschau); Sichtkontrolle nur bei 390/1440 px, obwohl Fehler bei 960–1200 px lagen |
+| `gestaltung-kaufmann-mayer` | Geschmack des Auftraggebers, Logofarben, Box- und Akzent-Logik, CSP/DSGVO-Leitplanken, Umgang mit gelieferten Vorlagen | Vorlieben nur indirekt aus dem README erschlossen; Ergebnis-Übergabe ohne Vorschau-Datei |
+
+Dazu gehören die Werkzeuge `tools/vorschau.py` (Einzeldatei-Vorschau),
+`tools/pruefung/ausschnitt.js` (Bilder eines Elements: Breiten, Hover,
+Animation), `tools/pruefung/grafik.js` (Geometrie der Werterhalt-Grafik) und
+`tools/screenshots-webp.py`. `aenderung-pruefen` ist um diese ergänzt.
+
 ## Nicht übernommen
 
 | Skill | Grund |

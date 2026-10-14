@@ -37,9 +37,9 @@ Median.
 | SEO | 100 | **100** | **100** |
 | Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,35 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 1,01 s | 0,25 s |
-| Total Blocking Time | – | 3 ms | 0 ms |
-| Übertragene Daten | – | 101 KB | 97 KB |
+| First Contentful Paint | – | 1,08 s | 0,28 s |
+| Total Blocking Time | – | 72 ms | 0 ms |
+| Übertragene Daten | – | 101 KB | 98 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97, zuletzt in einer Messreihe einmal 98 mit 107 ms Blockierzeit, die
@@ -86,9 +86,17 @@ Playwright (`npm i -g playwright`), `skyline.py` OpenCV
 cd tools && npm ci && cd ..           # einmalig: axe-core, Lighthouse
 node tools/pruefung/alle.js           # alle Prüfungen inkl. Lighthouse, ca. 2 min
 node tools/pruefung/alle.js seo a11y  # nur einzelne
+node tools/server.js &                # für Bilder zum Ansehen:
+node tools/pruefung/screenshots.js    # ganze Seite, 390 und 1440 px
+node tools/pruefung/ausschnitt.js .wh-venn --breiten 768,1024 --zeiten 300,2600   # ein Element, Hover, Animation
+python3 -I tools/screenshots-webp.py  # Momentaufnahmen in screenshots/ erneuern
+python3 -I tools/vorschau.py          # Einzeldatei-Vorschau für den Auftraggeber
 ```
 
 Was jede Prüfung abdeckt, steht im Skill `.claude/skills/aenderung-pruefen/`.
+`grafik.js` misst die Geometrie der Werterhalt-Grafik (Begriffe im Kreis,
+Titel in der Schnittmenge); die Vorschau bettet Schriften, Bilder, CSS und
+JavaScript in eine Datei ein, die ohne Server im Browser läuft.
 Lighthouse-Berichte (HTML und JSON) landen in `tools/berichte/`.
 
 ## Deployen auf Cloudflare Pages
@@ -242,9 +250,13 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   gestrichelter Innenring blenden ein, die Begriffe erscheinen als Milchglas-
   Pillen mit eigenem Icon. Beim Zusammenrücken drehen sich die Innenringe
   gegeneinander, ein Bodenschatten verdichtet sich, die Schnittmenge färbt sich
-  blau, ein Pulsring läuft aus, und ein Abzeichen zeichnet das Logo im Kleinen –
-  Haus, oranger K|M-Strich, grüner Bogen – in einem blauen Ring; darunter
-  „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s), sobald
+  blau und bekommt eine blaue Umrandung, ein Pulsring läuft aus, und ein
+  Abzeichen zeichnet das Logo im Kleinen – Haus, oranger K|M-Strich, grüner
+  Bogen – in einem blauen Ring; darunter „Werterhalt Ihrer Immobilie“. Die
+  Kreise rücken nur so weit zusammen (165 Einheiten je Kreis), dass die
+  Begriffe mit mindestens 12 px Abstand mitten in ihrer Sichel liegen und
+  „Werterhalt“ in die Schnittmenge passt – gemessen mit
+  `tools/pruefung/grafik.js`. Läuft einmal (gut 3 s), sobald
   die Grafik zur Hälfte im Bild ist. Angepasst an die Seite: lokale Schriften
   statt Google Fonts (DSGVO), alle Inline-Styles als Klassen (CSP), Skript in
   `js/site.js`, Endbild ohne JavaScript und bei reduzierter Bewegung, eigene
@@ -354,9 +366,10 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 - **`llms.txt`** ergänzt: Kurzfassung der Fakten für KI-Assistenten, nur
   bestätigte Angaben.
 - **Farben und Grafiken:** Statt der Steingrau-Flächen aus dem ersten
-  Briefing jetzt Weiß, kühles Off-White und helles Blau; Primärbuttons in
-  Dunkelblau, Orange als Akzent. Zwei Grafiken (Venn, Netzwerk) wurden auf
-  Wunsch ergänzt; sie zeigen nur Inhalte aus den Texten.
+  Briefing jetzt Weiß, kühles Off-White und helles Blau; Text und Buttons im
+  Schiefer des Logos, Orange und Grün aus dem Logo als Signalfarben. Die
+  Grafiken (Werterhalt, Netzwerk, Skyline) wurden auf Wunsch ergänzt; sie
+  zeigen nur Inhalte aus den Texten.
 - **Portal-Fenster** in Sektion 7 ist eine schematische Darstellung der
   Funktionen aus dem Text (Abrechnungen, Protokolle, Einladungen, Schäden,
   Termine), kein Screenshot von Portal24 und ohne erfundene Daten: nur
@@ -381,8 +394,8 @@ Buttons); Zeilenumbrüche wie „Landstraße / 78“ und „ab 10 / Wohneinheite
 
 Weitere Runden: dunkle Kacheln mit Glas- und Leuchteffekten (zu dunkel, zu
 effektlastig), dann helle Kacheln auf Dunkelblau (immer noch zu dunkel). Der
-aktuelle Stand ist hell mit Dunkelblau als Zweitfarbe. Aus der Prüfung dieser
-Runde: Eine Dachlinie im Hero-Hintergrund lief quer durch Buttons und
+Stand danach war hell mit Dunkelblau als Zweitfarbe (später ersetzt durch die
+Logofarben, siehe unten). Aus der Prüfung dieser Runde: Eine Dachlinie im Hero-Hintergrund lief quer durch Buttons und
 Vertrauensleiste (entfernt); in der Venn-Grafik stießen Wörter an die
 Kreisränder, im Netzwerk schnitt das Emblem den Ring und die Beschriftungen
 klebten an den Knoten (Geometrie angepasst).
@@ -425,6 +438,17 @@ Runde „Vertrauensleiste“: Die Leiste stand nur als Textzeile mit Haarlinie
 am unteren Hero-Rand und wirkte verloren – jetzt eine eigene Karte. Bei
 1024 px brach „Prüfer der IHK Frankfurt am Main“ in vier Spalten dreizeilig
 um; deshalb vier Spalten erst ab 1200 px.
+
+Runde „Schnittmenge blau umrandet, Begriffe im Kreis“: Der Auftraggeber sah
+Wort-Pillen, die den Kreisrand berührten. Gemessen (neue Prüfung
+`tools/pruefung/grafik.js`, zuerst rot): bei 1440 px ragte „Rechnungswesen“
+5,5 px über den Rand, bei 1200 px 8,5 px; mobil stand „IHRER IMMOBILIE“ 12 px
+über die Schnittmenge. Ursache: Die Sichel neben der Schnittmenge war bei
+615 px Grafikbreite gut 150 px breit, die längste Pille 133 px, und die Pillen
+saßen 2 % zu weit außen. Jetzt rücken die Kreise weniger weit zusammen, die
+Pillen sitzen in der Sichelmitte, der Untertitel steht in normaler
+Schreibweise (gesperrte Versalien waren zu breit), mobil zweizeilig. Kleinster
+Abstand jetzt 12,6 px (1200 px) bis 31,6 px (1024 px).
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit
