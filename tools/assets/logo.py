@@ -7,16 +7,14 @@ geladen von https://static.wixstatic.com/media/4166e8_4d72d9020c0f451b9509d87051
 
 Das Original ist gestapelt (Haus oben, Schriftzug unten); in einer Kopfzeile
 waere der Schriftzug kaum 7 px hoch. Deshalb stehen Haus und Schriftzug
-nebeneinander (horizontales Lockup), beide Teile unverändert. Zwei Fassungen:
-- hell: Original auf weissem Grund – für die weisse Navigationsleiste,
-- dunkel: das Haus auf weisser, abgerundeter Kachel (wie ein App-Icon), der
-  Schriftzug freigestellt ("KAUFMANN &" weiss, "MAYER" orange) – für den
-  dunkelblauen Footer.
+nebeneinander (horizontales Lockup), beide Teile unverändert, auf weissem
+Grund – passend zur weissen Navigation und zum weissen Footer. Dazu das Haus
+allein als quadratisches Emblem für die Mitte der Netzwerk-Grafik.
 Sobald das Logo als Vektor vorliegt, ersetzt es diese Dateien.
 
 Ausgabe nach site/img/ und site/:
-  logo-hell-{1,2,3}x.{avif,webp}, logo-hell-2x.png       Navigation
-  logo-dunkel-{1,2,3}x.{avif,webp}, logo-dunkel-2x.png   Footer
+  logo-hell-{1,2,3}x.{avif,webp}, logo-hell-2x.png   Navigation und Footer
+  emblem-{1,2}x.{avif,webp}                          Netzwerk-Grafik
   favicon.ico, apple-touch-icon.png
 """
 from pathlib import Path
@@ -105,7 +103,7 @@ def lockup_dunkel(hoehe):
 
 def main():
     IMG.mkdir(parents=True, exist_ok=True)
-    for name, bau in (("hell", lockup_hell), ("dunkel", lockup_dunkel)):
+    for name, bau in (("hell", lockup_hell),):
         for f in (1, 2, 3):
             im = bau(CSS_HOEHE * f)
             im.save(IMG / f"logo-{name}-{f}x.avif", quality=80)
@@ -113,6 +111,18 @@ def main():
             if f == 2:
                 im.save(IMG / f"logo-{name}-2x.png", optimize=True)
             print(f"logo-{name}-{f}x", im.size)
+
+    # Emblem: das Haus mittig auf weissem Quadrat (96 CSS-Pixel)
+    src = Image.open(SRC).convert("RGB")
+    emblem = src.crop(EMBLEM)
+    seite = round(emblem.width * 1.12)
+    quad = Image.new("RGB", (seite, seite), "white")
+    quad.paste(emblem, ((seite - emblem.width) // 2, (seite - emblem.height) // 2))
+    for f in (1, 2):
+        e = quad.resize((96 * f, 96 * f), Image.LANCZOS)
+        e.save(IMG / f"emblem-{f}x.avif", quality=80)
+        e.save(IMG / f"emblem-{f}x.webp", quality=90, method=6)
+    print("emblem-1x, emblem-2x")
 
     # Favicon und Touch-Icon: das Haus auf weisser Kachel
     k = kachel(180)
