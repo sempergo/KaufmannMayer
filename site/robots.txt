@@ -1,0 +1,7 @@
+# Kaufmann & Mayer – alle Crawler zugelassen, auch die von KI-Assistenten
+# (ClaudeBot, GPTBot, PerplexityBot, Google-Extended …). Bewusste Entscheidung,
+# siehe README „Auffindbarkeit“; zum Sperren einzelne User-agent-Blöcke ergänzen.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.kaufmann-mayer.de/sitemap.xml

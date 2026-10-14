@@ -1,0 +1,15 @@
+{
+  "name": "kaufmann-mayer-werkzeuge",
+  "private": true,
+  "description": "Prüf- und Asset-Werkzeuge der Website. Bewusst nicht im Wurzelverzeichnis, damit Cloudflare Pages keinen Build-Schritt annimmt.",
+  "scripts": {
+    "server": "node server.js",
+    "pruefen": "node pruefung/alle.js",
+    "lighthouse": "node pruefung/lighthouse.js",
+    "screenshots": "node pruefung/screenshots.js"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.3",
+    "lighthouse": "12.8.2"
+  }
+}

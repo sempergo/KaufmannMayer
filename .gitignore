@@ -1,0 +1,4 @@
+node_modules/
+tools/berichte/
+.DS_Store
+.wrangler/
