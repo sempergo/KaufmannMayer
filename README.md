@@ -8,9 +8,10 @@ Mandatsanfragen bringt als die heutige Wix-Seite.
 Statisches HTML und CSS, rund 6 KB JavaScript, kein Baukasten, kein
 Build-Schritt, deploybar auf Cloudflare Pages. Inhalte und Logo stammen von
 [kaufmann-mayer.de](https://www.kaufmann-mayer.de); Layout, Farben, Schriften
-und Bildsprache sind neu: hell und ruhig (Weiß und kühles Off-White),
-Dunkelblau als Zweitfarbe, Orange als Akzent, leicht abgerundete Elemente,
-eine animierte und eine interaktive Grafik sowie ein bedienbares Portal-Fenster. Als Stilreferenz diente
+und Bildsprache sind neu: hell und ruhig (Weiß und kühles Blau), dazu genau
+die Logofarben – Schiefer für Text und Buttons, Orange und Grün als Signalfarben
+im Wechsel –, leicht abgerundete Elemente, die Frankfurter Skyline im Hero, eine
+animierte und eine interaktive Grafik sowie ein bedienbares Portal-Fenster. Als Stilreferenz diente
 [relaxa-immobilien.de](https://relaxa-immobilien.de/) (Struktur, Ruhe,
 Grafiken) – übernommen wurde die Haltung, nicht die Gestaltung.
 
@@ -23,7 +24,7 @@ Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller Stand: Werterhalt-Animation, Portal-Fenster, Boxen im Wechsel) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 14.10.2026 (aktueller Stand: Skyline, Logofarben, Glas-Buttons, neue Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
@@ -34,11 +35,11 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,34 s |
+| Largest Contentful Paint | < 2,5 s | **1,50 s** | 0,35 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 0,76 s | 0,20 s |
-| Total Blocking Time | – | 0 ms | 0 ms |
-| Übertragene Daten | – | 96 KB | 92 KB |
+| First Contentful Paint | – | 1,04 s | 0,27 s |
+| Total Blocking Time | – | 28 ms | 0 ms |
+| Übertragene Daten | – | 99 KB | 96 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97). Live auf Cloudflare können die Werte etwas anders
@@ -46,7 +47,7 @@ ausfallen; nach dem Livegang einmal mit PageSpeed Insights gegenprüfen.
 
 Zusätzlich grün: axe-core ohne Befund (WCAG 2.0–2.2 AA, mit offenem und
 geschlossenem Mobilmenü), kein waagerechtes Scrollen von 360 bis 1920 px, alle
-Klickflächen ≥ 44 × 44 px, kleinster gemessener Textkontrast 5,04:1.
+Klickflächen ≥ 44 × 44 px, kleinster gemessener Textkontrast 4,72:1.
 
 ## Starten
 
@@ -162,8 +163,9 @@ Mobil bleibt die Reihenfolge; die Leistungs-Kacheln stehen untereinander, die
 Vertrauensleiste rückt direkt unter die Buttons, die Grafiken reichen bis an den
 Boxrand, in der Werterhalt-Animation stehen die Begriffe mobil als Liste unter
 den Kreisen, das Portal-Fenster stapelt Reiter und Inhalt, und eine
-freistehende weiße Leiste unten hält „Anrufen“ und „Angebot anfordern“ im
-Griff.
+freistehende weiße Leiste unten hält „Anrufen“ und „Termin vereinbaren“ im
+Griff. Die Skyline liegt mobil hinter der Überschrift statt hinter dem
+Fließtext.
 
 ## Designsystem
 
@@ -174,12 +176,15 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Seitengrund und weiße Boxen / Off-White für Leisten im Portal |
 | `--bg-blau` | `#eef3fa` | blaue Boxen; Kacheln und Karten in weißen Boxen |
 | `--bg-tint` / `--hero-oben` | `#eaf1fa` / `#d6e3f3` | Icon-Kreise / Beginn des Hero-Verlaufs |
-| `--blue-600` | `#2a5ea8` | Eyebrow-Zeilen über den H2 (6,5:1 auf Weiß) |
-| `--navy-900` | `#14243b` | Text (15,6:1), Überschriften, Primärbutton, Karte „Verwalterwechsel“ |
-| `--navy-700` | `#2c4266` | Icons |
+| `--schiefer` | `#28353e` | Logo (Schriftzug, Haus): Text (12,6:1), Überschriften, Buttons, Karte „Verwalterwechsel“ |
+| `--schiefer-tief` | `#1c262d` | Schrift auf Orange (5,1:1) |
+| `--blue-600` / `--navy-700` | `#2a5ea8` / `#2c4266` | Skyline, Kreis „Kaufmännisch“ / Icons |
 | `--slate-600` | `#4a5666` | Nebentext (7,5:1) |
-| `--orange-500` | `#e8700c` | Akzent: Strich an der H1, Linien, Punkte, Sterne, Akzentbutton |
+| `--orange-500` / `--orange-400` | `#ec720f` / `#ec932d` | Logo („MAYER“, K|M-Strich): Akzent, Akzentbutton |
 | `--orange-700` | `#9a4308` | Orange als Text und Fokusrahmen (6,6:1) |
+| `--gruen-500` / `--gruen-400` / `--gruen-900` | `#61a210` / `#94c014` / `#174215` | Logo (Bogen): Akzent, Lichtkante, „Werterhalt“ |
+| `--gruen-700` | `#35700d` | Grün als Text (6,0:1), dunkler Teil des Bogens |
+| `--akzent` (+ `-text`, `-hell`, `-leucht`) | Orange, mit `.akzent-gruen` Grün | Signalfarbe eines Abschnitts |
 | `--line` | `#dfe5ee` | feine Linien und Kartenränder |
 | `--r-sm` / `--r` / `--r-lg` / `--r-box` | 4 / 6 / 8 / 12 px | leicht abgerundete Ecken; 12 px für Boxen und Leisten |
 | `--box-pad` / `--box-gap` | 16–64 px / 12–20 px | Innenabstand der Boxen, Abstand zwischen ihnen |
@@ -189,29 +194,52 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   leicht abgerundete Boxen auf weißem Grund mit leichtem Schein dahinter, im
   Wechsel weiß und blau: Über uns (weiß), Stärken (blau), Leistungen (weiß),
   Referenz (blau), Portal (weiß), Partner (blau), Kontakt (kräftigerer
-  Blauverlauf). Weiße Boxen tragen ihr Blau in einem Verlauf oben rechts, in
-  den Karten und in der Eyebrow-Zeile (blaue Versalien mit orangem Strich) über
-  jeder H2. Inhalte im 12-Spalten-Raster (max. 1200 px).
+  Blauverlauf). Weiße Boxen tragen ihr Blau in einem Verlauf oben rechts und in
+  den Karten. Inhalte im 12-Spalten-Raster (max. 1200 px).
+- **Signalfarben aus dem Logo:** jeder Abschnitt hat eine Akzentfarbe – Orange
+  (Über uns, Leistungen, Kontakt) oder Grün (Stärken, Referenz, Portal,
+  Partner). Sie färbt die Eyebrow-Zeile über der H2, Linien, Häkchen, Punkte
+  und die Hover-Effekte. Gemischt wird bewusst an einzelnen Stellen: im Hero
+  der orange Strich an der H1 und grüne Icons in der Vertrauensleiste, bei den
+  Inhabern ein grünes und ein oranges Etikett, im Portal orange Markierung und
+  grüne Häkchen, in der Animation Blau, Orange und die grüne Schnittmenge.
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
   Sektion bekommt einen orangen Strich. Darüber eine schlichte Infozeile auf
   dem Hero-Verlauf. Das Mobilmenü öffnet als eigene Box unter der Leiste.
-- **Buttons:** Primär Dunkelblau mit weißer Schrift und orangem Pfeil, sekundär
-  weiß mit Rand, einmal Orange als Akzent (Karte „Verwalterwechsel geplant?“).
-  Beim Überfahren ändert sich die Farbe, ein Pfeil rückt 3 px nach rechts.
+- **Buttons:** Logo-Schiefer mit leichtem Glas-Effekt (zu 90 % deckend,
+  Hintergrund weich gezeichnet, helle Kante oben, heller Verlauf), weiße Schrift
+  und oranger Pfeil; sekundär weißes Milchglas mit feinem Rand; einmal Orange
+  als Akzent (Karte „Verwalterwechsel geplant?“). Texte: „Termin vereinbaren“
+  (Hero, Kontakt, Schnellleiste) und „Kontakt aufnehmen“ (Navigation, Karte
+  „Verwalterwechsel“). Beim Überfahren hellt die Fläche auf, ein Pfeil rückt
+  3 px nach rechts.
 - **Grafiken (inline SVG und HTML, keine Bilddateien):**
+  Hero – die Frankfurter Skyline als blaue Linienzeichnung groß links im
+  Hintergrund (Messeturm, Westend Tower, Trianon, Main Tower, Commerzbank Tower,
+  Taunusturm, Opernturm, Skyper, Japan Center, Omniturm, Dom, Römer, EZB, davor
+  der Main). Sie läuft über den linken Rand hinaus und blendet nach rechts aus;
+  die Hero-Texte haben einen weichen hellen Schein, damit die Linien an den
+  Buchstaben zurücktreten.
   „Steuerberater trifft Ingenieur“ – Werterhalt-Animation nach der gelieferten
-  Vorlage `werterhalt-venn.html`: Die Kreise „Kaufmännisch“ und „Technisch“
-  zeichnen sich, ihre Begriffe blenden ein, die Kreise rücken zusammen, in der
-  Schnittmenge erscheint „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s),
-  sobald die Grafik zur Hälfte im Bild ist. Angepasst an die Seite: lokale
-  Schriften statt Google Fonts (DSGVO), alle Inline-Styles als Klassen (CSP),
-  Skript in `js/site.js`, Endbild ohne JavaScript und bei reduzierter Bewegung,
-  eigene Mobilfassung.
+  Vorlage `werterhalt-venn.html`, Mechanik unverändert: Die Kreise
+  „Kaufmännisch“ (Blau-Schiefer) und „Technisch“ (Orange) zeichnen sich – ein
+  Leuchtpunkt läuft an der Zeichenspitze mit –, Verlaufsflächen und ein feiner
+  gestrichelter Innenring blenden ein, die Begriffe erscheinen als Milchglas-
+  Pillen mit eigenem Icon, über den Überschriften stehen „Steuerberater“ und
+  „Ingenieur“. Beim Zusammenrücken drehen sich die Innenringe gegeneinander,
+  ein Bodenschatten verdichtet sich, die Schnittmenge färbt sich grün (der
+  Logo-Bogen), ein Pulsring läuft aus, und ein Abzeichen zeichnet das Logo im
+  Kleinen – Haus, oranger K|M-Strich, grüner Bogen – in einem orange-grünen
+  Ring; darunter „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s), sobald
+  die Grafik zur Hälfte im Bild ist. Angepasst an die Seite: lokale Schriften
+  statt Google Fonts (DSGVO), alle Inline-Styles als Klassen (CSP), Skript in
+  `js/site.js`, Endbild ohne JavaScript und bei reduzierter Bewegung, eigene
+  Mobilfassung.
   „Regional vernetzt“ – das Logo in der Mitte, verbunden mit Eigentümern,
   Beirat, Kanzleien, Notaren, Handwerk und Portal; beim Überfahren leuchtet die
-  jeweilige Verbindung orange. Beide zeigen nur Inhalte aus den Texten.
+  jeweilige Verbindung grün. Beide zeigen nur Inhalte aus den Texten.
 - **Portal-Fenster (Sektion 7):** schematisches, bedienbares Fenster mit fünf
   Reitern (Abrechnungen, Protokolle, Einladungen, Schäden, Termine). Überfahren,
   Antippen oder Pfeiltasten wählen den Bereich; eine weiße Markierung gleitet
@@ -225,19 +253,20 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   (Texte in `site/fonts/`). Metrisch angepasste Ersatzschriften verhindern
   Layoutsprünge beim Laden.
 - **Wiedererkennung:** der orange Strich zwischen K und M im Logo als Linie
-  neben der H1 und der Kernaussage.
+  neben der H1; der grüne Bogen als zweite Signalfarbe und in der Schnittmenge
+  „Werterhalt“; das Logo im Kleinen im Abzeichen der Animation.
 - **Bewegung:** jede Kartenart hat ihren eigenen, dezenten Hover-Effekt (nur
   auf Geräten mit Maus; bei `prefers-reduced-motion` ohne Übergänge):
-  - Säulen (Stärken): Karte hebt sich um 4 px, Icon-Kreis wird dunkelblau,
-    unten zieht sich der orange Logo-Strich von links nach rechts;
+  - Säulen (Stärken): Karte hebt sich um 4 px, Icon-Kreis wird schiefergrau
+    mit grünem Icon, unten zieht sich ein grüner Strich von links nach rechts;
   - Leistungs-Kacheln: Fläche wird weiß mit Schatten, links wächst ein oranger
     Strich, das Icon kippt leicht, der Pfeil-Kreis füllt sich und rückt vor;
   - Kachel „Verwalterwechsel“: oben rechts glimmt Orange auf;
   - Personenkarten: unter dem Namen zieht sich ein oranger Strich;
-  - Netzwerk-Grafik: Verbindung, Punkt und Knoten werden orange, der Knoten
+  - Netzwerk-Grafik: Verbindung, Punkt und Knoten werden grün, der Knoten
     wächst;
   - Partner: gestrichelter Rahmen wird durchgezogen, ein Pfeil fährt ein;
-  - Kontaktdaten: Icon-Kreis wird orange und kippt;
+  - Kontaktdaten: Icon-Kreis wird orange (E-Mail grün) und kippt;
   - Navigation (Desktop): Unterstrich wächst aus der Mitte;
   - Buttons und Pfeil-Links: Pfeil rückt nach rechts.
   Dazu sanftes Scrollen zu Sprungmarken, die Werterhalt-Animation und das
@@ -363,6 +392,15 @@ Desktop trotz Animation rund 700 px kürzer (7.293 → 6.576 px). Die Werterhalt
 960 px neben dem Text zu eng („Werterhalt“ ragte aus der Schnittmenge) – sie
 steht deshalb erst ab 1200 px neben dem Text, darunter in voller Breite; mobil
 überlappten Begriffe und Titel, daher die Listenfassung unter den Kreisen.
+
+Runde „Skyline, Logofarben, Glas“: Die Skyline lag mobil zuerst hinter dem
+Fließtext und störte das Lesen – sie steht dort jetzt hinter der Überschrift,
+am Desktop groß hinter Text und Buttons mit hellem Schein um die Schrift. Die
+Mobilprüfung meldete sie als „über den Rand“; sie wird vom Hero abgeschnitten
+und ist dort jetzt ausgenommen. Orange-Schrift auf dem neuen Logo-Orange hätte
+mit Schiefer nur 4,2:1 erreicht – auf Orange steht deshalb Tiefschiefer (5,1:1).
+In der Meta-Beschreibung steht weiter „Jetzt Angebot anfordern.“ – das ist kein
+Button; bei Bedarf auf „Jetzt Termin vereinbaren.“ ändern.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

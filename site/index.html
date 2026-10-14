@@ -143,6 +143,10 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></symbol>
+  <symbol id="i-rechner" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h.01M15.5 18h.01"/></symbol>
+  <symbol id="i-muenzen" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="5.5" ry="2.5"/><path d="M3.5 7v4c0 1.4 2.5 2.5 5.5 2.5M3.5 11v4c0 1.4 2.5 2.5 5.5 2.5"/><ellipse cx="15" cy="13" rx="5.5" ry="2.5"/><path d="M9.5 13v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3.5 17.5 9.5 11.5l4 4 7-7.5M15 8h5.5v5.5"/></symbol>
+  <symbol id="i-puls" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6H21"/></symbol>
   <symbol id="i-extern" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
@@ -188,9 +192,9 @@
           <li><a href="/news">Aktuelles</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
-        <a class="btn btn--primary nav__cta" href="/anfrage">Angebot anfordern</a>
+        <a class="btn btn--primary nav__cta" href="/anfrage">Kontakt aufnehmen</a>
       </nav>
-      <a class="btn btn--primary btn--sm navbar__cta" href="/anfrage">Angebot anfordern</a>
+      <a class="btn btn--primary btn--sm navbar__cta" href="/anfrage">Kontakt aufnehmen</a>
     </div>
   </div>
 </header>
@@ -200,12 +204,14 @@
   <!-- 2 Hero – Aufgabe: Vertrauen auf den ersten Blick, direkter Weg zur Anfrage -->
   <section class="section hero" aria-labelledby="hero-titel">
     <div class="wrap hero__grid">
+      <!-- Frankfurter Skyline als Linienzeichnung im Hintergrund (Messeturm, Westend Tower, Trianon, Main Tower,
+           Commerzbank Tower, Taunusturm, Opernturm, Skyper, Japan Center, Omniturm, Dom, Römer, EZB) -->
+      <svg class="hero__skyline" viewBox="0 0 1000 440" aria-hidden="true" focusable="false"><path class="sky__hinten" d="M0 400V352H34V338H58V352H72V400M118 400V318H138V400M178 400V306H200V400M236 400V296H262V400M366 400V286H390V400M462 400V318H476V400M554 400V322H578V310H604V400M880 400V336H906V322H934V344H962V400"/><path class="sky__tuerme" d="M70 400V178H76V152H112V178H118V400M76 152L94 96L112 152M140 400V192H176V400M202 400V188H198V168H238V188H234V400M198 188L218 168L238 188M262 400V136Q281 122 300 136V400M281 128V64M275 82H287M277 96H285M315 400V112H322V86H358V112H365V400M336 86V70H344V86M340 70V18M390 400V162L425 146V400M432 400V196H438V188H462V196H468V400M524 400V244H516V236H556V244H548V400M474 400V226Q474 210 500 208V400M586 400V286H592V246H586V184H614V246H620V286H614V400M636 400V282H642V232H646V206Q658 186 670 206V232H674V282H680V400M646 206Q658 168 670 206M658 176V150M653 160H663M690 400V352L697 352V344L704 344V336L711 336L711 328L718 328V336L725 336V344L732 344V352L739 352V344L746 344V336L753 336V328L760 328V336L767 336V344L774 344V352L781 352V344L788 344V336L795 336V328L802 328V336L809 336V344L816 344V352L823 352V400M836 400V172L866 160V400M870 400L872 156L902 170V400M866 236H870M866 300H870"/><path class="sky__details" d="M70 250H118M70 320H118M150 192Q190 186 192 150M160 192Q188 184 191 160M170 192Q186 184 190 172M315 180H365M315 250H365M315 320H365M262 200H300M262 270H300M262 340H300M281 136V400M390 230H425M390 300H425M432 260H468M432 330H468M651 240V272M658 240V272M665 240V272M848 172V400M886 166V400"/><path class="sky__boden" d="M0 400H1000"/><path class="sky__fluss" d="M0 414Q125 408 250 414T500 414T750 414T1000 414M60 428Q185 422 310 428T560 428T810 428T1000 427"/></svg>
       <div class="hero__text">
-        <p class="chip"><span class="chip__dot" aria-hidden="true"></span>Hausverwaltung in Frankfurt</p>
         <h1 id="hero-titel" class="hero__title">Ihre inhaber&shy;geführte Immobilien&shy;verwaltung für Frankfurt am Main und das Rhein-Main-Gebiet</h1>
         <p class="hero__lead">Immobilienmanagement bedeutet für uns: Technische Präzision trifft kaufmännische Sorgfalt. Wir begleiten Sie vorausschauend und persönlich.</p>
         <div class="actions">
-          <a class="btn btn--primary btn--lg" href="/anfrage">Kostenloses Angebot anfordern<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--primary btn--lg" href="/anfrage">Termin vereinbaren<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--outline btn--lg" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
         </div>
       </div>
@@ -240,29 +246,47 @@
           <!-- Werterhalt-Animation: zwei Kreise zeichnen sich, rücken zusammen, in der Schnittmenge der Werterhalt.
                Läuft einmal, sobald die Grafik im Bild ist (js/site.js); ohne JavaScript und bei reduzierter Bewegung steht das Endbild. -->
           <figure class="venn">
-            <div class="wh-venn" data-speed="2" role="img" aria-label="Kaufmännisch (Rechnungswesen, Abrechnungen, Liquidität) und technisch (Instandhaltung, Modernisierung, Monitoring) ergeben zusammen den Werterhalt Ihrer Immobilie">
+            <div class="wh-venn" data-speed="2" role="img" aria-label="Steuerberater und Ingenieur: kaufmännisch (Rechnungswesen, Abrechnungen, Liquidität) und technisch (Instandhaltung, Modernisierung, Monitoring) ergeben zusammen den Werterhalt Ihrer Immobilie">
               <svg class="wh-bg" viewBox="0 0 1380 680" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
-                <defs><clipPath id="wh-clip-l" clipPathUnits="userSpaceOnUse"><circle class="wh-shift-l" cx="330" cy="340" r="320"/></clipPath></defs>
+                <defs>
+                  <radialGradient id="wh-fl" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dbe5f2"/></radialGradient>
+                  <radialGradient id="wh-fr" cx="62%" cy="30%" r="80%"><stop offset="0" stop-color="#fffaf4"/><stop offset="1" stop-color="#fcdcc0"/></radialGradient>
+                  <radialGradient id="wh-fc" cx="50%" cy="46%" r="62%"><stop offset="0" stop-color="#f6fbec"/><stop offset=".6" stop-color="#e3f1c8"/><stop offset="1" stop-color="#c9e39a"/></radialGradient>
+                  <linearGradient id="wh-sl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a5ea8"/><stop offset="1" stop-color="#28353e"/></linearGradient>
+                  <linearGradient id="wh-sr" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ec932d"/><stop offset="1" stop-color="#ec720f"/></linearGradient>
+                  <radialGradient id="wh-gl"><stop offset="0" stop-color="#2a5ea8" stop-opacity=".5"/><stop offset="1" stop-color="#2a5ea8" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="wh-gr"><stop offset="0" stop-color="#ec720f" stop-opacity=".55"/><stop offset="1" stop-color="#ec720f" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="wh-gc"><stop offset="0" stop-color="#94c014" stop-opacity=".45"/><stop offset="1" stop-color="#94c014" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="wh-bo"><stop offset="0" stop-color="#28353e" stop-opacity=".2"/><stop offset="1" stop-color="#28353e" stop-opacity="0"/></radialGradient>
+                  <clipPath id="wh-clip-l" clipPathUnits="userSpaceOnUse"><circle class="wh-shift-l" cx="330" cy="340" r="320"/></clipPath>
+                </defs>
+                <ellipse class="wh-boden" cx="690" cy="668" rx="600" ry="12"/>
                 <g class="wh-shift-l">
                   <circle class="wh-fill wh-fill--l" cx="330" cy="340" r="320"/>
+                  <circle class="wh-ring wh-ring--l" cx="330" cy="340" r="292"/>
                   <circle class="wh-stroke wh-stroke--l" cx="330" cy="340" r="320" pathLength="1" transform="rotate(-90 330 340)"/>
+                  <g class="wh-pen wh-pen--l"><circle class="wh-pen__schein" cx="330" cy="20" r="36"/><circle class="wh-pen__punkt" cx="330" cy="20" r="7"/></g>
                 </g>
                 <g class="wh-shift-r">
                   <circle class="wh-fill wh-fill--r" cx="1050" cy="340" r="320"/>
+                  <circle class="wh-ring wh-ring--r" cx="1050" cy="340" r="292"/>
                   <circle class="wh-stroke wh-stroke--r" cx="1050" cy="340" r="320" pathLength="1" transform="rotate(-90 1050 340)"/>
+                  <g class="wh-pen wh-pen--r"><circle class="wh-pen__schein" cx="1050" cy="20" r="36"/><circle class="wh-pen__punkt" cx="1050" cy="20" r="7"/></g>
                 </g>
+                <circle class="wh-schein" cx="690" cy="340" r="230"/>
                 <g clip-path="url(#wh-clip-l)"><circle class="wh-shift-r wh-fill wh-fill--c" cx="1050" cy="340" r="320"/></g>
+                <circle class="wh-puls" cx="690" cy="340" r="140"/>
               </svg>
-              <div class="wh-anchor wh-l wh-y1"><div class="wh-head wh-v-lh"><b>Kaufmännisch</b><i></i></div></div>
-              <div class="wh-anchor wh-l wh-y2"><div class="wh-chip wh-v-lk1">Rechnungswesen</div></div>
-              <div class="wh-anchor wh-l wh-y3"><div class="wh-chip wh-v-lk2">Abrechnungen</div></div>
-              <div class="wh-anchor wh-l wh-y4"><div class="wh-chip wh-v-lk3">Liquidität</div></div>
-              <div class="wh-anchor wh-r wh-y1"><div class="wh-head wh-v-rh"><b>Technisch</b><i></i></div></div>
-              <div class="wh-anchor wh-r wh-y2"><div class="wh-chip wh-v-rk1">Instandhaltung</div></div>
-              <div class="wh-anchor wh-r wh-y3"><div class="wh-chip wh-v-rk2">Modernisierung</div></div>
-              <div class="wh-anchor wh-r wh-y4"><div class="wh-chip wh-v-rk3">Monitoring</div></div>
+              <div class="wh-anchor wh-l wh-y1"><div class="wh-head wh-v-lh"><small>Steuerberater</small><b>Kaufmännisch</b><i></i></div></div>
+              <div class="wh-anchor wh-l wh-y2"><div class="wh-chip wh-v-lk1"><svg class="icon" aria-hidden="true"><use href="#i-rechner"/></svg>Rechnungswesen</div></div>
+              <div class="wh-anchor wh-l wh-y3"><div class="wh-chip wh-v-lk2"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg>Abrechnungen</div></div>
+              <div class="wh-anchor wh-l wh-y4"><div class="wh-chip wh-v-lk3"><svg class="icon" aria-hidden="true"><use href="#i-muenzen"/></svg>Liquidität</div></div>
+              <div class="wh-anchor wh-r wh-y1"><div class="wh-head wh-v-rh"><small>Ingenieur</small><b>Technisch</b><i></i></div></div>
+              <div class="wh-anchor wh-r wh-y2"><div class="wh-chip wh-v-rk1"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg>Instandhaltung</div></div>
+              <div class="wh-anchor wh-r wh-y3"><div class="wh-chip wh-v-rk2"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg>Modernisierung</div></div>
+              <div class="wh-anchor wh-r wh-y4"><div class="wh-chip wh-v-rk3"><svg class="icon" aria-hidden="true"><use href="#i-puls"/></svg>Monitoring</div></div>
               <div class="wh-center">
-                <div class="wh-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M3 11 L12 3.5 L21 11 M5.5 9 V20.5 H18.5 V9 M10 20.5 V14.5 H14 V20.5"/></svg></div>
+                <div class="wh-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="wh-haus" pathLength="1" d="M3 11 L12 3.5 L21 11 M5.5 9 V20 H18.5 V9"/><path class="wh-balken" pathLength="1" d="M12 8.5V15.5"/><path class="wh-bogen" pathLength="1" d="M4.5 19.6Q12 19.4 20 15.4"/></svg></div>
                 <div class="wh-title">Werterhalt</div>
                 <div class="wh-sub">Ihrer Immobilie</div>
               </div>
@@ -280,7 +304,7 @@
             <div class="person__body">
               <h3 id="person-kaufmann" class="person__name">Carsten Kaufmann</h3>
               <p class="person__title">Dipl.-Bw. (FH) &amp; Steuerberater</p>
-              <p class="person__role tag">Kaufmännische Verwaltung</p>
+              <p class="person__role tag tag--gruen">Kaufmännische Verwaltung</p>
               <p class="person__text">Erstellt das kaufmännische Fundament: Finanz- und Rechnungswesen, rechtssichere Abrechnungen und eine belastbare Erfolgs- und Liquiditätsplanung.</p>
             </div>
           </article>
@@ -306,7 +330,7 @@
   <!-- 4 Alleinstellungsmerkmale – Aufgabe: Leistung erklären, Abgrenzung zur Großverwaltung -->
   <section id="vorteile" class="section" aria-labelledby="vorteile-titel">
     <div class="wrap">
-      <div class="box">
+      <div class="box akzent-gruen">
         <div class="usp__head">
           <div class="usp__text">
             <p class="eyebrow">Unsere Stärken</p>
@@ -427,7 +451,7 @@
           <li class="service-cta">
             <h3>Verwalterwechsel geplant?</h3>
             <p>Wir übernehmen Gemeinschaften ab 10&nbsp;Wohneinheiten.</p>
-            <a class="btn btn--accent" href="/anfrage">Angebot anfordern<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--accent" href="/anfrage">Kontakt aufnehmen<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
         </ul>
       </div>
@@ -437,7 +461,7 @@
   <!-- 6 Referenz – Aufgabe: Vertrauen durch ein konkretes, großes Objekt -->
   <section id="referenz" class="section" aria-labelledby="referenz-titel">
     <div class="wrap">
-      <div class="box reference">
+      <div class="box akzent-gruen reference">
         <figure class="ph reference__media">
           <figcaption class="ph__caption">
             <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
@@ -467,7 +491,7 @@
   <!-- 7 Eigentümerportal – Aufgabe: Bestandskunden schnell ans Ziel, zeigt digitale Arbeitsweise -->
   <section id="eigentuemerportal" class="section" aria-labelledby="portal-titel">
     <div class="wrap">
-      <div class="box box--weiss portal">
+      <div class="box box--weiss akzent-gruen portal">
         <div class="portal__text">
           <p class="eyebrow">Für Eigentümer</p>
           <h2 id="portal-titel">Eigentümerportal</h2>
@@ -541,7 +565,7 @@
   <!-- 8 Servicepartner – Aufgabe: Vertrauen durch regionale Partner -->
   <section class="section" aria-labelledby="partner-titel">
     <div class="wrap">
-      <div class="box box--slim partners">
+      <div class="box box--slim akzent-gruen partners">
         <h2 id="partner-titel">Unsere Servicepartner</h2>
         <!-- TODO Partnerlogos: Platzhalter durch freigegebene Logos (SVG) ersetzen -->
         <ul class="partners__list">
@@ -562,7 +586,7 @@
           <h2 id="kontakt-titel">Wir sind persönlich für Sie da</h2>
           <p class="contact__lead">Vereinbaren Sie einen unverbindlichen Gesprächstermin und erfahren Sie, wie wir Ihre Immobilie ganzheitlich optimieren.</p>
           <div class="actions">
-            <a class="btn btn--primary btn--xl" href="/anfrage">Unverbindliches Angebot anfordern<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--primary btn--xl" href="/anfrage">Termin vereinbaren<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="btn btn--outline btn--xl" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
           </div>
           <p class="contact__note"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"/></svg>Antwort in der Regel innerhalb eines Werktages</p>
@@ -652,7 +676,7 @@
 <!-- Mobile Schnellleiste -->
 <nav class="callbar" aria-label="Schnellkontakt">
   <a class="btn btn--outline" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>Anrufen</a>
-  <a class="btn btn--primary" href="/anfrage">Angebot anfordern</a>
+  <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
 <script src="/js/site.js" defer></script>

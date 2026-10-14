@@ -99,11 +99,17 @@
       return {
         l: teil(t, 0, 1.2, einAus), lh: teil(t, 0.8, 0.6), lk1: teil(t, 1.1, 0.6), lk2: teil(t, 1.35, 0.6), lk3: teil(t, 1.6, 0.6),
         r: teil(t, 1.6, 1.2, einAus), rh: teil(t, 2.4, 0.6), rk1: teil(t, 2.7, 0.6), rk2: teil(t, 2.95, 0.6), rk3: teil(t, 3.2, 0.6),
-        m: teil(t, 3.9, 1.2, einAus), c: teil(t, 4.8, 0.8), ch: teil(t, 5.0, 0.9, einAus), cw: teil(t, 5.5, 0.8)
+        m: teil(t, 3.9, 1.2, einAus), c: teil(t, 4.8, 0.8), ch: teil(t, 5.0, 0.9, einAus), cw: teil(t, 5.5, 0.8),
+        pr: teil(t, 5.0, 1.5)
       };
     };
+    // Leuchtpunkt an der Zeichenspitze (sichtbar, solange gezeichnet wird) und Pulsring der Schnittmenge
+    var spitze = function (x) { return x > 0 && x < 1 ? Math.min(1, 6 * x * (1 - x)) : 0; };
     var setze = function (el, t) {
       var v = bild(t);
+      v.lp = spitze(v.l);
+      v.rp = spitze(v.r);
+      v.po = v.pr > 0 && v.pr < 1 ? (1 - v.pr) * 0.8 : 0;
       for (var k in v) el.style.setProperty("--" + k, v[k].toFixed(4));
     };
     var ruhig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
