@@ -23,7 +23,7 @@ Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller, heller Stand) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 14.10.2026 (aktueller Stand: freistehende Leiste, Abschnitte als Boxen) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
@@ -34,11 +34,11 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,43 s** | 0,34 s |
+| Largest Contentful Paint | < 2,5 s | **1,44 s** | 0,34 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
 | First Contentful Paint | – | 0,76 s | 0,20 s |
 | Total Blocking Time | – | 0 ms | 0 ms |
-| Übertragene Daten | – | 89 KB | 85 KB |
+| Übertragene Daten | – | 89 KB | 86 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97). Live auf Cloudflare können die Werte etwas anders
@@ -160,8 +160,9 @@ keine Sperre über Functions.
 
 Mobil bleibt die Reihenfolge; die Leistungen werden zur Liste, die
 Vertrauensleiste rückt direkt unter die Buttons, die Grafiken skalieren mit
-(Beschriftung bleibt ab 360 px lesbar), und eine weiße Leiste unten hält
-„Anrufen“ und „Angebot anfordern“ im Griff.
+(mobil bis an den Boxrand, damit die Beschriftung ab 360 px lesbar bleibt),
+und eine freistehende weiße Leiste unten hält „Anrufen“ und „Angebot
+anfordern“ im Griff.
 
 ## Designsystem
 
@@ -169,7 +170,7 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 
 | Token | Wert | Einsatz |
 |---|---|---|
-| `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Grundfarben, Sektionen im Wechsel |
+| `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Seitengrund weiß, Boxen Off-White |
 | `--bg-tint` | `#eaf1fa` | helles Blau: Hero, Kontakt, Icon-Kreise |
 | `--navy-900` | `#14243b` | Text (15,6:1), Überschriften, Primärbutton, Karte „Verwalterwechsel“ |
 | `--navy-700` | `#2c4266` | Icons |
@@ -177,14 +178,19 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--orange-500` | `#e8700c` | Akzent: Strich an der H1, Linien, Punkte, Sterne, Akzentbutton |
 | `--orange-700` | `#9a4308` | Orange als Text und Fokusrahmen (6,6:1) |
 | `--line` | `#dfe5ee` | feine Linien und Kartenränder |
-| `--r-sm` / `--r` / `--r-lg` | 4 / 6 / 8 px | leicht abgerundete Ecken |
+| `--r-sm` / `--r` / `--r-lg` / `--r-box` | 4 / 6 / 8 / 12 px | leicht abgerundete Ecken; 12 px für Boxen und Leisten |
+| `--box-pad` / `--box-gap` | 16–64 px / 12–20 px | Innenabstand der Boxen, Abstand zwischen ihnen |
 
-- **Struktur:** ganzflächige Sektionen im Wechsel Weiß / Off-White, Inhalte im
-  12-Spalten-Raster (max. 1200 px). Karten weiß mit feiner Linie und weichem
+- **Struktur:** Hero ganzflächig im hellblauen Verlauf; alle Abschnitte danach
+  als leicht abgerundete Boxen (Off-White, feine Linie) auf weißem Grund, mit
+  kleinem Abstand untereinander; die Kontakt-Box im hellblauen Verlauf. Inhalte
+  im 12-Spalten-Raster (max. 1200 px). Karten weiß mit feiner Linie und weichem
   Schatten.
-- **Navigation:** weiße Leiste, die beim Scrollen oben stehen bleibt; der
-  Menüpunkt der sichtbaren Sektion bekommt einen orangen Strich. Darüber eine
-  Infozeile in Off-White.
+- **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
+  Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
+  der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
+  Sektion bekommt einen orangen Strich. Darüber eine schlichte Infozeile auf
+  dem Hero-Verlauf. Das Mobilmenü öffnet als eigene Box unter der Leiste.
 - **Buttons:** Primär Dunkelblau mit weißer Schrift und orangem Pfeil, sekundär
   weiß mit Rand, einmal Orange als Akzent (Karte „Verwalterwechsel geplant?“).
   Beim Überfahren ändert sich nur die Farbe.
@@ -201,8 +207,12 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Layoutsprünge beim Laden.
 - **Wiedererkennung:** der orange Strich zwischen K und M im Logo als Linie
   neben der H1 und der Kernaussage.
-- **Bewegung:** keine Animationen, nur Farbübergänge beim Überfahren und
-  sanftes Scrollen zu Sprungmarken (entfällt bei `prefers-reduced-motion`).
+- **Bewegung:** Farbübergänge beim Überfahren, sanftes Scrollen zu
+  Sprungmarken; einzige Ausnahme sind die drei Säulen unter „Was unsere
+  Hausverwaltung in Frankfurt auszeichnet“: beim Überfahren hebt sich die Karte
+  um 4 px, der Icon-Kreis wird dunkelblau mit orangem Icon, und unten zieht sich
+  der orange Logo-Strich von links nach rechts. Nur auf Geräten mit Maus; bei
+  `prefers-reduced-motion` ohne Bewegung.
 - **Platzhalter:** ruhige graublaue Foto-Flächen mit weißer Beschriftung;
   fehlende Angaben stehen als `[Platzhalter]` mit gestricheltem Rahmen im Text.
 
@@ -299,6 +309,13 @@ Runde: Eine Dachlinie im Hero-Hintergrund lief quer durch Buttons und
 Vertrauensleiste (entfernt); in der Venn-Grafik stießen Wörter an die
 Kreisränder, im Netzwerk schnitt das Emblem den Ring und die Beschriftungen
 klebten an den Knoten (Geometrie angepasst).
+
+Runde „freistehende Leiste und Boxen“: Durch den doppelten Innenabstand (Box
+und Karte) wurde die mobile Leistungsliste schmal – Icon und Titel stehen dort
+jetzt in einer Zeile, der Text darunter über die volle Kartenbreite. Die beiden
+Grafiken reichen mobil bis an den Boxrand, sonst wäre ihre Beschriftung
+geschrumpft. Der Hero läuft hinter die Kopfzeile, damit die freistehende Leiste
+auf dem hellblauen Verlauf steht statt auf einem weißen Streifen.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

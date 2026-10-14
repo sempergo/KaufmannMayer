@@ -59,6 +59,7 @@
   --ph: #e3e9f1;         /* Foto-Platzhalter */
   --line: #dfe5ee;
   --line-strong: #c5cfdc;
+  --line-soft: #e8edf4;  /* Rand der Boxen */
 
   /* Typografie */
   --font-serif: "Source Serif 4", "Serif Ersatz", Georgia, serif;
@@ -84,13 +85,15 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
-  --gutter: clamp(1rem, 0.4rem + 2.8vw, 2.5rem);
+  --gutter: clamp(0.75rem, 0.2rem + 2.6vw, 2.5rem);
   --gap: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
-  --section-y: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+  --box-pad: clamp(1rem, 0.1rem + 4vw, 4rem);
+  --box-gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
   --pad-card: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
   --r-sm: 4px;
   --r: 6px;
   --r-lg: 8px;
+  --r-box: 12px;  /* Abschnitts-Boxen und freistehende Leisten */
   --max: 75rem;
   --bar: 4px; /* der K|M-Strich aus dem Logo */
   --shadow: 0 1px 2px rgb(20 36 59 / 0.04), 0 12px 32px -20px rgb(20 36 59 / 0.25);
@@ -101,8 +104,13 @@
 
   /* Kopfzeile */
   --topline-h: 2.5rem;
-  --navbar-h: 4.5rem;
-  --callbar-h: 4.75rem;
+  --navbar-h: 4rem;
+  --float-gap: 0.625rem; /* Abstand der freistehenden Leisten zum Fensterrand */
+  --header-h: calc(var(--topline-h) + var(--navbar-h));
+  --callbar-h: 4.5rem;
+}
+@media (min-width: 40em) {
+  :root { --navbar-h: 4.5rem; --float-gap: 0.75rem; }
 }
 
 /* ---------- 3 Basis ---------- */
@@ -110,7 +118,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--navbar-h) + var(--space-4));
+  scroll-padding-top: calc(var(--float-gap) + var(--navbar-h) + var(--space-4));
 }
 body {
   margin: 0;
@@ -200,9 +208,21 @@ strong { font-weight: 600; }
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
-.section { padding-block: var(--section-y); }
-.section--soft { background: var(--bg-soft); }
-.section--slim { padding-block: calc(var(--section-y) * 0.55); }
+/* Abschnitte nach dem Hero: leicht abgerundete Boxen auf weißem Grund */
+.section + .section { margin-top: var(--box-gap); }
+.box {
+  padding: var(--box-pad);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-box);
+  background: var(--bg-soft);
+}
+.box--slim { padding-block: calc(var(--box-pad) * 0.6); }
+.box--cta { background: linear-gradient(160deg, var(--bg-tint) 0%, var(--bg-soft) 100%); border-color: var(--line); }
+@media (max-width: 39.99em) {
+  .box { border-radius: 10px; }
+  /* Grafiken mobil bis an den Boxrand, damit die Beschriftung lesbar bleibt */
+  .box .venn, .box .netz { margin-inline: calc(var(--box-pad) * -1 + 0.25rem); }
+}
 
 .section-head { max-width: 46rem; margin-bottom: clamp(2rem, 1.2rem + 2.4vw, 3rem); }
 .section-head h2 { font-size: var(--fs-h2); }
@@ -329,13 +349,16 @@ strong { font-weight: 600; }
 .ph__caption .icon { color: var(--orange-700); margin-top: 0.1rem; }
 
 /* ---------- 6 Sektionen ---------- */
-/* 6.1 Kopfzeile: Infozeile scrollt weg, die weiße Leiste bleibt stehen */
+/* 6.1 Kopfzeile: Infozeile scrollt weg, die freistehende Leiste bleibt mit Abstand
+   zum Fensterrand stehen. Der Kopf selbst ist durchsichtig und lässt Klicks durch. */
 .site-header {
   position: sticky;
-  top: calc(var(--topline-h) * -1);
+  top: calc(var(--float-gap) - var(--topline-h));
   z-index: 50;
+  pointer-events: none;
 }
-.topline { background: var(--bg-soft); border-bottom: 1px solid var(--line); font-size: var(--fs-xs); color: var(--slate-600); }
+.site-header a, .site-header button, .navbar { pointer-events: auto; }
+.topline { font-size: var(--fs-xs); color: var(--slate-600); }
 .topline__inner {
   height: var(--topline-h);
   display: flex;
@@ -366,13 +389,19 @@ strong { font-weight: 600; }
   .topline__region { display: inline; }
 }
 
-.navbar { position: relative; background: var(--white); border-bottom: 1px solid var(--line); }
-.navbar__inner {
+.navbar {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
   height: var(--navbar-h);
+  padding-inline: var(--space-3) var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-box);
+  background: var(--white);
+  box-shadow: 0 1px 2px rgb(20 36 59 / 0.05), 0 10px 28px -16px rgb(20 36 59 / 0.28);
 }
+@media (min-width: 40em) { .navbar { padding-inline: var(--space-5) var(--space-3); } }
 .brand { display: inline-flex; align-items: center; min-height: 2.75rem; margin-right: auto; }
 .brand img { height: 2.375rem; width: auto; }
 @media (min-width: 40em) { .brand img { height: 2.75rem; } }
@@ -416,15 +445,16 @@ strong { font-weight: 600; }
 .js .nav {
   display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: calc(100vh - var(--navbar-h));
+  top: calc(100% + var(--space-2));
+  left: -1px;
+  right: -1px;
+  max-height: calc(100vh - var(--navbar-h) - 3 * var(--float-gap) - var(--space-2));
   overflow-y: auto;
-  padding: var(--space-2) var(--gutter) var(--space-5);
+  padding: var(--space-2) var(--space-5) var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-box);
   background: var(--white);
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 16px 32px -20px rgb(20 36 59 / 0.35);
+  box-shadow: 0 18px 36px -20px rgb(20 36 59 / 0.35);
 }
 .js .nav.is-open { display: block; }
 .nav__list li + li { border-top: 1px solid var(--line); }
@@ -438,7 +468,7 @@ strong { font-weight: 600; }
   background: var(--orange-500);
 }
 .nav__cta { width: 100%; margin-top: var(--space-4); }
-.no-js .navbar__inner { height: auto; flex-wrap: wrap; padding-block: var(--space-3); }
+.no-js .navbar { height: auto; flex-wrap: wrap; padding-block: var(--space-3); }
 .no-js .nav { flex-basis: 100%; }
 
 @media (min-width: 60em) {
@@ -456,7 +486,7 @@ strong { font-weight: 600; }
     border: 0;
     box-shadow: none;
   }
-  .no-js .navbar__inner { height: var(--navbar-h); flex-wrap: nowrap; padding-block: 0; }
+  .no-js .navbar { height: var(--navbar-h); flex-wrap: nowrap; padding-block: 0; }
   .no-js .nav { flex-basis: auto; }
   .nav__list { display: flex; gap: var(--space-1); margin-right: var(--space-4); }
   .nav__list li + li { border: 0; }
@@ -477,9 +507,12 @@ strong { font-weight: 600; }
 .hero {
   position: relative;
   overflow: hidden;
+  margin-top: calc(var(--header-h) * -1);
   background: linear-gradient(180deg, var(--bg-tint) 0%, var(--bg-soft) 70%, var(--white) 100%);
-  padding-block: clamp(2rem, 1.25rem + 3vw, 4.5rem) clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
+  padding-block: calc(var(--header-h) + clamp(2rem, 1.25rem + 3vw, 4.5rem)) clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
 }
+/* ohne JavaScript ist die Leiste mobil höher – dann kein Überlappen */
+.no-js .hero { margin-top: 0; padding-top: clamp(2rem, 1.25rem + 3vw, 4.5rem); }
 .hero__grid { position: relative; display: grid; gap: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
 .hero__text .chip { margin-bottom: clamp(1.25rem, 0.8rem + 1.5vw, 1.75rem); }
 .hero__title {
@@ -563,9 +596,39 @@ strong { font-weight: 600; }
 }
 .statement::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px; background: var(--orange-500); }
 .pillars { display: grid; gap: var(--gap); }
+.pillar { overflow: hidden; }
 .pillar .icon-dot { margin-bottom: var(--space-5); }
 .pillar h3 { font-size: var(--fs-h3); }
 .pillar p { margin-top: var(--space-3); color: var(--slate-600); }
+/* Überfahren: Karte hebt sich leicht, der Icon-Kreis wird dunkelblau,
+   unten zieht sich der orange Strich aus dem Logo von links nach rechts */
+.pillar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--orange-500);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+@media (hover: hover) {
+  .pillar { transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), border-color 320ms var(--ease); }
+  .pillar::after { transition: transform 480ms var(--ease) 60ms; }
+  .pillar .icon-dot { transition: background-color 320ms var(--ease), color 320ms var(--ease); }
+  .pillar:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: 0 2px 4px rgb(20 36 59 / 0.05), 0 28px 44px -26px rgb(20 36 59 / 0.4);
+  }
+  .pillar:hover::after { transform: scaleX(1); }
+  .pillar:hover .icon-dot { background: var(--navy-900); color: var(--orange-400); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pillar, .pillar::after { transition-duration: 1ms !important; }
+  .pillar:hover { transform: none; }
+}
 @media (min-width: 60em) {
   .usp__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
   .usp__text { grid-column: 1 / span 5; }
@@ -607,8 +670,13 @@ strong { font-weight: 600; }
 .service-cta .btn { margin-top: auto; }
 
 @media (max-width: 47.99em) {
-  /* Listenform: die Leistungen wie eine Liste in einer Karte, die CTA-Kachel darunter */
+  /* Listenform: die Leistungen wie eine Liste in einer Karte, die CTA-Kachel darunter.
+     Icon und Titel in einer Zeile, der Text darunter über die volle Breite */
   .services { display: grid; }
+  .service { align-items: center; row-gap: 0; }
+  .service > .icon-dot { grid-row: 1; }
+  .service p, .service .more { grid-column: 1 / -1; }
+  .service p { margin-top: var(--space-3); }
   .service { border-radius: 0; box-shadow: none; }
   .service + .service { border-top: 0; }
   .service:first-child { border-radius: var(--r-lg) var(--r-lg) 0 0; }
@@ -717,8 +785,7 @@ strong { font-weight: 600; }
 @media (min-width: 40em) { .partners__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 60em) { .partners { grid-template-columns: 12rem minmax(0, 1fr); align-items: center; column-gap: var(--gap); } }
 
-/* 6.9 Anfrage / Kontakt – helles Blau als Abschluss */
-.section--cta { background: linear-gradient(160deg, var(--bg-tint) 0%, var(--bg-soft) 100%); border-top: 1px solid var(--line); }
+/* 6.9 Anfrage / Kontakt – helles Blau als Abschluss (.box--cta) */
 .contact { display: grid; gap: clamp(2rem, 1rem + 3vw, 3.5rem); }
 .contact h2 { font-size: clamp(2.125rem, 1.4rem + 3vw, 3.75rem); line-height: var(--lh-tight); max-width: 12em; }
 .contact__lead { margin-top: var(--space-5); font-size: var(--fs-lead); color: var(--slate-600); max-width: 34rem; }
@@ -740,7 +807,7 @@ strong { font-weight: 600; }
 }
 
 /* 6.10 Footer */
-.site-footer { padding-block: var(--space-7) var(--space-6); border-top: 1px solid var(--line); font-size: var(--fs-sm); color: var(--slate-600); }
+.site-footer { padding-block: clamp(3rem, 2rem + 3vw, 4.5rem) var(--space-6); font-size: var(--fs-sm); color: var(--slate-600); }
 .site-footer ul { list-style: none; padding: 0; }
 .footer__grid { display: grid; gap: var(--space-6); }
 .footer__brand img { height: 2.75rem; width: auto; }
@@ -773,28 +840,29 @@ strong { font-weight: 600; }
 /* 6.11 Mobile Schnellleiste */
 .callbar {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--float-gap) + env(safe-area-inset-bottom));
   z-index: 40;
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: var(--space-2);
-  padding: var(--space-2) var(--gutter) calc(var(--space-2) + env(safe-area-inset-bottom));
+  padding: var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-box);
   background: var(--white);
-  border-top: 1px solid var(--line);
-  box-shadow: 0 -8px 24px -16px rgb(20 36 59 / 0.3);
+  box-shadow: 0 1px 2px rgb(20 36 59 / 0.05), 0 12px 32px -12px rgb(20 36 59 / 0.35);
 }
 .callbar .btn { min-height: 3.25rem; padding-inline: var(--space-3); }
-body { padding-bottom: calc(var(--callbar-h) + env(safe-area-inset-bottom)); }
+body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-inset-bottom)); }
 @media (min-width: 60em) {
   .callbar { display: none; }
   body { padding-bottom: 0; }
 }
 
-/* 404-Seite: ohne Infozeile und ohne Schnellleiste */
-.page-404 { padding-bottom: 0; }
-.page-404 .site-header { top: 0; }
+/* 404-Seite: ohne Infozeile und ohne Schnellleiste – der Abstand über der Leiste ersetzt die Infozeile */
+.page-404 { --topline-h: var(--float-gap); --header-h: calc(var(--topline-h) + var(--navbar-h)); padding-bottom: 0; }
+.page-404 .site-header { padding-top: var(--float-gap); }
 .page-404 main { min-height: 60vh; }
 
 @media (prefers-reduced-motion: no-preference) {

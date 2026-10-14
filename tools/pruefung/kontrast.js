@@ -20,6 +20,9 @@ let fehler = 0;
     for (const sel of ZIELE) {
       for (const el of await p.$$(sel)) {
         if (!(await el.isVisible())) continue;
+        // Die Infozeile steht nur ganz oben im Bild; gescrollt liegt sie über dem Fensterrand
+        // (der Kopf ist durchsichtig) – deshalb für Elemente im Kopf an den Seitenanfang.
+        if (await el.evaluate(e => !!e.closest(".site-header"))) await p.evaluate(() => window.scrollTo(0, 0));
         const buf = await el.screenshot({ animations: "disabled" });
         const liste = await probe.evaluate(async (d) => {
           const img = new Image(); await new Promise(r => { img.onload = r; img.src = d; });
