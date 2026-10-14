@@ -24,7 +24,7 @@ Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller Stand: Skyline, Logofarben, Glas-Buttons, neue Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 14.10.2026 (aktueller Stand: Skyline nach Vorlage, Logofarben, Glas-Buttons, Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
@@ -35,11 +35,11 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,50 s** | 0,35 s |
+| Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,35 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
 | First Contentful Paint | – | 1,01 s | 0,25 s |
-| Total Blocking Time | – | 3 ms | 0 ms |
-| Übertragene Daten | – | 99 KB | 96 KB |
+| Total Blocking Time | – | 12 ms | 0 ms |
+| Übertragene Daten | – | 100 KB | 97 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97). Live auf Cloudflare können die Werte etwas anders
@@ -64,16 +64,20 @@ ebenfalls an, aber ohne diese Eigenschaften.
 
 ## Bauen
 
-Es gibt keinen Build-Schritt – `site/` ist die fertige Website. Zwei Skripte
-erzeugen Bilddateien neu, falls sich Logo oder Seitentitel ändern:
+Es gibt keinen Build-Schritt – `site/` ist die fertige Website. Drei Skripte
+erzeugen Grafiken neu, falls sich Logo, Seitentitel oder Skyline-Vorlage ändern:
 
 ```bash
 python3 -I tools/assets/logo.py       # Logo (AVIF/WebP/PNG, 1x–3x), Emblem, Favicon, Touch-Icon
 node tools/assets/og-bild.js          # Vorschaubild zum Teilen: site/img/og-image.jpg
+python3 -I tools/assets/skyline.py    # Skyline-Silhouette aus quellen/skyline-vorlage.png
 ```
 
 `logo.py` braucht eine aktuelle Pillow-Version mit AVIF-Unterstützung, `og-bild.js`
-Playwright (`npm i -g playwright`).
+Playwright (`npm i -g playwright`), `skyline.py` OpenCV
+(`pip install opencv-python-headless`). Die Skyline schreibt ein `<svg>` nach
+`tools/assets/skyline.svg.html`; es ersetzt das `svg.hero__skyline` in
+`site/index.html`.
 
 ## Prüfen
 
@@ -217,12 +221,13 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   „Verwalterwechsel“). Beim Überfahren hellt die Fläche auf, ein Pfeil rückt
   3 px nach rechts.
 - **Grafiken (inline SVG und HTML, keine Bilddateien):**
-  Hero – die Frankfurter Skyline als blaue Linienzeichnung groß links im
-  Hintergrund (Messeturm, Westend Tower, Trianon, Main Tower, Commerzbank Tower,
-  Taunusturm, Opernturm, Skyper, Japan Center, Omniturm, Dom, Römer, EZB, davor
-  der Main). Sie läuft über den linken Rand hinaus und blendet nach rechts aus;
-  die Hero-Texte haben einen weichen hellen Schein, damit die Linien an den
-  Buchstaben zurücktreten.
+  Hero – die Frankfurter Skyline als blaue Silhouette groß im Hintergrund,
+  nachgezeichnet aus der gelieferten Vorlage (`quellen/skyline-vorlage.png`,
+  mit Europaturm, Messeturm und Commerzbank Tower). Sie reicht über die ganze
+  Hero-Breite, läuft links über den Rand hinaus und blasst nach unten (ohne
+  Kante) und nach rechts aus; mobil liegt sie hinter der Überschrift. Die
+  Hero-Texte haben einen weichen hellen Schein, damit die Silhouette an den
+  Buchstaben zurücktritt.
   „Steuerberater trifft Ingenieur“ – Werterhalt-Animation nach der gelieferten
   Vorlage `werterhalt-venn.html`, Mechanik unverändert: Die Kreise
   „Kaufmännisch“ (Grün) und „Technisch“ (Orange) zeichnen sich – ein
@@ -401,6 +406,13 @@ und ist dort jetzt ausgenommen. Orange-Schrift auf dem neuen Logo-Orange hätte
 mit Schiefer nur 4,2:1 erreicht – auf Orange steht deshalb Tiefschiefer (5,1:1).
 In der Meta-Beschreibung steht weiter „Jetzt Angebot anfordern.“ – das ist kein
 Button; bei Bedarf auf „Jetzt Termin vereinbaren.“ ändern.
+
+Runde „Skyline nach Vorlage“: Die selbst gezeichnete Linien-Skyline ist durch
+die gelieferte Silhouette ersetzt (vierfach vergrößert nachgezogen, ein
+geschlossener Umriss). Als reine Fläche mit gleichmäßig niedriger Deckkraft
+war sie zu blass und endete unten mit sichtbarer Kante – jetzt oben kräftiger
+(30 %) und nach unten bis 0 % auslaufend. Falls die Vorlage aus einer
+Bilddatenbank stammt, vor dem Livegang die Lizenz prüfen.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit
