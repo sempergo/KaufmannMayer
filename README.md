@@ -37,8 +37,8 @@ Median.
 | SEO | 100 | **100** | **100** |
 | Largest Contentful Paint | < 2,5 s | **1,50 s** | 0,35 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 1,04 s | 0,27 s |
-| Total Blocking Time | – | 28 ms | 0 ms |
+| First Contentful Paint | – | 1,01 s | 0,25 s |
+| Total Blocking Time | – | 3 ms | 0 ms |
 | Übertragene Daten | – | 99 KB | 96 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
@@ -178,12 +178,12 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--bg-tint` / `--hero-oben` | `#eaf1fa` / `#d6e3f3` | Icon-Kreise / Beginn des Hero-Verlaufs |
 | `--schiefer` | `#28353e` | Logo (Schriftzug, Haus): Text (12,6:1), Überschriften, Buttons, Karte „Verwalterwechsel“ |
 | `--schiefer-tief` | `#1c262d` | Schrift auf Orange (5,1:1) |
-| `--blue-600` / `--navy-700` | `#2a5ea8` / `#2c4266` | Skyline, Kreis „Kaufmännisch“ / Icons |
+| `--blue-600` / `--navy-700` | `#2a5ea8` / `#2c4266` | Skyline, Schnittmenge „Werterhalt“ / Icons |
 | `--slate-600` | `#4a5666` | Nebentext (7,5:1) |
 | `--orange-500` / `--orange-400` | `#ec720f` / `#ec932d` | Logo („MAYER“, K|M-Strich): Akzent, Akzentbutton |
 | `--orange-700` | `#9a4308` | Orange als Text und Fokusrahmen (6,6:1) |
-| `--gruen-500` / `--gruen-400` / `--gruen-900` | `#61a210` / `#94c014` / `#174215` | Logo (Bogen): Akzent, Lichtkante, „Werterhalt“ |
-| `--gruen-700` | `#35700d` | Grün als Text (6,0:1), dunkler Teil des Bogens |
+| `--gruen-500` / `--gruen-400` / `--gruen-900` | `#61a210` / `#94c014` / `#174215` | Logo (Bogen): Akzent, Lichtkante, Kreis „Kaufmännisch“ |
+| `--gruen-700` | `#35700d` | Grün als Text (6,0:1), z. B. Titel der Inhaber |
 | `--akzent` (+ `-text`, `-hell`, `-leucht`) | Orange, mit `.akzent-gruen` Grün | Signalfarbe eines Abschnitts |
 | `--line` | `#dfe5ee` | feine Linien und Kartenränder |
 | `--r-sm` / `--r` / `--r-lg` / `--r-box` | 4 / 6 / 8 / 12 px | leicht abgerundete Ecken; 12 px für Boxen und Leisten |
@@ -201,8 +201,9 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Partner). Sie färbt die Eyebrow-Zeile über der H2, Linien, Häkchen, Punkte
   und die Hover-Effekte. Gemischt wird bewusst an einzelnen Stellen: im Hero
   der orange Strich an der H1 und grüne Icons in der Vertrauensleiste, bei den
-  Inhabern ein grünes und ein oranges Etikett, im Portal orange Markierung und
-  grüne Häkchen, in der Animation Blau, Orange und die grüne Schnittmenge.
+  Inhabern das Fachgebiet in Orange und der Titel unter dem Namen in Grün, im
+  Portal orange Markierung und grüne Häkchen, in der Animation Grün, Orange und
+  die blaue Schnittmenge.
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
@@ -224,15 +225,14 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Buchstaben zurücktreten.
   „Steuerberater trifft Ingenieur“ – Werterhalt-Animation nach der gelieferten
   Vorlage `werterhalt-venn.html`, Mechanik unverändert: Die Kreise
-  „Kaufmännisch“ (Blau-Schiefer) und „Technisch“ (Orange) zeichnen sich – ein
+  „Kaufmännisch“ (Grün) und „Technisch“ (Orange) zeichnen sich – ein
   Leuchtpunkt läuft an der Zeichenspitze mit –, Verlaufsflächen und ein feiner
   gestrichelter Innenring blenden ein, die Begriffe erscheinen als Milchglas-
-  Pillen mit eigenem Icon, über den Überschriften stehen „Steuerberater“ und
-  „Ingenieur“. Beim Zusammenrücken drehen sich die Innenringe gegeneinander,
-  ein Bodenschatten verdichtet sich, die Schnittmenge färbt sich grün (der
-  Logo-Bogen), ein Pulsring läuft aus, und ein Abzeichen zeichnet das Logo im
-  Kleinen – Haus, oranger K|M-Strich, grüner Bogen – in einem orange-grünen
-  Ring; darunter „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s), sobald
+  Pillen mit eigenem Icon. Beim Zusammenrücken drehen sich die Innenringe
+  gegeneinander, ein Bodenschatten verdichtet sich, die Schnittmenge färbt sich
+  blau, ein Pulsring läuft aus, und ein Abzeichen zeichnet das Logo im Kleinen –
+  Haus, oranger K|M-Strich, grüner Bogen – in einem blauen Ring; darunter
+  „Werterhalt Ihrer Immobilie“. Läuft einmal (gut 3 s), sobald
   die Grafik zur Hälfte im Bild ist. Angepasst an die Seite: lokale Schriften
   statt Google Fonts (DSGVO), alle Inline-Styles als Klassen (CSP), Skript in
   `js/site.js`, Endbild ohne JavaScript und bei reduzierter Bewegung, eigene

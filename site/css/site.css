@@ -368,7 +368,6 @@ strong { font-weight: 600; }
   font-size: var(--fs-xs);
   font-weight: 600;
 }
-.tag--gruen { background: var(--gruen-50); color: var(--gruen-700); }
 .icon-dot {
   display: grid;
   place-items: center;
@@ -709,7 +708,7 @@ strong { font-weight: 600; }
   .person:hover { border-color: var(--line-strong); }
   .person:hover .person__name { background-size: 100% 2px; }
 }
-.person__title { margin-top: var(--space-2); font-weight: 600; color: var(--slate-600); }
+.person__title { margin-top: var(--space-2); font-weight: 600; color: var(--gruen-700); }
 .person__text { margin-top: var(--space-4); max-width: 34rem; }
 @media (min-width: 48em) { .duo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 /* Grafik neben dem Text erst ab 75em – darunter steht sie in voller Breite, damit Begriffe
@@ -1167,7 +1166,7 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
 /* Werterhalt (Steuerberater trifft Ingenieur) – Animation nach Vorlage werterhalt-venn.html.
    Fortschritt 0…1 je Teil als CSS-Variable, gesetzt von js/site.js. Ohne JavaScript Endbild,
    mit JavaScript Start bei 0. Positionen in Prozent der Fläche, Schrift in Containerbreite (cqw).
-   Farben aus dem Logo: Kaufmännisch Blau-Schiefer, Technisch Orange, die Schnittmenge Grün. */
+   Farben aus dem Logo: Kaufmännisch Grün, Technisch Orange, die Schnittmenge Blau. */
 .wh-venn {
   --l: 1; --lh: 1; --lk1: 1; --lk2: 1; --lk3: 1; --r: 1; --rh: 1; --rk1: 1; --rk2: 1; --rk3: 1; --m: 1; --c: 1; --ch: 1; --cw: 1;
   --lp: 0; --rp: 0; --pr: 1; --po: 0;
@@ -1186,7 +1185,7 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
 .wh-fill--r { fill: url(#wh-fr); opacity: var(--rh); mix-blend-mode: multiply; }
 .wh-fill--c { fill: url(#wh-fc); opacity: var(--c); }
 .wh-ring { fill: none; stroke-width: 1.25; stroke-dasharray: 1.5 9; stroke-linecap: round; transform-box: view-box; }
-.wh-ring--l { stroke: #2a5ea8; opacity: calc(var(--lh) * 0.45); transform-origin: 330px 340px; transform: rotate(calc(var(--m) * 50deg)); }
+.wh-ring--l { stroke: var(--gruen-500); opacity: calc(var(--lh) * 0.45); transform-origin: 330px 340px; transform: rotate(calc(var(--m) * 50deg)); }
 .wh-ring--r { stroke: var(--orange-500); opacity: calc(var(--rh) * 0.5); transform-origin: 1050px 340px; transform: rotate(calc(var(--m) * -50deg)); }
 .wh-stroke { fill: none; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; }
 .wh-stroke--l { stroke: url(#wh-sl); stroke-dashoffset: calc(1 - var(--l)); }
@@ -1197,17 +1196,17 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
 .wh-pen--l .wh-pen__schein { fill: url(#wh-gl); }
 .wh-pen--r .wh-pen__schein { fill: url(#wh-gr); }
 .wh-pen__punkt { fill: var(--white); stroke-width: 3; }
-.wh-pen--l .wh-pen__punkt { stroke: #2a5ea8; }
+.wh-pen--l .wh-pen__punkt { stroke: var(--gruen-500); }
 .wh-pen--r .wh-pen__punkt { stroke: var(--orange-500); }
 .wh-boden { fill: url(#wh-bo); opacity: calc(0.4 + var(--m) * 0.6); }
 /* Schnittmenge: grüner Schein dahinter, ein Pulsring beim Erscheinen */
 .wh-schein { fill: url(#wh-gc); opacity: calc(var(--c) * 0.9); }
-.wh-puls { fill: none; stroke: var(--gruen-500); stroke-width: 2.5; transform-box: view-box; transform-origin: 690px 340px; transform: scale(calc(0.75 + var(--pr) * 0.75)); opacity: var(--po); }
+.wh-puls { fill: none; stroke: var(--blue-600); stroke-width: 2.5; transform-box: view-box; transform-origin: 690px 340px; transform: scale(calc(0.75 + var(--pr) * 0.75)); opacity: var(--po); }
 
 .wh-anchor { position: absolute; transform: translate(calc(-50% + var(--m) * var(--dx)), -50%); }
-.wh-l { left: 11.59%; --dx: 13.77cqw; --accent: #2a5ea8; --tint: #e6eef8; --bd: #dbe3ee; --sh: rgb(42 94 168 / 0.22); }
-.wh-r { left: 88.41%; --dx: -13.77cqw; --accent: var(--orange-700); --tint: #fdeadb; --bd: #f4d6bd; --sh: rgb(236 114 15 / 0.24); }
-.wh-y1 { top: 31%; } .wh-y2 { top: 45.5%; } .wh-y3 { top: 56.5%; } .wh-y4 { top: 67.5%; }
+.wh-l { left: 11.59%; --dx: 13.77cqw; --accent: var(--gruen-700); --strich: var(--gruen-500); --tint: var(--gruen-50); --bd: #d9e9c0; --sh: rgb(97 162 16 / 0.24); }
+.wh-r { left: 88.41%; --dx: -13.77cqw; --accent: var(--orange-700); --strich: var(--orange-500); --tint: #fdeadb; --bd: #f4d6bd; --sh: rgb(236 114 15 / 0.24); }
+.wh-y1 { top: 33.5%; } .wh-y2 { top: 45.5%; } .wh-y3 { top: 56.5%; } .wh-y4 { top: 67.5%; }
 .wh-v-lh { --v: var(--lh); } .wh-v-lk1 { --v: var(--lk1); } .wh-v-lk2 { --v: var(--lk2); } .wh-v-lk3 { --v: var(--lk3); }
 .wh-v-rh { --v: var(--rh); } .wh-v-rk1 { --v: var(--rk1); } .wh-v-rk2 { --v: var(--rk2); } .wh-v-rk3 { --v: var(--rk3); }
 .wh-head {
@@ -1218,9 +1217,8 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   opacity: var(--v);
   transform: translateY(calc((1 - var(--v)) * 1.2cqw));
 }
-.wh-head small { font: 500 max(12px, 1.55cqw)/1 var(--font-serif); color: var(--slate-600); white-space: nowrap; }
 .wh-head b { font: 700 max(13px, 2.15cqw)/1 var(--font-sans); letter-spacing: -0.01em; color: var(--schiefer); white-space: nowrap; }
-.wh-head i { width: calc(3.2cqw * var(--v)); height: 3px; margin-top: max(2px, 0.25cqw); border-radius: 3px; background: var(--accent); }
+.wh-head i { width: calc(3.2cqw * var(--v)); height: 3px; margin-top: max(2px, 0.25cqw); border-radius: 3px; background: var(--strich); }
 .wh-chip {
   display: flex;
   align-items: center;
@@ -1250,7 +1248,7 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   align-items: center;
   gap: max(4px, 0.9cqw);
 }
-/* Abzeichen: Haus mit K|M-Strich und grünem Bogen – das Logo im Kleinen, Ring in Orange und Grün */
+/* Abzeichen: Haus mit K|M-Strich und grünem Bogen – das Logo im Kleinen, Ring in Blau */
 .wh-badge {
   display: grid;
   place-items: center;
@@ -1258,8 +1256,8 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   height: max(38px, 5.8cqw);
   border: 2px solid transparent;
   border-radius: 50%;
-  background: linear-gradient(var(--white), var(--white)) padding-box, conic-gradient(from 210deg, var(--orange-400), var(--orange-500), var(--gruen-500), var(--gruen-400), var(--orange-400)) border-box;
-  box-shadow: 0 0 0 max(4px, 0.6cqw) rgb(148 192 20 / 0.16), 0 0.6cqw 1.8cqw rgb(23 66 21 / 0.22);
+  background: linear-gradient(var(--white), var(--white)) padding-box, conic-gradient(from 210deg, #6f9ad6, var(--blue-600), #1f4a86, var(--blue-600), #6f9ad6) border-box;
+  box-shadow: 0 0 0 max(4px, 0.6cqw) rgb(42 94 168 / 0.12), 0 0.6cqw 1.8cqw rgb(31 74 134 / 0.25);
   opacity: var(--ch);
   transform: scale(calc(0.6 + var(--ch) * 0.4)) rotate(calc((1 - var(--ch)) * -30deg));
 }
@@ -1273,11 +1271,11 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   transform: translateY(calc((1 - var(--cw)) * 1.5cqw));
   filter: blur(calc((1 - var(--cw)) * 6px));
   font: 500 max(19px, 4.2cqw)/1 var(--font-serif);
-  color: var(--gruen-900);
+  color: #1f3c66;
   white-space: nowrap;
   letter-spacing: -0.015em;
 }
-.wh-sub { opacity: var(--cw); font: 700 max(10.5px, 1.35cqw)/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen-700); white-space: nowrap; }
+.wh-sub { opacity: var(--cw); font: 700 max(10.5px, 1.35cqw)/1 var(--font-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue-600); white-space: nowrap; }
 /* Mobil: Kreise oben, Überschriften und Begriffe als Liste unter dem jeweiligen Kreis
    (die Fläche wird höher, die Zeichnung bleibt oben bündig: preserveAspectRatio xMidYMin) */
 @media (max-width: 39.99em) {
@@ -1285,8 +1283,7 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   .wh-center { top: 27.2%; }  /* 340 von 1250 */
   .wh-l { left: 19%; --dx: 6.36cqw; }
   .wh-r { left: 81%; --dx: -6.36cqw; }
-  .wh-y1 { top: 62%; } .wh-y2 { top: 72.5%; } .wh-y3 { top: 81.5%; } .wh-y4 { top: 90.5%; }
-  .wh-head small { font-size: 12px; }
+  .wh-y1 { top: 63%; } .wh-y2 { top: 72.5%; } .wh-y3 { top: 81.5%; } .wh-y4 { top: 90.5%; }
   .wh-head b { font-size: 14px; }
   .wh-head i { width: calc(18px * var(--v)); }
   .wh-chip { gap: 6px; padding: 3px 10px 3px 3px; font-size: 12px; }
