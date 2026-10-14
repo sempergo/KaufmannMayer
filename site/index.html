@@ -6,7 +6,7 @@
 <title>Hausverwaltung Frankfurt &amp; Rhein-Main | Kaufmann &amp; Mayer</title>
 <meta name="description" content="Inhabergeführte Hausverwaltung für Frankfurt und Rhein-Main: WEG-Verwaltung, Mietverwaltung, Bauleitung. Zertifiziert nach § 26a WEG. Jetzt Angebot anfordern.">
 <link rel="canonical" href="https://www.kaufmann-mayer.de/">
-<meta name="theme-color" content="#14212e">
+<meta name="theme-color" content="#0c1828">
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -144,28 +144,28 @@
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6.5 3.5h7l4 4v13h-11z"/><path d="M13.5 3.5v4h4M9 12h6M9 15.5h6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 21 19.5H3z"/><path d="M12 10v4.5M12 17v.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
 </svg>
-
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 
-<!-- 1 Kopfzeile -->
+<!-- 1 Kopfzeile: Infozeile scrollt weg, die Glas-Navigation bleibt stehen -->
 <header class="site-header">
-  <div class="infobar">
-    <div class="wrap infobar__inner">
-      <p class="infobar__text"><span class="infobar__short">Zertifiziert nach §&nbsp;26a&nbsp;WEG</span><span class="infobar__long">Zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG</span><span class="infobar__region"> · Frankfurt am Main und Rhein-Main-Gebiet</span></p>
-      <ul class="infobar__links">
-        <li class="infobar__phone"><a href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481</a></li>
-        <li><a href="#eigentuemerportal">Eigentümerportal</a></li>
-      </ul>
-    </div>
+  <div class="wrap topline">
+    <p class="topline__text"><span class="topline__short">Zertifiziert nach §&nbsp;26a&nbsp;WEG</span><span class="topline__long">Zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG</span><span class="topline__region"> · Frankfurt am Main und Rhein-Main-Gebiet</span></p>
+    <ul class="topline__links">
+      <li class="topline__phone"><a href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481</a></li>
+      <li><a href="#eigentuemerportal"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-lock"/></svg>Eigentümerportal</a></li>
+    </ul>
   </div>
-  <div class="masthead">
-    <div class="wrap masthead__inner">
+  <div class="wrap navbar-wrap">
+    <div class="navbar">
       <a class="brand" href="/">
         <picture>
-          <source type="image/avif" srcset="/img/logo-quer-1x.avif 1x, /img/logo-quer-2x.avif 2x, /img/logo-quer-3x.avif 3x">
-          <source type="image/webp" srcset="/img/logo-quer-1x.webp 1x, /img/logo-quer-2x.webp 2x, /img/logo-quer-3x.webp 3x">
-          <img src="/img/logo-quer-2x.png" width="267" height="44" alt="Kaufmann &amp; Mayer – zur Startseite" fetchpriority="high">
+          <source type="image/avif" srcset="/img/logo-1x.avif 1x, /img/logo-2x.avif 2x, /img/logo-3x.avif 3x">
+          <source type="image/webp" srcset="/img/logo-1x.webp 1x, /img/logo-2x.webp 2x, /img/logo-3x.webp 3x">
+          <img src="/img/logo-2x.png" width="236" height="44" alt="Kaufmann &amp; Mayer – zur Startseite" fetchpriority="high">
         </picture>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
@@ -181,9 +181,9 @@
           <li><a href="/news">Aktuelles</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
-        <a class="btn btn--primary nav__cta" href="/anfrage">Angebot anfordern</a>
+        <a class="btn btn--primary nav__cta" href="/anfrage">Angebot anfordern<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
       </nav>
-      <a class="btn btn--primary masthead__cta" href="/anfrage">Angebot anfordern</a>
+      <a class="btn btn--primary btn--sm navbar__cta" href="/anfrage">Angebot anfordern<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
     </div>
   </div>
 </header>
@@ -191,238 +191,282 @@
 <main id="inhalt">
 
   <!-- 2 Hero – Aufgabe: Vertrauen auf den ersten Blick, direkter Weg zur Anfrage -->
-  <section class="hero" aria-labelledby="hero-titel">
-    <div class="wrap hero__grid">
-      <div class="hero__text">
-        <h1 id="hero-titel" class="hero__title">Ihre inhaber&shy;geführte Immobilien&shy;verwaltung für Frankfurt am Main und das Rhein-Main-Gebiet</h1>
-        <p class="hero__lead">Immobilienmanagement bedeutet für uns: Technische Präzision trifft kaufmännische Sorgfalt. Wir begleiten Sie vorausschauend und persönlich.</p>
-        <div class="actions">
-          <a class="btn btn--primary btn--lg" href="/anfrage">Kostenloses Angebot anfordern</a>
-          <a class="btn btn--outline btn--lg" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+  <section class="block hero" aria-labelledby="hero-titel">
+    <div class="wrap">
+      <div class="panel hero__panel">
+        <div class="hero__grid">
+          <div class="hero__text">
+            <p class="chip"><span class="chip__dot" aria-hidden="true"></span>Hausverwaltung in Frankfurt</p>
+            <h1 id="hero-titel" class="hero__title">Ihre inhaber&shy;geführte Immobilien&shy;verwaltung für Frankfurt am Main und das Rhein-Main-Gebiet</h1>
+            <p class="hero__lead">Immobilienmanagement bedeutet für uns: Technische Präzision trifft kaufmännische Sorgfalt. Wir begleiten Sie vorausschauend und persönlich.</p>
+            <div class="actions">
+              <a class="btn btn--primary btn--lg" href="/anfrage">Kostenloses Angebot anfordern<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
+              <a class="btn btn--glass btn--lg" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+            </div>
+          </div>
+          <ul class="trust">
+            <li class="trust__item trust__item--rating">
+              <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+              <span>5,0 Sterne bei Google <span class="trust__muted">(4&nbsp;Bewertungen)</span></span>
+            </li>
+            <li class="trust__item"><span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-shield"/></svg></span><span>Zertifiziert nach §&nbsp;26a&nbsp;WEG</span></li>
+            <li class="trust__item"><span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-clipboard"/></svg></span><span>Prüfer der IHK Frankfurt am Main</span></li>
+            <li class="trust__item"><span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-calendar"/></svg></span><span>Über 25 Jahre Erfahrung</span></li>
+          </ul>
+          <div class="hero__media">
+            <figure class="ph">
+              <figcaption class="ph__caption">
+                <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                <span><strong>Foto-Platzhalter</strong>Die Inhaber vor einem verwalteten Objekt in Frankfurt</span>
+              </figcaption>
+            </figure>
+            <div class="float float--a">
+              <span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-portal"/></svg></span>
+              <p><strong>Eigentümerportal</strong>Abrechnungen und Protokolle jederzeit online</p>
+            </div>
+            <div class="float float--b">
+              <span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-clock"/></svg></span>
+              <p><strong>Schnelle Antwort</strong>In der Regel innerhalb eines Werktages</p>
+            </div>
+          </div>
         </div>
       </div>
-      <ul class="trust">
-        <li class="trust__rating">
-          <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-          <span>5,0 Sterne bei Google <span class="trust__muted">(4&nbsp;Bewertungen)</span></span>
-        </li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span>Zertifiziert nach §&nbsp;26a&nbsp;WEG</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-clipboard"/></svg><span>Prüfer der IHK Frankfurt am Main</span></li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg><span>Über 25 Jahre Erfahrung</span></li>
-      </ul>
-      <figure class="ph hero__media">
-        <figcaption class="ph__caption">
-          <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-          <span><strong>Foto-Platzhalter</strong>Die Inhaber vor einem verwalteten Objekt in Frankfurt</span>
-        </figcaption>
-      </figure>
     </div>
   </section>
 
   <!-- 3 Über uns – Aufgabe: Vertrauen durch zwei Inhaber mit klaren Zuständigkeiten -->
-  <section id="ueber-uns" class="section section--alt about" aria-labelledby="ueber-uns-titel">
+  <section id="ueber-uns" class="block" aria-labelledby="ueber-uns-titel">
     <div class="wrap">
-      <div class="about__intro">
-        <h2 id="ueber-uns-titel">Steuerberater trifft Ingenieur</h2>
-        <p>Die professionelle Hausverwaltung Ihrer Immobilie erfordert eine gesetzeskonforme Buchführung und ein hohes technisches Verständnis. In einem Umfeld steigender rechtlicher Anforderungen (BGB, WEG) und zunehmender energetischer Sanierungspflichten braucht es eine qualifizierte und erfahrene Verwaltung. Wenn Sie keine anonyme Großverwaltung suchen, sind Sie bei uns richtig.</p>
-      </div>
-      <div class="duo">
-        <article class="person" aria-labelledby="person-kaufmann">
-          <figure class="ph ph--3x2">
-            <figcaption class="ph__caption">
-              <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-              <span><strong>Foto-Platzhalter</strong>Porträt Carsten Kaufmann</span>
-            </figcaption>
-          </figure>
-          <h3 id="person-kaufmann" class="person__name">Carsten Kaufmann</h3>
-          <p class="person__title">Dipl.-Bw. (FH) &amp; Steuerberater</p>
-          <p class="person__role label">Kaufmännische Verwaltung</p>
-          <p class="person__text">Erstellt das kaufmännische Fundament: Finanz- und Rechnungswesen, rechtssichere Abrechnungen und eine belastbare Erfolgs- und Liquiditätsplanung.</p>
-        </article>
-        <div class="duo__line" aria-hidden="true"><span class="duo__amp">&amp;</span></div>
-        <article class="person" aria-labelledby="person-mayer">
-          <figure class="ph ph--3x2">
-            <figcaption class="ph__caption">
-              <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-              <span><strong>Foto-Platzhalter</strong>Porträt Prof. Dr. Jörg H. Mayer</span>
-            </figcaption>
-          </figure>
-          <h3 id="person-mayer" class="person__name">Prof. Dr. Jörg H. Mayer</h3>
-          <p class="person__title">Dipl.-Wirtsch.-Ing. (TU Darmstadt)</p>
-          <p class="person__role label">Technische Verwaltung</p>
-          <p class="person__text">Verantwortet Instandhaltung, Instandsetzung und Modernisierung Ihrer Bausubstanz sowie das technische Monitoring. Als zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG und Prüfer der IHK Frankfurt am Main sichert er den langfristigen Werterhalt Ihrer Immobilie.</p>
-        </article>
+      <div class="panel reveal">
+        <div class="panel__head panel__head--split">
+          <h2 id="ueber-uns-titel">Steuerberater trifft Ingenieur</h2>
+          <p>Die professionelle Hausverwaltung Ihrer Immobilie erfordert eine gesetzeskonforme Buchführung und ein hohes technisches Verständnis. In einem Umfeld steigender rechtlicher Anforderungen (BGB, WEG) und zunehmender energetischer Sanierungspflichten braucht es eine qualifizierte und erfahrene Verwaltung. Wenn Sie keine anonyme Großverwaltung suchen, sind Sie bei uns richtig.</p>
+        </div>
+        <div class="duo">
+          <article class="card person" aria-labelledby="person-kaufmann">
+            <figure class="ph ph--3x2">
+              <figcaption class="ph__caption">
+                <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                <span><strong>Foto-Platzhalter</strong>Porträt Carsten Kaufmann</span>
+              </figcaption>
+            </figure>
+            <div class="person__body">
+              <h3 id="person-kaufmann" class="person__name">Carsten Kaufmann</h3>
+              <p class="person__title">Dipl.-Bw. (FH) &amp; Steuerberater</p>
+              <p class="person__role tag">Kaufmännische Verwaltung</p>
+              <p class="person__text">Erstellt das kaufmännische Fundament: Finanz- und Rechnungswesen, rechtssichere Abrechnungen und eine belastbare Erfolgs- und Liquiditätsplanung.</p>
+            </div>
+          </article>
+          <div class="duo__amp" aria-hidden="true">&amp;</div>
+          <article class="card person" aria-labelledby="person-mayer">
+            <figure class="ph ph--3x2">
+              <figcaption class="ph__caption">
+                <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                <span><strong>Foto-Platzhalter</strong>Porträt Prof. Dr. Jörg H. Mayer</span>
+              </figcaption>
+            </figure>
+            <div class="person__body">
+              <h3 id="person-mayer" class="person__name">Prof. Dr. Jörg H. Mayer</h3>
+              <p class="person__title">Dipl.-Wirtsch.-Ing. (TU Darmstadt)</p>
+              <p class="person__role tag">Technische Verwaltung</p>
+              <p class="person__text">Verantwortet Instandhaltung, Instandsetzung und Modernisierung Ihrer Bausubstanz sowie das technische Monitoring. Als zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG und Prüfer der IHK Frankfurt am Main sichert er den langfristigen Werterhalt Ihrer Immobilie.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 4 Alleinstellungsmerkmale – Aufgabe: Leistung erklären, Abgrenzung zur Großverwaltung -->
-  <section id="vorteile" class="section usp" aria-labelledby="vorteile-titel">
+  <section id="vorteile" class="block" aria-labelledby="vorteile-titel">
     <div class="wrap">
-      <div class="usp__head">
-        <h2 id="vorteile-titel">Was unsere Hausverwaltung in Frankfurt auszeichnet</h2>
-        <p class="statement">Wo andere Gemeinschaften in endlosen Debatten feststecken, führen wir Sie mit Struktur und Moderation zu Ergebnissen – effizient, rechtssicher und nervenschonend.</p>
+      <div class="panel reveal">
+        <div class="panel__head panel__head--split">
+          <h2 id="vorteile-titel">Was unsere Hausverwaltung in Frankfurt auszeichnet</h2>
+          <p class="statement">Wo andere Gemeinschaften in endlosen Debatten feststecken, führen wir Sie mit Struktur und Moderation zu Ergebnissen – effizient, rechtssicher und nervenschonend.</p>
+        </div>
+        <ul class="pillars">
+          <li class="card card--spot pillar">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-seal"/></svg></span>
+            <h3>Fachliche Exzellenz</h3>
+            <p>Zertifizierung nach §&nbsp;26a&nbsp;WEG und über 25 Jahre Erfahrung. Technische Analysen übersetzen wir in verständliche Entscheidungsoptionen.</p>
+          </li>
+          <li class="card card--spot pillar">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-network"/></svg></span>
+            <h3>Regional vernetzt</h3>
+            <p>Ein Netzwerk aus lokalen Kanzleien, kurzfristigen Notarterminen und eingesessenen Handwerksbetrieben ohne lange Anfahrtspauschalen.</p>
+          </li>
+          <li class="card card--spot pillar">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-chat"/></svg></span>
+            <h3>Integrität und Kommunikation</h3>
+            <p>Versammlungen mit Struktur und Moderation. Hybride Treffen und ein Portalzugang reduzieren Rückfragen.</p>
+          </li>
+        </ul>
       </div>
-      <ul class="pillars">
-        <li class="pillar">
-          <svg class="icon icon--lg" aria-hidden="true"><use href="#i-seal"/></svg>
-          <h3>Fachliche Exzellenz</h3>
-          <p>Zertifizierung nach §&nbsp;26a&nbsp;WEG und über 25 Jahre Erfahrung. Technische Analysen übersetzen wir in verständliche Entscheidungsoptionen.</p>
-        </li>
-        <li class="pillar">
-          <svg class="icon icon--lg" aria-hidden="true"><use href="#i-network"/></svg>
-          <h3>Regional vernetzt</h3>
-          <p>Ein Netzwerk aus lokalen Kanzleien, kurzfristigen Notarterminen und eingesessenen Handwerksbetrieben ohne lange Anfahrtspauschalen.</p>
-        </li>
-        <li class="pillar">
-          <svg class="icon icon--lg" aria-hidden="true"><use href="#i-chat"/></svg>
-          <h3>Integrität und Kommunikation</h3>
-          <p>Versammlungen mit Struktur und Moderation. Hybride Treffen und ein Portalzugang reduzieren Rückfragen.</p>
-        </li>
-      </ul>
     </div>
   </section>
 
   <!-- 5 Leistungen – Aufgabe: Leistung erklären, interne Links auf die Leistungsseiten (SEO) -->
-  <section id="leistungen" class="section section--alt services" aria-labelledby="leistungen-titel">
+  <section id="leistungen" class="block" aria-labelledby="leistungen-titel">
     <div class="wrap">
-      <div class="section-head">
-        <h2 id="leistungen-titel">Unser 360-Grad-Leistungsumfang</h2>
-        <p>Von der WEG-Verwaltung bis zur Bauleitung: alle Leistungen einer Hausverwaltung aus einer Hand – für Eigentümergemeinschaften und private Vermieter in Frankfurt und im Rhein-Main-Gebiet.</p>
+      <div class="panel reveal">
+        <div class="panel__head">
+          <h2 id="leistungen-titel">Unser 360-Grad-Leistungsumfang</h2>
+          <p>Von der WEG-Verwaltung bis zur Bauleitung: alle Leistungen einer Hausverwaltung aus einer Hand – für Eigentümergemeinschaften und private Vermieter in Frankfurt und im Rhein-Main-Gebiet.</p>
+        </div>
+        <ul class="services">
+          <li class="card card--spot service service--main">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-building"/></svg></span>
+            <h3>WEG-Verwaltung</h3>
+            <p>Rechtssichere Umsetzung von Beschlüssen, wirtschaftlich solide Hausgeldverwaltung bis zur proaktiven Sanierungsplanung nach dem Wohnungseigentumsgesetz.</p>
+            <a class="more" href="/weg-verwaltung-frankfurt">Mehr erfahren<span class="visually-hidden"> zur WEG-Verwaltung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </li>
+          <li class="card card--spot service">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-key"/></svg></span>
+            <h3>Mietverwaltung</h3>
+            <p>Full-Service-Mietmanagement Ihres Sondereigentums – von der technischen Betreuung bis zur Neuvermietung.</p>
+            <a class="more" href="/mietverwaltung">Mehr erfahren<span class="visually-hidden"> zur Mietverwaltung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </li>
+          <li class="card card--spot service">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-helmet"/></svg></span>
+            <h3>Bauleitung</h3>
+            <p>Wir begleiten Sanierungen von der Bauleitung bis zur technisch fundierten Abnahme, alles aus einer Hand.</p>
+            <a class="more" href="/bauleitung">Mehr erfahren<span class="visually-hidden"> zur Bauleitung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </li>
+          <li class="card card--spot service">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-wrench"/></svg></span>
+            <h3>Hausmeister-Service</h3>
+            <p>Zuverlässige Objektbetreuung und schnelle Reaktionszeiten, auch bei technischen Notfällen – in Kooperation mit BT – Ihr Objektbetreuer.</p>
+            <a class="more" href="/hausmeister-service">Mehr erfahren<span class="visually-hidden"> zum Hausmeister-Service</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </li>
+          <li class="card card--spot service">
+            <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-cap"/></svg></span>
+            <h3>Aus- und Weiterbildung</h3>
+            <p>Vorbereitung auf die IHK-Prüfung zum zertifizierten Verwalter nach §&nbsp;26a&nbsp;WEG – nach neuesten didaktischen Erkenntnissen und mit KI-Unterstützung.</p>
+            <a class="more" href="/weiterbildung">Mehr erfahren<span class="visually-hidden"> zur Aus- und Weiterbildung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </li>
+          <li class="service-cta">
+            <div>
+              <h3>Verwalterwechsel geplant?</h3>
+              <p>Wir übernehmen Gemeinschaften ab 10&nbsp;Wohneinheiten.</p>
+            </div>
+            <a class="btn btn--dark btn--lg" href="/anfrage">Angebot anfordern<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
+          </li>
+        </ul>
       </div>
-      <ul class="services__list">
-        <li class="service">
-          <svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>
-          <h3>WEG-Verwaltung</h3>
-          <p>Rechtssichere Umsetzung von Beschlüssen, wirtschaftlich solide Hausgeldverwaltung bis zur proaktiven Sanierungsplanung nach dem Wohnungseigentumsgesetz.</p>
-          <a class="more" href="/weg-verwaltung-frankfurt">Mehr erfahren<span class="visually-hidden"> zur WEG-Verwaltung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </li>
-        <li class="service">
-          <svg class="icon" aria-hidden="true"><use href="#i-key"/></svg>
-          <h3>Mietverwaltung</h3>
-          <p>Full-Service-Mietmanagement Ihres Sondereigentums – von der technischen Betreuung bis zur Neuvermietung.</p>
-          <a class="more" href="/mietverwaltung">Mehr erfahren<span class="visually-hidden"> zur Mietverwaltung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </li>
-        <li class="service">
-          <svg class="icon" aria-hidden="true"><use href="#i-helmet"/></svg>
-          <h3>Bauleitung</h3>
-          <p>Wir begleiten Sanierungen von der Bauleitung bis zur technisch fundierten Abnahme, alles aus einer Hand.</p>
-          <a class="more" href="/bauleitung">Mehr erfahren<span class="visually-hidden"> zur Bauleitung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </li>
-        <li class="service">
-          <svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg>
-          <h3>Hausmeister-Service</h3>
-          <p>Zuverlässige Objektbetreuung und schnelle Reaktionszeiten, auch bei technischen Notfällen – in Kooperation mit BT – Ihr Objektbetreuer.</p>
-          <a class="more" href="/hausmeister-service">Mehr erfahren<span class="visually-hidden"> zum Hausmeister-Service</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </li>
-        <li class="service">
-          <svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>
-          <h3>Aus- und Weiterbildung</h3>
-          <p>Vorbereitung auf die IHK-Prüfung zum zertifizierten Verwalter nach §&nbsp;26a&nbsp;WEG – nach neuesten didaktischen Erkenntnissen und mit KI-Unterstützung.</p>
-          <a class="more" href="/weiterbildung">Mehr erfahren<span class="visually-hidden"> zur Aus- und Weiterbildung</span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </li>
-        <li class="service service--cta">
-          <h3>Verwalterwechsel geplant?</h3>
-          <p>Wir übernehmen Gemeinschaften ab 10&nbsp;Wohneinheiten.</p>
-          <a class="btn btn--primary" href="/anfrage">Angebot anfordern</a>
-        </li>
-      </ul>
     </div>
   </section>
 
   <!-- 6 Referenz – Aufgabe: Vertrauen durch ein konkretes, großes Objekt -->
-  <section id="referenz" class="section reference" aria-labelledby="referenz-titel">
-    <div class="wrap reference__grid">
-      <figure class="ph ph--3x2 reference__media">
-        <figcaption class="ph__caption">
-          <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-          <span><strong>Foto-Platzhalter</strong>Wohnanlage Niederräder Landstraße 78, Außenansicht</span>
-        </figcaption>
-      </figure>
-      <div class="reference__body">
-        <p class="label">Referenzobjekt</p>
-        <h2 id="referenz-titel">Niederräder Landstraße&nbsp;78, Frankfurt-Niederrad</h2>
-        <dl class="figures">
-          <div class="figures__main"><dt>Wohneinheiten</dt><dd>71</dd></div>
-          <div><dt><span class="tbd">[Kennzahl]</span></dt><dd><span class="tbd">[Wert]</span></dd></div>
-          <div><dt><span class="tbd">[Kennzahl]</span></dt><dd><span class="tbd">[Wert]</span></dd></div>
-        </dl>
-        <p>Wir übersetzen Bautechnik in Entscheidungsoptionen – von der Mängelfeststellung bis zum Sanierungsbeschluss.</p>
-        <ul class="checklist">
-          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Neubauübernahme nach Bauträgerinsolvenz</li>
-          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Sanierungskoordination und technische Baubegleitung vor Ort</li>
-          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Digitale Eigentümerkommunikation über Portal24</li>
-        </ul>
-        <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <section id="referenz" class="block" aria-labelledby="referenz-titel">
+    <div class="wrap">
+      <div class="panel reveal reference">
+        <figure class="ph reference__media">
+          <figcaption class="ph__caption">
+            <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+            <span><strong>Foto-Platzhalter</strong>Wohnanlage Niederräder Landstraße&nbsp;78, Außenansicht</span>
+          </figcaption>
+        </figure>
+        <div class="reference__body">
+          <p class="tag">Referenzobjekt</p>
+          <h2 id="referenz-titel">Niederräder Landstraße&nbsp;78, Frankfurt-Niederrad</h2>
+          <dl class="figures">
+            <div class="card figure figure--main"><dt>Wohneinheiten</dt><dd>71</dd></div>
+            <div class="card figure"><dt><span class="tbd">[Kennzahl]</span></dt><dd><span class="tbd">[Wert]</span></dd></div>
+            <div class="card figure"><dt><span class="tbd">[Kennzahl]</span></dt><dd><span class="tbd">[Wert]</span></dd></div>
+          </dl>
+          <p class="reference__lead">Wir übersetzen Bautechnik in Entscheidungsoptionen – von der Mängelfeststellung bis zum Sanierungsbeschluss.</p>
+          <ul class="checklist">
+            <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Neubauübernahme nach Bauträgerinsolvenz</li>
+            <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Sanierungskoordination und technische Baubegleitung vor Ort</li>
+            <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Digitale Eigentümerkommunikation über Portal24</li>
+          </ul>
+          <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 7 Eigentümerportal – Aufgabe: Bestandskunden schnell ans Ziel, zeigt digitale Arbeitsweise -->
-  <section id="eigentuemerportal" class="section section--tight portal" aria-labelledby="portal-titel">
+  <section id="eigentuemerportal" class="block" aria-labelledby="portal-titel">
     <div class="wrap">
-      <div class="portal__box">
-        <svg class="icon icon--lg" aria-hidden="true"><use href="#i-portal"/></svg>
-        <div>
+      <div class="panel reveal portal">
+        <div class="portal__text">
+          <span class="icon-chip icon-chip--lg" aria-hidden="true"><svg class="icon"><use href="#i-portal"/></svg></span>
           <h2 id="portal-titel">Eigentümerportal</h2>
           <p>Abrechnungen, Protokolle und Einladungen jederzeit online abrufen, Schäden melden und Termine abstimmen.</p>
+          <div class="actions">
+            <!-- TODO Portal24: Login-URL eintragen -->
+            <a class="btn btn--primary" href="/kundenportal" data-todo="Portal24-Login-URL">Zum Portal-Login<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
+            <!-- TODO Portal24: Schadensmeldung verknüpfen; bis dahin per E-Mail -->
+            <a class="btn btn--glass" href="mailto:jhmayer@t-online.de?subject=Schadensmeldung" data-todo="Portal24-Schadensmeldung"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-alert"/></svg>Schaden melden</a>
+          </div>
         </div>
-        <div class="actions">
-          <!-- TODO Portal24: Login-URL eintragen -->
-          <a class="btn btn--dark" href="/kundenportal" data-todo="Portal24-Login-URL">Zum Portal-Login</a>
-          <!-- TODO Portal24: Schadensmeldung verknüpfen; bis dahin per E-Mail -->
-          <a class="btn btn--outline" href="mailto:jhmayer@t-online.de?subject=Schadensmeldung" data-todo="Portal24-Schadensmeldung">Schaden melden</a>
+        <!-- Schematische Darstellung der Portalfunktionen, kein Screenshot -->
+        <div class="mock" role="img" aria-label="Schematische Darstellung des Eigentümerportals mit Abrechnungen, Protokollen, Einladungen, Schadensmeldung und Terminabstimmung">
+          <div class="mock__bar"><span></span><span></span><span></span><b>Eigentümerportal</b><svg class="icon icon--sm"><use href="#i-lock"/></svg></div>
+          <ul class="mock__list">
+            <li><span class="icon-chip"><svg class="icon icon--sm"><use href="#i-doc"/></svg></span>Abrechnungen<em>abrufen</em></li>
+            <li><span class="icon-chip"><svg class="icon icon--sm"><use href="#i-clipboard"/></svg></span>Protokolle<em>abrufen</em></li>
+            <li><span class="icon-chip"><svg class="icon icon--sm"><use href="#i-mail"/></svg></span>Einladungen<em>abrufen</em></li>
+            <li><span class="icon-chip"><svg class="icon icon--sm"><use href="#i-alert"/></svg></span>Schäden<em>melden</em></li>
+            <li><span class="icon-chip"><svg class="icon icon--sm"><use href="#i-calendar"/></svg></span>Termine<em>abstimmen</em></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 8 Servicepartner – Aufgabe: Vertrauen durch regionale Partner -->
-  <section class="section section--tight partners" aria-labelledby="partner-titel">
-    <div class="wrap partners__inner">
-      <h2 id="partner-titel">Unsere Servicepartner</h2>
-      <!-- TODO Partnerlogos: Platzhalter durch freigegebene Logos (SVG) ersetzen -->
-      <ul class="partners__list">
-        <li><a href="https://www.bt-ihrobjektbetreuer.de/">BT – Ihr Objektbetreuer<small>Logo-Platzhalter</small></a></li>
-        <li><a href="https://meister-wunderlich.de/">Meisterbetrieb Wunderlich<small>Logo-Platzhalter</small></a></li>
-        <li><a href="https://xn--rssiger-90a.com/">Rössiger<small>Logo-Platzhalter</small></a></li>
-      </ul>
+  <section class="block" aria-labelledby="partner-titel">
+    <div class="wrap">
+      <div class="panel panel--slim reveal partners">
+        <h2 id="partner-titel">Unsere Servicepartner</h2>
+        <!-- TODO Partnerlogos: Platzhalter durch freigegebene Logos (SVG) ersetzen -->
+        <ul class="partners__list">
+          <li><a href="https://www.bt-ihrobjektbetreuer.de/">BT – Ihr Objektbetreuer<small>Logo-Platzhalter</small></a></li>
+          <li><a href="https://meister-wunderlich.de/">Meisterbetrieb Wunderlich<small>Logo-Platzhalter</small></a></li>
+          <li><a href="https://xn--rssiger-90a.com/">Rössiger<small>Logo-Platzhalter</small></a></li>
+        </ul>
+      </div>
     </div>
   </section>
 
   <!-- 9 Anfrage – Aufgabe: zur Anfrage führen -->
-  <section id="kontakt" class="section contact" aria-labelledby="kontakt-titel">
-    <div class="wrap contact__grid">
-      <div class="contact__main">
-        <h2 id="kontakt-titel">Wir sind persönlich für Sie da</h2>
-        <p class="contact__lead">Vereinbaren Sie einen unverbindlichen Gesprächstermin und erfahren Sie, wie wir Ihre Immobilie ganzheitlich optimieren.</p>
-        <div class="actions">
-          <a class="btn btn--primary btn--xl" href="/anfrage">Unverbindliches Angebot anfordern</a>
-          <a class="btn btn--light btn--xl" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+  <section id="kontakt" class="block" aria-labelledby="kontakt-titel">
+    <div class="wrap">
+      <div class="panel panel--glow reveal contact">
+        <div class="contact__main">
+          <h2 id="kontakt-titel">Wir sind persönlich für Sie da</h2>
+          <p class="contact__lead">Vereinbaren Sie einen unverbindlichen Gesprächstermin und erfahren Sie, wie wir Ihre Immobilie ganzheitlich optimieren.</p>
+          <div class="actions">
+            <a class="btn btn--primary btn--xl" href="/anfrage">Unverbindliches Angebot anfordern<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
+            <a class="btn btn--glass btn--xl" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+          </div>
+          <p class="contact__note"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"/></svg>Antwort in der Regel innerhalb eines Werktages</p>
         </div>
-        <p class="contact__note"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"/></svg>Antwort in der Regel innerhalb eines Werktages</p>
+        <address class="card contact__card">
+          <p class="contact__name">Prof. Dr. Jörg H. Mayer</p>
+          <dl class="contact__list">
+            <div>
+              <span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-phone"/></svg></span>
+              <dt>Telefon</dt>
+              <dd><a href="tel:+496145938481">06145&nbsp;938481</a></dd>
+            </div>
+            <div>
+              <span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-mail"/></svg></span>
+              <dt>E-Mail</dt>
+              <dd><a href="mailto:jhmayer@t-online.de">jhmayer@t-online.de</a></dd>
+            </div>
+            <div>
+              <span class="icon-chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-pin"/></svg></span>
+              <dt>Adresse</dt>
+              <!-- TODO Adresse: bestätigte Geschäftsadresse eintragen -->
+              <dd><span class="tbd">[Geschäftsadresse]</span></dd>
+            </div>
+          </dl>
+        </address>
       </div>
-      <address class="contact__card">
-        <p class="contact__name">Prof. Dr. Jörg H. Mayer</p>
-        <dl class="contact__list">
-          <div>
-            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>
-            <dt>Telefon</dt>
-            <dd><a href="tel:+496145938481">06145&nbsp;938481</a></dd>
-          </div>
-          <div>
-            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-mail"/></svg>
-            <dt>E-Mail</dt>
-            <dd><a href="mailto:jhmayer@t-online.de">jhmayer@t-online.de</a></dd>
-          </div>
-          <div>
-            <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"/></svg>
-            <dt>Adresse</dt>
-            <!-- TODO Adresse: bestätigte Geschäftsadresse eintragen -->
-            <dd><span class="tbd">[Geschäftsadresse]</span></dd>
-          </div>
-        </dl>
-      </address>
     </div>
   </section>
 
@@ -434,9 +478,9 @@
     <div class="footer__brand">
       <a href="/">
         <picture>
-          <source type="image/avif" srcset="/img/logo-quer-1x.avif 1x, /img/logo-quer-2x.avif 2x, /img/logo-quer-3x.avif 3x">
-          <source type="image/webp" srcset="/img/logo-quer-1x.webp 1x, /img/logo-quer-2x.webp 2x, /img/logo-quer-3x.webp 3x">
-          <img src="/img/logo-quer-2x.png" width="267" height="44" alt="Kaufmann &amp; Mayer – zur Startseite" loading="lazy" decoding="async">
+          <source type="image/avif" srcset="/img/logo-1x.avif 1x, /img/logo-2x.avif 2x, /img/logo-3x.avif 3x">
+          <source type="image/webp" srcset="/img/logo-1x.webp 1x, /img/logo-2x.webp 2x, /img/logo-3x.webp 3x">
+          <img src="/img/logo-2x.png" width="236" height="44" alt="Kaufmann &amp; Mayer – zur Startseite" loading="lazy" decoding="async">
         </picture>
       </a>
       <p>Inhabergeführte Hausverwaltung für Frankfurt am Main und das Rhein-Main-Gebiet.</p>
@@ -485,10 +529,10 @@
 
 <!-- Mobile Schnellleiste -->
 <nav class="callbar" aria-label="Schnellkontakt">
-  <a class="btn btn--outline" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>Anrufen</a>
+  <a class="btn btn--glass" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>Anrufen</a>
   <a class="btn btn--primary" href="/anfrage">Angebot anfordern</a>
 </nav>
 
-<script src="/js/menu.js" defer></script>
+<script src="/js/site.js" defer></script>
 </body>
 </html>

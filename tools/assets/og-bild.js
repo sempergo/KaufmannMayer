@@ -14,8 +14,9 @@ const ROOT = path.join(__dirname, "..", "..");
   await new Promise(r => setTimeout(r, 600));
   try {
     const br = await chromium.launch();
-    const p = await br.newPage({ viewport: { width: 1200, height: 630 } });
-    // der Server liefert _-Dateien nicht aus, daher direkt als Inhalt laden
+    const p = await br.newPage({ viewport: { width: 1200, height: 630 }, reducedMotion: "reduce", bypassCSP: true });
+    // der Server liefert _-Dateien nicht aus, daher direkt als Inhalt laden;
+    // bypassCSP, weil die Vorlage Inline-Stile nutzt (die Seite selbst nicht)
     await p.goto(`http://localhost:${port}/`);
     await p.setContent(fs.readFileSync(tmp, "utf8"), { waitUntil: "networkidle" });
     await p.evaluate(() => document.fonts.ready);

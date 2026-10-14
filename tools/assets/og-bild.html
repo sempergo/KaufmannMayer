@@ -4,21 +4,24 @@
 <html lang="de"><head><meta charset="utf-8">
 <link rel="stylesheet" href="/css/site.css">
 <style>
-  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; padding: 0; }
-  .og { width: 1200px; height: 630px; display: grid; grid-template-rows: 1fr auto; background: #fff; }
-  .og__main { padding: 64px 80px 0; }
-  .og__logo { height: 64px; width: auto; }
-  .og__title { position: relative; margin-top: 64px; padding-left: 36px; font: 500 60px/1.08 var(--font-serif); letter-spacing: -0.012em; color: var(--navy-800); max-width: 15em; }
-  .og__title::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 6px; background: var(--orange-500); }
-  .og__bar { display: flex; justify-content: space-between; padding: 26px 80px; background: var(--navy-900); color: #fff; font: 600 24px/1.2 var(--font-sans); }
-  .og__bar span:last-child { color: var(--orange-300); }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; padding: 0 !important; }
+  .og { box-sizing: border-box; width: 1200px; height: 630px; padding: 28px; }
+  .og .panel { height: 100%; padding: 56px 64px; display: flex; flex-direction: column; }
+  .og__logo { align-self: flex-start; height: 56px; width: auto; }
+  .og .nowrap { white-space: nowrap; }
+  .og .hero__title { margin-top: 48px; font: 500 58px/1.08 var(--font-serif); letter-spacing: -0.012em; color: #fff; max-width: 16em; }
+  .og__chips { display: flex; gap: 12px; margin-top: auto; }
+  .og__chips .chip { font-size: 18px; padding: 8px 18px 8px 14px; }
 </style></head>
 <body>
 <div class="og">
-  <div class="og__main">
-    <img class="og__logo" src="/img/logo-quer-3x.webp" alt="">
-    <p class="og__title">Ihre inhabergeführte Hausverwaltung für Frankfurt am Main und das Rhein-Main-Gebiet</p>
+  <div class="panel hero__panel">
+    <img class="og__logo" src="/img/logo-3x.webp" alt="">
+    <p class="hero__title">Ihre inhabergeführte Hausverwaltung für Frankfurt am Main und das <span class="nowrap">Rhein-Main-Gebiet</span></p>
+    <div class="og__chips">
+      <span class="chip"><span class="chip__dot"></span>Zertifizierter Verwalter nach § 26a WEG</span>
+      <span class="chip"><span class="chip__dot"></span>06145 938481</span>
+    </div>
   </div>
-  <div class="og__bar"><span>Zertifizierter Verwalter nach § 26a WEG</span><span>06145 938481</span></div>
 </div>
 </body></html>

@@ -48,7 +48,7 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
     await p.waitForTimeout(600);
     pruefe(await p.getAttribute(".menu-toggle", "aria-expanded") === "false", "Klick auf einen Menüpunkt schließt das Menü");
     const top = await p.evaluate(() => document.getElementById("leistungen-titel").getBoundingClientRect().top);
-    const kopf = await p.evaluate(() => document.querySelector(".masthead").getBoundingClientRect().bottom);
+    const kopf = await p.evaluate(() => document.querySelector(".navbar").getBoundingClientRect().bottom);
     pruefe(top >= kopf, `Sprungziel nicht unter der Kopfzeile (Überschrift ${Math.round(top)} px, Kopfzeile endet ${Math.round(kopf)} px)`);
     await p.context().close();
   }

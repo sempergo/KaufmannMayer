@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seite nicht gefunden | Kaufmann &amp; Mayer</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#14212e">
+<meta name="theme-color" content="#0c1828">
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/site.css">
@@ -13,30 +13,36 @@
 </head>
 <body class="page-404">
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4.5-2 1.3a11.5 11.5 0 0 0 5.7 5.7l1.3-2 4.5 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></symbol>
 </svg>
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 <header class="site-header">
-  <div class="masthead">
-    <div class="wrap masthead__inner">
+  <div class="wrap navbar-wrap">
+    <div class="navbar">
       <a class="brand" href="/">
         <picture>
-          <source type="image/avif" srcset="/img/logo-quer-1x.avif 1x, /img/logo-quer-2x.avif 2x, /img/logo-quer-3x.avif 3x">
-          <source type="image/webp" srcset="/img/logo-quer-1x.webp 1x, /img/logo-quer-2x.webp 2x, /img/logo-quer-3x.webp 3x">
-          <img src="/img/logo-quer-2x.png" width="267" height="44" alt="Kaufmann &amp; Mayer – zur Startseite">
+          <source type="image/avif" srcset="/img/logo-1x.avif 1x, /img/logo-2x.avif 2x, /img/logo-3x.avif 3x">
+          <source type="image/webp" srcset="/img/logo-1x.webp 1x, /img/logo-2x.webp 2x, /img/logo-3x.webp 3x">
+          <img src="/img/logo-2x.png" width="236" height="44" alt="Kaufmann &amp; Mayer – zur Startseite">
         </picture>
       </a>
     </div>
   </div>
 </header>
-<main id="inhalt" class="section">
+<main id="inhalt">
   <div class="wrap">
-    <div class="hero__text">
-      <h1 class="hero__title">Diese Seite gibt es noch nicht</h1>
-      <p class="hero__lead">Die aufgerufene Adresse existiert nicht oder wird gerade neu aufgebaut. Auf der Startseite finden Sie alle Leistungen – oder Sie rufen uns direkt an.</p>
-      <div class="actions">
-        <a class="btn btn--primary btn--lg" href="/">Zur Startseite</a>
-        <a class="btn btn--outline btn--lg" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+    <div class="panel hero__panel">
+      <div class="hero__grid">
+        <div class="hero__text">
+          <p class="chip"><span class="chip__dot" aria-hidden="true"></span>Fehler 404</p>
+          <h1 class="hero__title">Diese Seite gibt es noch nicht</h1>
+          <p class="hero__lead">Die aufgerufene Adresse existiert nicht oder wird gerade neu aufgebaut. Auf der Startseite finden Sie alle Leistungen – oder Sie rufen uns direkt an.</p>
+          <div class="actions">
+            <a class="btn btn--primary btn--lg" href="/">Zur Startseite<span class="btn__chip" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-arrow"/></svg></span></a>
+            <a class="btn btn--glass btn--lg" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>06145&nbsp;938481 anrufen</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
