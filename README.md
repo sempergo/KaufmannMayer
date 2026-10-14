@@ -24,7 +24,7 @@ Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller Stand: Skyline nach Vorlage, Logofarben, Glas-Buttons, Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 14.10.2026 (aktueller Stand: Laufband, blaue Glas-Pillen, Skyline nach Vorlage, Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
@@ -35,11 +35,11 @@ Median.
 | Barrierefreiheit | ≥ 95 | **100** | **100** |
 | Best Practices | – | 100 | 100 |
 | SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,35 s |
+| Largest Contentful Paint | < 2,5 s | **1,66 s** | 0,38 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 1,08 s | 0,28 s |
-| Total Blocking Time | – | 72 ms | 0 ms |
-| Übertragene Daten | – | 101 KB | 98 KB |
+| First Contentful Paint | – | 0,91 s | 0,31 s |
+| Total Blocking Time | – | 0 ms | 0 ms |
+| Übertragene Daten | – | 102 KB | 98 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
 einmal 97, zuletzt in einer Messreihe einmal 98 mit 107 ms Blockierzeit, die
@@ -189,7 +189,8 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--white` / `--bg-soft` | `#ffffff` / `#f4f7fb` | Seitengrund und weiße Boxen / Off-White für Leisten im Portal |
 | `--bg-blau` | `#eef3fa` | blaue Boxen; Kacheln und Karten in weißen Boxen |
 | `--bg-tint` / `--hero-oben` | `#eaf1fa` / `#d6e3f3` | Icon-Kreise / Beginn des Hero-Verlaufs |
-| `--schiefer` | `#28353e` | Logo (Schriftzug, Haus): Text (12,6:1), Überschriften, Buttons, Karte „Verwalterwechsel“ |
+| `--schiefer` | `#28353e` | Logo (Schriftzug, Haus): Text (12,6:1), Überschriften, Karte „Verwalterwechsel“ |
+| `--blau-700` | `#1f4f8f` | Primärbuttons (weiße Schrift 8,2:1) |
 | `--schiefer-tief` | `#1c262d` | Schrift auf Orange (5,1:1) |
 | `--blue-600` / `--navy-700` | `#2a5ea8` / `#2c4266` | Skyline, Schnittmenge „Werterhalt“ / Icons |
 | `--slate-600` | `#4a5666` | Nebentext (7,5:1) |
@@ -217,21 +218,24 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Inhabern das Fachgebiet in Orange und der Titel unter dem Namen in Grün, im
   Portal orange Markierung und grüne Häkchen, in der Animation Grün, Orange und
   die blaue Schnittmenge.
-- **Vertrauensleiste (Hero):** freistehende Glas-Karte wie die Navigation –
-  durchscheinend weiß mit weich gezeichnetem Hintergrund, feiner Rand, Schatten
-  und Schein. Vorne die Bewertung groß („5,0“ in der Überschriftenschrift,
-  daneben Sterne und „Sterne bei Google (4 Bewertungen)“), dann Zertifizierung,
-  IHK-Prüfer und Erfahrung mit grünen Icon-Kreisen, getrennt durch feine Linien:
-  ab 1200 px in einer Zeile, darunter zwei mal zwei, mobil untereinander.
+- **Vertrauensleiste (Hero):** dezentes Laufband ohne Rahmen – Bewertung,
+  Zertifizierung, IHK-Prüfer und Erfahrung mit kleinen grünen Icons laufen
+  langsam (48 s je Durchgang) und blenden an der Kante der Abschnitte aus, nicht
+  am Bildschirmrand. Hält beim Überfahren und bei Tastaturfokus an; rechts ein
+  kleiner Pause-Knopf, weil Bewegung, die von selbst startet, anhaltbar sein
+  muss (WCAG 2.2.2). Ohne JavaScript und bei reduzierter Bewegung steht die
+  Leiste als umbrechende Zeile. Die Liste ist für Screenreader einmal da; die
+  Kopie für den nahtlosen Lauf ist verborgen.
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
   Sektion bekommt einen orangen Strich. Darüber eine schlichte Infozeile auf
   dem Hero-Verlauf. Das Mobilmenü öffnet als eigene Box unter der Leiste.
-- **Buttons:** Logo-Schiefer mit leichtem Glas-Effekt (zu 90 % deckend,
-  Hintergrund weich gezeichnet, helle Kante oben, heller Verlauf), weiße Schrift
-  und oranger Pfeil; sekundär weißes Milchglas mit feinem Rand; einmal Orange
-  als Akzent (Karte „Verwalterwechsel geplant?“). Texte: „Termin vereinbaren“
+- **Buttons:** Glas-Pillen – primär Blau (`--blau-700`, zu 90 % deckend,
+  Hintergrund weich gezeichnet, Licht von oben, helle Kante, innerer Schatten
+  unten), weiße Schrift und oranger Pfeil; sekundär weißes Milchglas mit feinem
+  blauem Ring; einmal Orange als Akzent (Karte „Verwalterwechsel geplant?“).
+  Auch der Menüknopf ist eine Pille; Boxen und Karten bleiben leicht abgerundet. Texte: „Termin vereinbaren“
   (Hero, Kontakt, Schnellleiste) und „Kontakt aufnehmen“ (Navigation, Karte
   „Verwalterwechsel“). Beim Überfahren hellt die Fläche auf, ein Pfeil rückt
   3 px nach rechts.
@@ -366,8 +370,9 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 - **`llms.txt`** ergänzt: Kurzfassung der Fakten für KI-Assistenten, nur
   bestätigte Angaben.
 - **Farben und Grafiken:** Statt der Steingrau-Flächen aus dem ersten
-  Briefing jetzt Weiß, kühles Off-White und helles Blau; Text und Buttons im
-  Schiefer des Logos, Orange und Grün aus dem Logo als Signalfarben. Die
+  Briefing jetzt Weiß, kühles Off-White und helles Blau; Text im Schiefer des
+  Logos, Buttons als blaue Glas-Pillen, Orange und Grün aus dem Logo als
+  Signalfarben. Die
   Grafiken (Werterhalt, Netzwerk, Skyline) wurden auf Wunsch ergänzt; sie
   zeigen nur Inhalte aus den Texten.
 - **Portal-Fenster** in Sektion 7 ist eine schematische Darstellung der
@@ -449,6 +454,14 @@ saßen 2 % zu weit außen. Jetzt rücken die Kreise weniger weit zusammen, die
 Pillen sitzen in der Sichelmitte, der Untertitel steht in normaler
 Schreibweise (gesperrte Versalien waren zu breit), mobil zweizeilig. Kleinster
 Abstand jetzt 12,6 px (1200 px) bis 31,6 px (1024 px).
+
+Runde „Laufband und Glas-Pillen“: Mit dem Laufband war der Hero bei 390 und
+768 px plötzlich über 3.000 px hoch – die einzige Rasterspalte dehnte sich auf
+die Breite der Laufband-Spur; jetzt `minmax(0, 1fr)`. Lighthouse zeigte mobil
+eine Layoutverschiebung von 0,025, weil die Liste vor dem Skript mehrzeilig
+und danach einzeilig stand; die Einzeiligkeit steht jetzt schon im CSS (bei
+reduzierter Bewegung nicht), CLS wieder 0. Der Pause-Knopf liegt über der
+ausgeblendeten Zone, damit das Band genau an der Abschnittskante endet.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

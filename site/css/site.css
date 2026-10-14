@@ -53,6 +53,7 @@
   --schiefer: #28353e;   /* Logo: Schriftzug und Haus – Text, Überschriften, Buttons */
   --schiefer-hell: #3a4853; /* Hover */
   --schiefer-tief: #1c262d; /* Schrift auf Orange und Grün */
+  --blau-700: #1f4f8f;   /* Primärbuttons (weiße Schrift 8,2:1) */
   --navy-700: #2c4266;   /* Icons */
   --blue-600: #2a5ea8;   /* Eyebrow-Zeilen (6,5:1 auf Weiß) */
   --slate-600: #4a5666;  /* Nebentext */
@@ -288,49 +289,52 @@ strong { font-weight: 600; }
 }
 
 /* ---------- 5 Komponenten ---------- */
-/* Buttons: leicht abgerundet, Logo-Schiefer mit leichtem Glas (durchscheinend, weich gezeichnet,
-   Lichtkante oben); beim Überfahren hellt die Fläche auf, ein Pfeil rückt nach rechts */
+/* Buttons: Glas-Pillen – durchscheinend, Hintergrund weich gezeichnet, Licht von oben, helle Kante.
+   Primär Blau, sekundär Milchglas, Akzent Orange; beim Überfahren hellt die Fläche auf, der Pfeil rückt vor */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
-  padding: 0.5rem 1.375rem;
+  padding: 0.5rem 1.5rem;
   border: 1px solid transparent;
-  border-radius: var(--r);
+  border-radius: 999px;
   font: 600 1rem/1.2 var(--font-sans);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  -webkit-backdrop-filter: blur(10px) saturate(160%);
-  backdrop-filter: blur(10px) saturate(160%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.28), 0 1px 2px rgb(28 38 45 / 0.08), 0 10px 22px -14px rgb(28 38 45 / 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
   transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.btn--sm { min-height: 2.75rem; padding-inline: 1.125rem; font-size: 0.9375rem; }
-.btn--lg { min-height: 3.375rem; padding-inline: 1.625rem; font-size: 1.0625rem; }
-.btn--xl { min-height: 3.75rem; padding-inline: 2rem; font-size: 1.125rem; }
+.btn--sm { min-height: 2.75rem; padding-inline: 1.25rem; font-size: 0.9375rem; }
+.btn--lg { min-height: 3.375rem; padding-inline: 1.75rem; font-size: 1.0625rem; }
+.btn--xl { min-height: 3.75rem; padding-inline: 2.125rem; font-size: 1.125rem; }
 .btn--primary {
-  border-color: rgb(255 255 255 / 0.14);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.16) 0%, rgb(255 255 255 / 0.02) 55%, rgb(255 255 255 / 0) 100%) rgb(40 53 62 / 0.9);
+  border-color: rgb(255 255 255 / 0.32);
+  background:
+    radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.34), transparent 58%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(10 30 60 / 0.12))
+    rgb(31 79 143 / 0.9);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), inset 0 -2px 8px rgb(10 30 60 / 0.22), 0 0 0 1px rgb(31 79 143 / 0.15), 0 12px 26px -12px rgb(31 79 143 / 0.65);
   color: var(--white);
 }
-.btn--primary:hover { background-color: rgb(58 72 83 / 0.92); }
+.btn--primary:hover { background-color: rgb(42 94 168 / 0.92); }
 .btn--primary .icon { color: var(--orange-400); }
 .btn--outline {
-  border-color: rgb(40 53 62 / 0.18);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.55)) rgb(255 255 255 / 0.2);
+  border-color: rgb(255 255 255 / 0.8);
+  background: radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.95), transparent 60%) rgb(255 255 255 / 0.45);
+  box-shadow: inset 0 1px 0 var(--white), 0 0 0 1px rgb(31 79 143 / 0.16), 0 12px 26px -16px rgb(28 38 45 / 0.4);
   color: var(--schiefer);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), 0 1px 2px rgb(28 38 45 / 0.06), 0 10px 22px -16px rgb(28 38 45 / 0.35);
 }
-.btn--outline:hover { border-color: rgb(40 53 62 / 0.45); background-color: rgb(255 255 255 / 0.6); }
+.btn--outline:hover { background-color: rgb(255 255 255 / 0.75); box-shadow: inset 0 1px 0 var(--white), 0 0 0 1px rgb(31 79 143 / 0.32), 0 12px 26px -16px rgb(28 38 45 / 0.4); }
 .btn--outline .icon { color: var(--orange-700); }
 .btn--accent {
-  border-color: rgb(255 255 255 / 0.3);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0) 60%) rgb(236 114 15 / 0.95);
+  border-color: rgb(255 255 255 / 0.4);
+  background: radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.4), transparent 58%) rgb(236 114 15 / 0.94);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), inset 0 -2px 8px rgb(120 50 0 / 0.2), 0 12px 26px -12px rgb(236 114 15 / 0.6);
   color: var(--schiefer-tief);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 10px 24px -12px rgb(236 114 15 / 0.6);
 }
 .btn--accent:hover { background-color: rgb(236 147 45 / 0.95); }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
@@ -489,7 +493,7 @@ strong { font-weight: 600; }
   min-width: 2.75rem;
   padding: 0 var(--space-4) 0 var(--space-3);
   border: 1.5px solid var(--line-strong);
-  border-radius: var(--r);
+  border-radius: 999px;
   background: var(--white);
   color: var(--schiefer);
   font: 600 1rem/1 var(--font-sans);
@@ -634,7 +638,8 @@ strong { font-weight: 600; }
 }
 /* ohne JavaScript ist die Leiste mobil höher – dann kein Überlappen */
 .no-js .hero { margin-top: 0; padding-top: clamp(2rem, 1.25rem + 3vw, 4.5rem); }
-.hero__grid { position: relative; display: grid; gap: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
+/* minmax(0, 1fr): sonst dehnt die breite Laufband-Spur die einzige Spalte */
+.hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
 .hero__text .chip { margin-bottom: clamp(1.25rem, 0.8rem + 1.5vw, 1.75rem); }
 .hero__title {
   position: relative;
@@ -656,56 +661,78 @@ strong { font-weight: 600; }
 .hero__text .actions { margin-top: var(--space-6); }
 .hero__media { aspect-ratio: 3 / 2; min-height: 0; box-shadow: var(--shadow); }
 
-/* Vertrauensleiste: freistehende Glas-Karte wie die Navigation, Einträge durch feine Linien getrennt */
+/* Vertrauensleiste als Laufband: ohne Rahmen, so breit wie die Abschnitte, an den Kanten ausgeblendet.
+   Ohne JavaScript und bei reduzierter Bewegung steht sie als umbrechende Zeile. */
+.laufband { position: relative; z-index: 1; margin-top: var(--space-3); }
+.laufband__fenster { overflow: hidden; }
 .trust {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  margin-top: var(--space-2);
-  padding: var(--space-1) var(--space-4);
-  border: 1px solid var(--line);
-  border-radius: var(--r-box);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.88), rgb(255 255 255 / 0.66));
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  backdrop-filter: blur(12px) saturate(150%);
-  box-shadow: inset 0 1px 0 var(--white), 0 1px 2px rgb(28 38 45 / 0.05), 0 22px 44px -28px rgb(28 38 45 / 0.4), var(--glow);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-7);
+  padding-block: var(--space-3);
 }
 .trust__item {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
+  gap: var(--space-2);
+  white-space: nowrap;
   font-size: var(--fs-sm);
-  font-weight: 600;
-  line-height: 1.35;
+  font-weight: 500;
+  color: var(--schiefer);
 }
-.trust__item + .trust__item { border-top: 1px solid var(--line); }
-.trust__item .icon-dot { width: 2.75rem; height: 2.75rem; background: var(--gruen-50); color: var(--gruen-700); }
-.trust__muted { font-weight: 400; color: var(--slate-600); }
-.trust__zahl { flex: none; font: 500 2.5rem/1 var(--font-serif); letter-spacing: -0.02em; color: var(--schiefer); }
-.trust__bewertung { display: flex; flex-direction: column; gap: 0.125rem; }
-.stars { display: flex; flex: none; align-items: center; gap: 2px; height: 1.25rem; color: var(--orange-500); }
-.stars svg { width: 1.125rem; height: 1.125rem; fill: currentColor; }
-/* zwei mal zwei Einträge bis 75em, darüber eine Zeile mit vier Spalten */
-@media (min-width: 30em) and (max-width: 74.99em) {
-  .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .trust__item:nth-child(2) { border-top: 0; }
-  .trust__item:nth-child(even) { padding-left: var(--space-5); border-left: 1px solid var(--line); }
-  .trust__item:nth-child(odd) { padding-right: var(--space-4); }
+.trust__item .icon { color: var(--gruen-700); }
+.trust__item strong { font-weight: 700; }
+.trust__muted { color: var(--slate-600); }
+.stars { display: flex; flex: none; align-items: center; gap: 1px; color: var(--orange-500); }
+.stars svg { width: 1rem; height: 1rem; fill: currentColor; }
+/* Einzeilig schon vor dem Skript (Klasse js aus dem <head>), damit beim Start nichts springt (CLS);
+   die Bewegung beginnt erst, wenn das Skript die Kopie angehängt hat (.laeuft) */
+@media (prefers-reduced-motion: no-preference) {
+  .js .laufband__fenster {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+  .js .laufband__spur { display: flex; width: max-content; }
+  .js .trust { flex-wrap: nowrap; padding-right: var(--space-7); }
 }
-@media (min-width: 75em) {
-  .trust { grid-template-columns: 1.2fr 1fr 1fr 1fr; padding: var(--space-3) var(--space-2); }
-  .trust__item { justify-content: center; padding: var(--space-2) var(--space-4); font-size: 1rem; }
-  .trust__item + .trust__item { border-top: 0; border-left: 1px solid var(--line); }
+.laeuft .laufband__spur { animation: laufband 48s linear infinite; }
+.laeuft:hover .laufband__spur,
+.laeuft:focus-within .laufband__spur,
+.ist-angehalten .laufband__spur { animation-play-state: paused; }
+@keyframes laufband { to { transform: translateX(-50%); } }
+/* Pause-Knopf liegt rechts über der ausgeblendeten Zone */
+.laufband__pause {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgb(255 255 255 / 0.8);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 0 1px var(--line);
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background-color var(--dur) var(--ease);
 }
+.laufband__pause[hidden] { display: none; }
+.laufband__pause:hover { color: var(--schiefer); background: rgb(255 255 255 / 0.85); }
+.laufband__pause .icon-play, .laufband__pause[aria-pressed="true"] .icon-pause { display: none; }
+.laufband__pause[aria-pressed="true"] .icon-play { display: block; }
 @media (min-width: 60em) {
   .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center; }
   .hero__text { grid-column: 1 / span 7; grid-row: 1; }
   .hero__media { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; }
-  .trust {
+  .laufband {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-top: clamp(1.5rem, 0.5rem + 1.5vw, 2.25rem);
+    margin-top: clamp(1.25rem, 0.25rem + 1.5vw, 2rem);
   }
 }
 

@@ -18,8 +18,9 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
     await p.goto(B + "/", { waitUntil: "networkidle" });
     const r = await p.evaluate(() => {
       const breit = [...document.querySelectorAll("body *")].filter(e => {
-        // .hero__skyline läuft gewollt über den Rand; der Hero schneidet sie ab (overflow: hidden)
-        const b = e.getBoundingClientRect(); return b.width && (b.right > innerWidth + 1 || b.left < -1) && !e.closest(".sprite,.skip-link,.visually-hidden,.hero__skyline");
+        // .hero__skyline läuft gewollt über den Rand; der Hero schneidet sie ab (overflow: hidden).
+        // .laufband__spur ist gewollt breiter als das Fenster, das sie abschneidet.
+        const b = e.getBoundingClientRect(); return b.width && (b.right > innerWidth + 1 || b.left < -1) && !e.closest(".sprite,.skip-link,.visually-hidden,.hero__skyline,.laufband__spur");
       }).slice(0, 3).map(e => e.tagName + "." + (e.getAttribute("class") || ""));
       const bar = document.querySelector(".callbar");
       return { sw: document.documentElement.scrollWidth, breit, bar: getComputedStyle(bar).display !== "none",
