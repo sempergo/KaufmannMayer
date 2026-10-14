@@ -38,11 +38,12 @@ Median.
 | Largest Contentful Paint | < 2,5 s | **1,51 s** | 0,35 s |
 | Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
 | First Contentful Paint | – | 1,01 s | 0,25 s |
-| Total Blocking Time | – | 12 ms | 0 ms |
-| Übertragene Daten | – | 100 KB | 97 KB |
+| Total Blocking Time | – | 3 ms | 0 ms |
+| Übertragene Daten | – | 101 KB | 97 KB |
 
 Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
-einmal 97). Live auf Cloudflare können die Werte etwas anders
+einmal 97, zuletzt in einer Messreihe einmal 98 mit 107 ms Blockierzeit, die
+Wiederholung ergab 100/100/100). Live auf Cloudflare können die Werte etwas anders
 ausfallen; nach dem Livegang einmal mit PageSpeed Insights gegenprüfen.
 
 Zusätzlich grün: axe-core ohne Befund (WCAG 2.0–2.2 AA, mit offenem und
@@ -208,6 +209,12 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Inhabern das Fachgebiet in Orange und der Titel unter dem Namen in Grün, im
   Portal orange Markierung und grüne Häkchen, in der Animation Grün, Orange und
   die blaue Schnittmenge.
+- **Vertrauensleiste (Hero):** freistehende Glas-Karte wie die Navigation –
+  durchscheinend weiß mit weich gezeichnetem Hintergrund, feiner Rand, Schatten
+  und Schein. Vorne die Bewertung groß („5,0“ in der Überschriftenschrift,
+  daneben Sterne und „Sterne bei Google (4 Bewertungen)“), dann Zertifizierung,
+  IHK-Prüfer und Erfahrung mit grünen Icon-Kreisen, getrennt durch feine Linien:
+  ab 1200 px in einer Zeile, darunter zwei mal zwei, mobil untereinander.
 - **Navigation:** freistehende weiße Leiste mit abgerundeten Ecken und weichem
   Schatten; sie bleibt beim Scrollen mit etwas Abstand zum Fensterrand stehen,
   der Inhalt läuft sichtbar darunter durch. Der Menüpunkt der sichtbaren
@@ -413,6 +420,11 @@ geschlossener Umriss). Als reine Fläche mit gleichmäßig niedriger Deckkraft
 war sie zu blass und endete unten mit sichtbarer Kante – jetzt oben kräftiger
 (30 %) und nach unten bis 0 % auslaufend. Falls die Vorlage aus einer
 Bilddatenbank stammt, vor dem Livegang die Lizenz prüfen.
+
+Runde „Vertrauensleiste“: Die Leiste stand nur als Textzeile mit Haarlinie
+am unteren Hero-Rand und wirkte verloren – jetzt eine eigene Karte. Bei
+1024 px brach „Prüfer der IHK Frankfurt am Main“ in vier Spalten dreizeilig
+um; deshalb vier Spalten erst ab 1200 px.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit
