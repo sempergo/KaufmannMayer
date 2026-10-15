@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016f">
+<link rel="stylesheet" href="/css/site.css?v=20261016g">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -229,12 +229,11 @@
           </div>
         </div>
       </div>
-      <figure class="ph hero__media">
-        <figcaption class="ph__caption">
-          <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-          <span><strong>Foto-Platzhalter</strong>Die Inhaber vor einem verwalteten Objekt in Frankfurt</span>
-        </figcaption>
-      </figure>
+      <picture class="hero__media">
+        <source type="image/avif" srcset="/img/hero-1x.avif 560w, /img/hero-2x.avif 1120w" sizes="(min-width: 60em) 40vw, 100vw">
+        <source type="image/webp" srcset="/img/hero-1x.webp 560w, /img/hero-2x.webp 1120w" sizes="(min-width: 60em) 40vw, 100vw">
+        <img src="/img/hero-2x.webp" width="1120" height="1404" alt="Moderne Wohnanlage mit Balkonen im Abendlicht" fetchpriority="high" decoding="async">
+      </picture>
     </div>
   </section>
 
@@ -688,6 +687,6 @@
   <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
-<script src="/js/site.js?v=20261016f" defer></script>
+<script src="/js/site.js?v=20261016g" defer></script>
 </body>
 </html>
