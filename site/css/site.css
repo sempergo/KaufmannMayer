@@ -1470,38 +1470,43 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   /* zwei gleiche Hälften: die Formularfläche beginnt in der Mitte der Seite */
   .seite-anfrage {
     --links-pad: clamp(2rem, -3rem + 7vw, 7rem);
-    --kopf-h: calc(2.75rem + 2 * clamp(0.75rem, 2.5vh, 2rem));
-    --fuss-h: clamp(3rem, 6vh, 5rem);
+    /* Kopf und Fuß nur so hoch wie Logo bzw. Link plus Randabstand – die Lücken dazwischen sind alle gleich */
+    --rand-y: clamp(0.75rem, 2.5vh, 2rem);
+    --kopf-h: calc(2.75rem + var(--rand-y));
+    --fuss-h: calc(2.75rem + var(--rand-y));
     position: relative;
   }
   .anfrage {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* Einleitung oben, Punkte und Kontaktkarte darunter – die freien Abstände teilen sich die Höhe */
-    grid-template-rows: var(--kopf-h) minmax(1rem, 1fr) auto minmax(1.25rem, 1.4fr) auto minmax(1rem, 1fr) var(--fuss-h);
+    /* Einleitung, Punkte und Kontaktkarte gleichmäßig zwischen Logo und Fußzeile verteilt */
+    grid-template-rows: var(--kopf-h) minmax(1rem, 1fr) auto minmax(1rem, 1fr) auto minmax(1rem, 1fr) auto minmax(1rem, 1fr) var(--fuss-h);
     gap: 0;
     min-height: 100vh;
     min-height: 100svh;
     padding: 0;
   }
-  .anfrage__intro, .anfrage__mehr { grid-column: 1; padding-inline: var(--links-pad) clamp(2rem, 4vw, 4.5rem); }
-  .anfrage__intro { grid-row: 3; }
-  .anfrage__mehr { grid-row: 5; }
+  .anfrage__intro { grid-column: 1; grid-row: 3; padding-inline: var(--links-pad) clamp(2rem, 4vw, 4.5rem); }
+  /* die Hülle tritt zurück, damit Punkte und Kontaktkarte eigene Zeilen im Raster bekommen */
+  .anfrage__mehr { display: contents; }
+  .punkte, .direkt { grid-column: 1; margin-inline: var(--links-pad) clamp(2rem, 4vw, 4.5rem); }
+  .punkte { grid-row: 5; }
+  .direkt { grid-row: 7; }
   .anfrage__buehne {
     grid-column: 2;
     grid-row: 1 / -1;
     margin: var(--float-gap) var(--float-gap) var(--float-gap) 0;
     padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 2vw, 3rem);
   }
-  .anfrage-kopf { position: absolute; top: 0; left: 0; display: flex; align-items: center; height: var(--kopf-h); padding: 0 0 0 var(--links-pad); }
-  .anfrage-fuss { position: absolute; left: 0; bottom: 0; width: 50%; height: var(--fuss-h); padding: 0 clamp(2rem, 4vw, 4.5rem) 0 var(--links-pad); }
+  .anfrage-kopf { position: absolute; top: 0; left: 0; display: flex; align-items: flex-end; height: var(--kopf-h); padding: 0 0 0 var(--links-pad); }
+  .anfrage-fuss { position: absolute; left: 0; bottom: 0; width: 50%; height: var(--fuss-h); align-items: flex-start; padding: 0 clamp(2rem, 4vw, 4.5rem) 0 var(--links-pad); }
 
   /* linke Spalte knapp, damit alles in die Fensterhöhe passt */
   .anfrage__titel { font-size: min(clamp(2rem, 1rem + 2.6vw, 3.25rem), 5.4vh); }
   .anfrage .eyebrow { margin-bottom: clamp(0.5rem, 1.5vh, 1rem); }
   .anfrage__lead { margin-top: clamp(0.75rem, 2vh, 1.5rem); font-size: var(--fs-body); }
   .punkte { gap: clamp(0.75rem, 2vh, 1.25rem); }
-  .direkt { margin-top: clamp(1rem, 3vh, 2rem); padding-block: var(--space-3) var(--space-2); }
+  .direkt { margin-top: 0; padding-block: var(--space-3) var(--space-2); }
   .direkt__titel { font-size: 1.1875rem; }
   .direkt__liste { display: flex; flex-wrap: wrap; column-gap: var(--space-5); margin-top: 0; }
   .direkt__liste a { white-space: nowrap; }
@@ -1509,7 +1514,7 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
 
   /* Einpassen in die Fensterhöhe: js/site.js setzt die Faktoren (1 = keine Verkleinerung) */
   .formular-karte { zoom: var(--zoom-karte, 1); }
-  .anfrage__intro, .anfrage__mehr { zoom: var(--zoom-text, 1); }
+  .anfrage__intro, .punkte, .direkt { zoom: var(--zoom-text, 1); }
 
   /* Formular dicht: kleinere Abstände und Felder, Klickflächen der Auswahl bleiben 44 px */
   .formular-karte { max-width: 40rem; padding: clamp(1rem, 2.6vh, 2rem) clamp(1.25rem, 2.2vw, 2rem); }

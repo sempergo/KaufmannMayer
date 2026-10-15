@@ -251,7 +251,7 @@
     var desktop = window.matchMedia("(min-width: 60em)");
     var buehne = document.querySelector(".anfrage__buehne");
     var karte = formular.parentNode;
-    var text = [document.querySelector(".anfrage__intro"), document.querySelector(".anfrage__mehr")];
+    var text = [".anfrage__intro", ".punkte", ".direkt"].map(function (s) { return document.querySelector(s); });
     var wurzel = document.documentElement;
     var px = function (el, eig) { return parseFloat(getComputedStyle(el)[eig]) || 0; };
     var einpassen = function () {
@@ -260,8 +260,8 @@
       if (!desktop.matches) return;
       var h = window.innerHeight;
       var platzKarte = h - px(buehne, "marginTop") - px(buehne, "marginBottom") - px(buehne, "paddingTop") - px(buehne, "paddingBottom");
-      var platzText = h - px(document.querySelector(".anfrage-kopf"), "height") - px(document.querySelector(".anfrage-fuss"), "height") - 56; // Mindestabstände der Zeilen
-      var hoeheText = text[0].offsetHeight + text[1].offsetHeight;
+      var platzText = h - px(document.querySelector(".anfrage-kopf"), "height") - px(document.querySelector(".anfrage-fuss"), "height") - 68; // vier Mindestabstände à 1rem + Luft
+      var hoeheText = text[0].offsetHeight + text[1].offsetHeight + text[2].offsetHeight;
       // 4 px Luft gegen Rundung beim Verkleinern
       wurzel.style.setProperty("--zoom-karte", Math.min(1, (platzKarte - 4) / karte.offsetHeight).toFixed(3));
       wurzel.style.setProperty("--zoom-text", Math.min(1, (platzText - 4) / hoeheText).toFixed(3));

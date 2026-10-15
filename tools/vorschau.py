@@ -37,8 +37,8 @@ for seite in SEITEN:
     quelle, datei = seite["datei"], seite["vorschau"]
     html = (SITE / quelle).read_text()
     html = re.sub(r'<link rel="preload"[^>]*>\n?', "", html)
-    html = html.replace('<link rel="stylesheet" href="/css/site.css">', f"<style>\n{css}\n</style>")
-    html = html.replace('<script src="/js/site.js" defer></script>', f"<script>\n{js}\n</script>")
+    html = re.sub(r'<link rel="stylesheet" href="/css/site\.css(\?[^"]*)?">', lambda m: f"<style>\n{css}\n</style>", html)
+    html = re.sub(r'<script src="/js/site\.js(\?[^"]*)?" defer></script>', lambda m: f"<script>\n{js}\n</script>", html)
     html = re.sub(r'<link rel="(icon|apple-touch-icon)"[^>]*>\n?', "", html)
     # Bilder: <source> weg, <img> und SVG-<image> als Data-URI (WebP, 2x)
     html = re.sub(r'\s*<source type="image/(avif|webp)" srcset="[^"]*">', "", html)
