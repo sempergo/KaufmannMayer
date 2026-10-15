@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016n">
+<link rel="stylesheet" href="/css/site.css?v=20261016o">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -302,12 +302,11 @@
         </div>
         <div class="duo">
           <article class="card person" aria-labelledby="person-kaufmann">
-            <figure class="ph ph--3x2">
-              <figcaption class="ph__caption">
-                <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-                <span><strong>Foto-Platzhalter</strong>Porträt Carsten Kaufmann</span>
-              </figcaption>
-            </figure>
+            <picture class="person__foto">
+              <source type="image/avif" srcset="/img/person-kaufmann-640.avif 640w, /img/person-kaufmann-1280.avif 1280w" sizes="(min-width: 60em) 36rem, 100vw">
+              <source type="image/webp" srcset="/img/person-kaufmann-640.webp 640w, /img/person-kaufmann-1280.webp 1280w" sizes="(min-width: 60em) 36rem, 100vw">
+              <img src="/img/person-kaufmann-1280.webp" width="1280" height="960" alt="Carsten Kaufmann, Dipl.-Bw. (FH) und Steuerberater" loading="lazy" decoding="async">
+            </picture>
             <div class="person__body">
               <h3 id="person-kaufmann" class="person__name">Carsten Kaufmann</h3>
               <p class="person__title">Dipl.-Bw. (FH) &amp; Steuerberater</p>
@@ -316,12 +315,11 @@
             </div>
           </article>
           <article class="card person" aria-labelledby="person-mayer">
-            <figure class="ph ph--3x2">
-              <figcaption class="ph__caption">
-                <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-                <span><strong>Foto-Platzhalter</strong>Porträt Prof. Dr. Jörg H. Mayer</span>
-              </figcaption>
-            </figure>
+            <picture class="person__foto">
+              <source type="image/avif" srcset="/img/person-mayer-640.avif 640w, /img/person-mayer-1280.avif 1280w" sizes="(min-width: 60em) 36rem, 100vw">
+              <source type="image/webp" srcset="/img/person-mayer-640.webp 640w, /img/person-mayer-1280.webp 1280w" sizes="(min-width: 60em) 36rem, 100vw">
+              <img src="/img/person-mayer-1280.webp" width="1280" height="960" alt="Prof. Dr. Jörg H. Mayer, Dipl.-Wirtsch.-Ing. (TU Darmstadt)" loading="lazy" decoding="async">
+            </picture>
             <div class="person__body">
               <h3 id="person-mayer" class="person__name">Prof. Dr. Jörg H. Mayer</h3>
               <p class="person__title">Dipl.-Wirtsch.-Ing. (TU Darmstadt)</p>
@@ -471,10 +469,8 @@
       <div class="box box--weiss reference">
         <!-- oben der Text (links Titel und Einleitung, rechts die Leistungen), darunter das Bildband -->
         <div class="reference__kopf">
-          <div class="reference__oben">
-            <p class="eyebrow">Referenzobjekt</p>
-            <p class="reference__fakt"><strong>71</strong> Wohneinheiten</p>
-          </div>
+          <p class="eyebrow">Referenzobjekt</p>
+          <p class="reference__fakt"><strong>71</strong> Wohneinheiten</p>
           <h2 id="referenz-titel">Niederräder Landstraße&nbsp;78, Frankfurt-Niederrad</h2>
           <p class="reference__lead">Wir übersetzen Bautechnik in Entscheidungsoptionen – von der Mängelfeststellung bis zum Sanierungsbeschluss.</p>
           <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -695,6 +691,6 @@
   <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
-<script src="/js/site.js?v=20261016n" defer></script>
+<script src="/js/site.js?v=20261016o" defer></script>
 </body>
 </html>

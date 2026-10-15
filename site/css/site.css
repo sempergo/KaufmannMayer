@@ -785,6 +785,8 @@ strong { font-weight: 600; }
 .duo { display: grid; gap: var(--gap); }
 .person { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
 .person .ph { border-radius: 0; }
+.person__foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ph); }
+.person__foto img { width: 100%; height: 100%; object-fit: cover; }
 .person__body { display: flex; flex-direction: column; padding: var(--pad-card); }
 .person__role { order: -1; margin-bottom: var(--space-3); }
 .person__name { font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem); line-height: 1.15; }
@@ -955,12 +957,11 @@ strong { font-weight: 600; }
 .reference__kopf h2 { font-size: var(--fs-h2); }
 .reference__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--slate-600); max-width: 36rem; }
 /* Kennzahl dezent als kleine Marke unter dem Titel */
-.reference__oben { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-4); }
-.reference__oben .eyebrow { margin-bottom: 0; }
 .reference__fakt {
   display: inline-flex;
   align-items: baseline;
   gap: var(--space-2);
+  margin-bottom: var(--space-4);
   padding: 0.3rem 0.875rem;
   border: 1px solid var(--line);
   border-radius: 999px;
