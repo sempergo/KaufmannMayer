@@ -279,7 +279,7 @@ strong { font-weight: 600; }
 }
 .box--dunkel .netz__knoten circle { fill: #2b4058; }
 .box--dunkel .netz__knoten use { color: #cfdae6; }
-.box--dunkel .netz__mitte { fill: #dfe6ee; }
+.box--dunkel .netz__mitte { fill: var(--white); } /* weiß wie der Grund des Logos */
 .box--dunkel .btn--primary { border-color: rgb(255 255 255 / 0.7); background: radial-gradient(120% 100% at 50% -35%, var(--white), transparent 60%) rgb(255 255 255 / 0.9); color: var(--schiefer-tief); }
 .box--dunkel .btn--primary:hover { background-color: var(--white); }
 .box--dunkel .btn--primary .icon { color: var(--orange-700); }
