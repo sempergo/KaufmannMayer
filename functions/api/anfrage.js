@@ -44,7 +44,9 @@ export async function onRequestPost({ request, env }) {
   const objekt = clean(daten.objekt, 120);
   const einheiten = clean(daten.einheiten, 40);
   const gespraech = art === "termin" ? clean(daten.gespraech, 40) : "";
-  const wunschtermin = art === "termin" ? clean(daten.wunschtermin, 120) : "";
+  // Datum aus dem Kalenderfeld (JJJJ-MM-TT) als TT.MM.JJJJ, dazu Vormittag oder Nachmittag
+  const tag = clean(daten.wunschtermin, 40).split("-").reverse().join(".");
+  const wunschtermin = art === "termin" && tag ? [tag, clean(daten.tageszeit, 20)].filter(Boolean).join(", ") : "";
   const nachricht = clean(daten.nachricht, 5000);
   const seite = clean(daten.seite, 300);
   const anliegen = (Array.isArray(daten.anliegen) ? daten.anliegen : [daten.anliegen])

@@ -171,6 +171,9 @@
   //   Versand, steht eine fertige E-Mail mit allen Angaben bereit – keine Anfrage geht verloren.
   //   /anfrage#nachricht (Buttons „Kontakt aufnehmen“) öffnet direkt den Weg „Nachricht senden“.
   var formular = document.getElementById("formular");
+  // Kalender ab heute
+  var tagFeld = document.getElementById("f-termin");
+  if (tagFeld) tagFeld.min = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   if (formular) {
     var POSTFACH = "jhmayer@t-online.de";
     var meldung = formular.querySelector(".formular__status");
@@ -197,7 +200,7 @@
         if (!el.name || el.disabled || ((el.type === "checkbox" || el.type === "radio") && !el.checked)) return;
         if (el.name === "anliegen") d.anliegen.push(el.value); else d[el.name] = el.value.trim();
       });
-      if (d.art !== "termin") { delete d.gespraech; delete d.wunschtermin; }
+      if (d.art !== "termin") { delete d.gespraech; delete d.wunschtermin; delete d.tageszeit; }
       d.seite = location.href;
       return d;
     };
@@ -205,7 +208,7 @@
     var alsMail = function (d) {
       var zeilen = [["Name", d.name], ["E-Mail", d.email], ["Telefon", d.telefon], ["Sie sind", d.rolle],
         ["Anliegen", d.anliegen.join(", ")], ["Lage des Objekts", d.objekt], ["Wohneinheiten", d.einheiten],
-        ["Gespräch", d.gespraech], ["Wunschtermin", d.wunschtermin]]
+        ["Gespräch", d.gespraech], ["Wunschtermin", d.wunschtermin && (d.wunschtermin.split("-").reverse().join(".") + ", " + d.tageszeit)]]
         .filter(function (z) { return z[1]; }).map(function (z) { return z[0] + ": " + z[1]; });
       if (d.nachricht) zeilen.push("", d.nachricht);
       return link("mailto:" + POSTFACH + "?subject=" + encodeURIComponent((d.art === "termin" ? "Terminwunsch" : "Anfrage") + " über die Website") +
