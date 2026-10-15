@@ -781,15 +781,15 @@ strong { font-weight: 600; }
 /* 6.3 Über uns – Text und Grafik, darunter die beiden Inhaber */
 .about__head { display: grid; gap: clamp(2rem, 1rem + 3vw, 3rem); align-items: center; margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
 .about__text h2 { font-size: var(--fs-h2); }
-.about__text p:not(.eyebrow) { margin-top: var(--space-5); font-size: var(--fs-body); color: var(--slate-600); }
+.about__text p:not(.eyebrow) { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--slate-600); }
 .duo { display: grid; gap: var(--gap); }
 .person { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
 .person .ph { border-radius: 0; }
-.person__foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ph); }
+.person__foto { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--ph); }
 .person__foto img { width: 100%; height: 100%; object-fit: cover; }
-.person__body { display: flex; flex-direction: column; padding: var(--pad-card); }
-.person__role { order: -1; margin-bottom: var(--space-3); }
-.person__name { font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem); line-height: 1.15; }
+.person__body { display: flex; flex-direction: column; padding: clamp(1.25rem, 0.9rem + 0.8vw, 1.625rem) var(--pad-card); }
+.person__role { order: -1; margin-bottom: var(--space-2); }
+.person__name { font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; }
 /* Überfahren: unter dem Namen zieht sich ein oranger Strich */
 .person__name {
   justify-self: start;
@@ -804,7 +804,7 @@ strong { font-weight: 600; }
   .person:hover .person__name { background-size: 100% 2px; }
 }
 .person__title { margin-top: var(--space-2); font-weight: 600; color: var(--gruen-700); }
-.person__text { margin-top: var(--space-4); max-width: 34rem; }
+.person__text { margin-top: var(--space-3); max-width: 34rem; }
 @media (min-width: 48em) { .duo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 /* Grafik neben dem Text erst ab 75em – darunter steht sie in voller Breite, damit Begriffe
    und Schnittmenge genug Platz haben */
@@ -815,8 +815,9 @@ strong { font-weight: 600; }
   .about__text { display: contents; }
   .about__text .eyebrow, .about__text h2 { grid-column: 1 / -1; }
   .about__head { row-gap: 0; }
-  .about__text h2 { white-space: nowrap; margin-bottom: var(--space-5); }
-  .about__text p:not(.eyebrow) { grid-column: 1 / span 5; grid-row: 3; align-self: center; margin-top: 0; }
+  .about__text h2 { white-space: nowrap; margin-bottom: var(--space-4); }
+  /* Text direkt unter der Überschrift, nicht mittig neben der Grafik */
+  .about__text p:not(.eyebrow) { grid-column: 1 / span 5; grid-row: 3; align-self: start; margin-top: 0; }
   .venn { grid-column: 6 / span 7; grid-row: 3; max-width: none; }
 }
 
@@ -1600,7 +1601,7 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   /* linke Spalte knapp, damit alles in die Fensterhöhe passt */
   .anfrage__titel { font-size: min(clamp(2rem, 1rem + 2.6vw, 3.25rem), 5.4vh); }
   .anfrage .eyebrow { margin-bottom: clamp(0.5rem, 1.5vh, 1rem); }
-  .anfrage__lead { margin-top: clamp(0.75rem, 2vh, 1.5rem); font-size: var(--fs-body); }
+  .anfrage__lead { margin-top: clamp(0.75rem, 2vh, 1.5rem); }
   .punkte { gap: clamp(0.75rem, 2vh, 1.25rem); }
   .direkt { margin-top: 0; padding-block: var(--space-3) var(--space-2); }
   .direkt__titel { font-size: 1.1875rem; }
