@@ -239,7 +239,7 @@ neue Objekte ab 10 Wohneinheiten.
 | Einleitung | Eyebrow „Kontakt“, H1 mit dem orangen K|M-Strich, Antwortzeit |
 | Formular | Umschalter **Termin vereinbaren / Nachricht senden**; Name, E-Mail (Pflicht), Telefon, „Sie sind“ (Eigentümer, Beirat, Vermieter), „Worum geht es?“ als Mehrfachauswahl (WEG-Verwaltung, Verwalterwechsel, Mietverwaltung, Hausmeister-Service, Bauleitung & Sanierung, Hausgeldabrechnung, Eigentümerversammlung), Lage des Objekts, Wohneinheiten; im Terminweg zusätzlich Gesprächsart und Wunschtermin; Nachricht |
 | Punkte | persönlicher Ansprechpartner, Beratungsthemen, Einsatzgebiet – als ↳-Liste wie in der Vorlage |
-| Direkt | Telefon, E-Mail, Adresse (Platzhalter) in einer kleinen Karte |
+| Direkt | Telefon und E-Mail in einer kleinen Karte |
 | Fuß | „Zurück zur Startseite“, Impressum, Datenschutz |
 
 Ab 960 px steht alles auf einem Bildschirm (geprüft bei Fensterhöhen ab
@@ -391,9 +391,9 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 
 **Vom Inhaber zu liefern**
 
-- [ ] **Geschäftsadresse** bestätigen, dann an vier Stellen eintragen: Kontakt
+- [ ] **Geschäftsadresse** bestätigen, dann an drei Stellen eintragen: Kontakt
       (`index.html`, Sektion 9), Footer, JSON-LD (`"address"`, siehe Kommentar
-      im `<head>`), Karte „Lieber direkt?“ auf `/anfrage`. Die alte Seite nennt
+      im `<head>`). Die alte Seite nennt
       widersprüchliche Angaben (Ransbach-Baumbach statt Rhein-Main, eine
       Telefonnummer im Link, die nicht zur angezeigten passt), deshalb ist sie
       bewusst leer.
