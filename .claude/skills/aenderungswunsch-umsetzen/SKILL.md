@@ -8,7 +8,8 @@ description: Verwenden, wenn der Auftraggeber im Chat eine Änderung an der Kauf
 Eine Runde ist erst fertig, wenn der Auftraggeber das Ergebnis **selbst ansehen kann**. Er startet
 keinen Server, und für den Branch gibt es keine Cloudflare-Vorschau. Er bekommt jedes Mal die
 Einzeldatei-Vorschau in den Chat – und, wenn der Workflow „GitHub Pages“ für den Push grün ist,
-zusätzlich den Link https://sempergo.github.io/KaufmannMayer/.
+zusätzlich den Link https://sempergo.github.io/KaufmannMayer/ (bzw. `…/KaufmannMayer<pfad>` der
+geänderten Seite, z. B. `/anfrage`). Neue Seite: zusätzlich Skill `unterseite-anlegen`.
 
 ## Was am Ende einer Runde steht
 
@@ -30,11 +31,12 @@ zusätzlich den Link https://sempergo.github.io/KaufmannMayer/.
 3. **Umsetzen** nach Skill `gestaltung-kaufmann-mayer`.
 4. **Ansehen.** Server mit `run_in_background` und Timeout 7200000 starten
    (`node tools/server.js`), sonst ist er nach 30 Minuten weg.
-   - ganze Seite: `node tools/pruefung/screenshots.js` (390 und 1440 px)
+   - ganze Seiten: `node tools/pruefung/screenshots.js` (jede Seite aus `tools/seiten.json`, 390 und 1440 px)
    - betroffene Bereiche zusätzlich bei **768, 1024 und 1200 px** – dort sind bisher Fehler
      entstanden, die bei 390/1440 nicht zu sehen waren:
-     `node tools/pruefung/ausschnitt.js <selektor> --breiten 390,768,1024,1200,1440`
+     `node tools/pruefung/ausschnitt.js <selektor> --breiten 390,768,1024,1200,1440` (andere Seite: `--pfad /anfrage`)
    - Hover `--hover <selektor>`, Animation `--zeiten 300,1200,2600,4000`, Endbild `--ruhig`
+   - Formulare auch in ihren Zuständen ansehen: leer abgeschickt, Rückfall-E-Mail, Dank
    - jedes Bild ansehen (große vorher zuschneiden oder verkleinern) und gegen den Wunsch prüfen
 5. **Prüfen** nach Skill `aenderung-pruefen` (`node tools/pruefung/alle.js`). Ein Lighthouse-Ausreißer
    wird einmal wiederholt, bevor etwas geändert wird.
@@ -43,9 +45,9 @@ zusätzlich den Link https://sempergo.github.io/KaufmannMayer/.
    Prüfen auffiel und wie es gelöst ist. Neue Werkzeuge unter „Bauen“ oder „Prüfen“.
 7. **Repo-Screenshots:** `node tools/pruefung/screenshots.js && python3 -I tools/screenshots-webp.py`
 8. **Commit und Push:** `git push -u origin claude/festive-wozniak-w5apvu`.
-9. **Vorschau:** `python3 -I tools/vorschau.py` und dann `SendUserFile` mit
-   `tools/berichte/vorschau/kaufmann-mayer-startseite.html`, `display: "attach"`, Bildunterschrift:
-   herunterladen, im Browser öffnen, wo die Änderung zu sehen ist.
+9. **Vorschau:** `python3 -I tools/vorschau.py` baut je Seite eine Datei in `tools/berichte/vorschau/`.
+   `SendUserFile` mit allen Dateien (sie verlinken einander), `display: "attach"`, Bildunterschrift:
+   beide in einen Ordner herunterladen, im Browser öffnen, wo die Änderung zu sehen ist.
 10. **GitHub Pages:** Lauf des Workflows `pages.yml` für den Push prüfen (`actions_list`,
     `list_workflow_runs`). Grün: Link in die Antwort. Rot: Ursache aus dem Log nennen, die Datei
     reicht als Ansicht.
@@ -63,3 +65,4 @@ zusätzlich den Link https://sempergo.github.io/KaufmannMayer/.
 | Test schlägt bei gewollter Gestaltung an | Test gezielt ausnehmen, mit Kommentar, warum |
 | Server mit `pkill -f` beendet | `kill <pid>` – das Muster trifft sonst die eigene Shell |
 | Vorschau vor dem letzten Edit gebaut | Vorschau als letzten Schritt bauen |
+| nur die Startseiten-Datei geschickt, obwohl `/anfrage` geändert wurde | alle Vorschau-Dateien schicken, Pages-Link auf die geänderte Seite |

@@ -1,6 +1,6 @@
 ---
 name: aenderung-pruefen
-description: Änderungen an der Website Kaufmann & Mayer vor dem Commit prüfen — Playwright-Prüfungen für Konsole, SEO-Struktur, Barrierefreiheit (axe), Mobilmenü, Tastatur, Klickflächen, Geometrie der Grafiken, Kontrast aus Pixeln, dazu Lighthouse mobil/Desktop, Screenshots und Ausschnitte. Verwenden nach jeder Änderung an HTML, CSS, JS oder Bildern und vor jedem Push.
+description: Änderungen an der Website Kaufmann & Mayer vor dem Commit prüfen — Playwright-Prüfungen für Konsole, SEO-Struktur, Barrierefreiheit (axe), Mobilmenü, Tastatur, Klickflächen, Geometrie der Grafiken, Anfrageformular und Pages Function, Kontrast aus Pixeln, dazu Lighthouse mobil/Desktop, Screenshots und Ausschnitte. Verwenden nach jeder Änderung an HTML, CSS, JS, Bildern oder functions/ und vor jedem Push.
 ---
 
 # Änderung prüfen
@@ -28,18 +28,24 @@ node tools/pruefung/ausschnitt.js .pillars --breiten 768,1024 --hover '.pillar:n
 ```
 
 Der Runner startet `tools/server.js` auf einem freien Port. Der Server bildet
-das Routing von Cloudflare Pages nach (Pfad, `.html`, `/index.html`, sonst
-`404.html`), wendet `site/_headers` an (also auch die CSP) und komprimiert Text
-wie Cloudflare.
+das Routing von Cloudflare Pages nach (`_redirects`, Pfad, `.html`, `/index.html`,
+sonst `404.html`), wendet `site/_headers` an (also auch die CSP) und komprimiert
+Text wie Cloudflare. Functions führt er nicht aus – `formular.js` fängt
+`/api/anfrage` ab und reicht es an `functions/api/anfrage.js`.
+
+Welche Seiten geprüft werden, steht in `tools/seiten.json`; Konsole, axe, Mobil,
+Kontrast, Lighthouse und Screenshots laufen über alle Einträge. Neue Seite:
+Skill `unterseite-anlegen`.
 
 ## Die Prüfungen
 
 | Datei | Prüft |
 |---|---|
-| `konsole.js` | Konsolen-, Lade- und CSP-Fehler auf Startseite (390/1440) und 404-Seite |
-| `seo.js` | Title, Description, Canonical, OG/Twitter, eine H1, jede Sektion mit eigener H2, keine Sprünge in der Überschriftenfolge, Landmarks, Suchbegriffe in Überschriften, Telefonlinks einheitlich, Bilder mit Alt und Maßen, Leistungs-URLs verlinkt, JSON-LD, robots/sitemap/llms.txt, CSP-Hash des Inline-Skripts |
-| `a11y.js` | axe-core (WCAG 2.0–2.2 A/AA + Best Practices) bei 390 px mit offenem und geschlossenem Menü, 1440 px, 404-Seite |
-| `mobil.js` | kein Überlauf von 360 bis 1920 px, Schnellleiste nur mobil, Menü per Tastatur (Enter, Tab, Escape, Fokus zurück), Sprungziele nicht unter der Kopfzeile, Fokusrahmen sichtbar, Navigation ohne JavaScript, Klickflächen ≥ 44 × 44 px |
+| `konsole.js` | Konsolen-, Lade- und CSP-Fehler auf jeder Seite (390/1440) und der 404-Seite |
+| `seo.js` | jede Datei in `site/` steht in `tools/seiten.json`; je Seite 200, Canonical, eine H1, eigene Title/Description, Sprungziele (auch `/#…` zur Startseite) und Sprite-Symbole vorhanden, in sitemap.xml und llms.txt. Startseite im Detail (Sektionen mit H2, Suchbegriffe, JSON-LD, Leistungs-URLs), `/anfrage` (Formular, Labels, Pflichtfelder, ContactPage, `/kontakt` → 301). CSP-Hash, keine `style`-Attribute, kein CDN in jeder HTML-Datei |
+| `a11y.js` | axe-core (WCAG 2.0–2.2 A/AA + Best Practices) für jede Seite bei 390 px (Menü zu und offen) und 1440 px, `/anfrage` zusätzlich mit Fehlerhinweisen, Rückfall-E-Mail und Dank, 404-Seite |
+| `mobil.js` | kein Überlauf von 360 bis 1920 px auf jeder Seite, Schnellleiste nur mobil (wo es sie gibt), Menü per Tastatur (Enter, Tab, Escape, Fokus zurück), Sprungziele nicht unter der Kopfzeile, Fokusrahmen sichtbar, Navigation ohne JavaScript, Klickflächen ≥ 44 × 44 px (Links im Fließtext ausgenommen) |
+| `formular.js` | Pages Function ohne Netz (Resend nachgebildet): JSON und Formular-POST, Pflichtfelder, Spam-Falle, fehlender Schlüssel, Inhalt der Mail; `/anfrage` mit JavaScript (Umschalter, Hinweise am Feld, Versand, Rückfall-E-Mail, Dank) und ohne (CSS-Umschalter, POST bis `#gesendet`) |
 | `grafik.js` | Werterhalt-Grafik im Endbild bei 360–1920 px: Begriffe ≥ 12 px innerhalb ihres Kreises und außerhalb der Schnittmenge, Abzeichen, Titel und Untertitel in der Schnittmenge |
 | `kontrast.js` | Kontrast aus gerenderten Pixeln für Knöpfe, Links, Labels, Platzhalter (≥ 4,5:1) |
 | `ausschnitt.js` | kein Test, sondern Bilder zum Ansehen: ein Element bei mehreren Breiten, im Hover-Zustand (`--hover`) oder als Animationsbilder (`--zeiten`); nach `tools/berichte/ausschnitte/` |

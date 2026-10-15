@@ -1,5 +1,5 @@
 // Kontrast aus gerenderten Pixeln (nicht aus berechneten Styles) für Knöpfe,
-// Pfeil-Links, Labels und Platzhalter auf Startseite und Anfrage-Seite – Messweise aus sempergo/21layer (cta-kontrast.js):
+// Pfeil-Links, Labels und Platzhalter auf allen Seiten aus tools/seiten.json – Messweise aus sempergo/21layer (cta-kontrast.js):
 // Screenshot des Elements, Farbhistogramm, häufigste Farbe = Grund, die am stärksten
 // abweichende häufige Farbe = Schrift. Schwelle 4,5:1.
 const { chromium } = require("playwright");
@@ -7,21 +7,21 @@ const B = process.env.BASE || "http://localhost:8788";
 const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
   return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-const SEITEN = [
-  ["/", [".btn", ".more", ".tag", ".chip", ".tbd", ".eyebrow", ".nav__list a", ".topline__links a", ".trust__item", ".pui__tab", ".pui__chip", ".pui__btn", ".footer__legal a"]],
-  // Anfrage-Seite: Platzhalter in den Feldern, Chips, Umschalter; nach leerem Absenden die Fehlerhinweise
-  ["/anfrage", [".btn", ".eyebrow", ".tbd", ".modus__wahl", ".wahl__chip", ".feld__label", ".feld__eingabe", ".formular__hinweis",
-    ".direkt__liste a", ".anfrage-fuss a", ".formular__status", ".feld__fehler"], async p => { await p.click(".formular__senden"); await p.waitForTimeout(200); }],
-];
+// Eine Liste für alle Seiten aus tools/seiten.json; was eine Seite nicht hat, wird übersprungen.
+// Seiten mit Formular: vorher einmal leer absenden, damit auch die Fehlerhinweise gemessen werden.
+const ZIELE = [".btn", ".more", ".tag", ".chip", ".tbd", ".eyebrow", ".nav__list a", ".topline__links a", ".trust__item", ".pui__tab", ".pui__chip",
+  ".pui__btn", ".footer__legal a", ".modus__wahl", ".wahl__chip", ".feld__label", ".feld__eingabe", ".formular__hinweis", ".direkt__liste a",
+  ".anfrage-fuss a", ".formular__status", ".feld__fehler"];
+const SEITEN = require("../seiten.json");
 let fehler = 0;
 (async () => {
   const br = await chromium.launch();
   const probe = await br.newPage(); await probe.goto("about:blank");
-  for (const [pfad, ZIELE, vorher] of SEITEN) for (const w of [390, 1440]) {
+  for (const { pfad } of SEITEN) for (const w of [390, 1440]) {
     const p = await (await br.newContext({ viewport: { width: w, height: 900 }, reducedMotion: "reduce" })).newPage();
     await p.goto(B + pfad, { waitUntil: "networkidle" });
     await p.evaluate(() => document.fonts.ready);
-    if (vorher) await vorher(p);
+    if (await p.$("form.formular .formular__senden")) { await p.click("form.formular .formular__senden"); await p.waitForTimeout(200); }
     let n = 0, min = 99, schwach = [];
     for (const sel of ZIELE) {
       for (const el of await p.$$(sel)) {

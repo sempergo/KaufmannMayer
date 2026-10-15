@@ -49,6 +49,7 @@ Effekte nur, wenn sie ein gemeldetes Problem lösen – und dann in der Antwort 
 | Boxen | `box` (blau), `box box--weiss` (weiß, Karten darin blau), `box--slim`, `box--cta` (Kontakt); weiß und blau im Wechsel halten |
 | Radien | 4 / 6 / 8 / 12 px; Boxen und Leisten 12 px; nur Buttons und Menüknopf als Pille |
 | Hover | neuer Kartentyp bekommt einen neuen Effekt; nur in `@media (hover: hover)`; bei `prefers-reduced-motion` ohne Bewegung |
+| Formulare | Bausteine von `/anfrage`: Felder weiß, Rand `--rand-feld` (3:1), Fokus blau; Auswahl als Pillen mit echten Checkboxen/Radios darin; Umschalter als Glas-Pille; Fehler `--rot-700` mit Hinweis direkt am Feld; Pflicht nur, was zum Antworten nötig ist |
 
 ## Technische Leitplanken
 

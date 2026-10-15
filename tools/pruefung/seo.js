@@ -4,6 +4,8 @@ const crypto = require("crypto"), fs = require("fs"), path = require("path");
 const B = process.env.BASE || "http://localhost:8788";
 const SITE = path.join(__dirname, "..", "..", "site");
 const TEL = "tel:+496145938481";
+const SEITEN = require("../seiten.json");
+const DOMAIN = "https://www.kaufmann-mayer.de";
 const LEISTUNGEN = ["/weg-verwaltung-frankfurt", "/mietverwaltung", "/bauleitung", "/hausmeister-service", "/weiterbildung"];
 let fehler = 0;
 const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`); if (!ok) fehler++; };
@@ -80,6 +82,41 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   const robots = await (await p.request.get(B + "/robots.txt")).text();
   pruefe(/Sitemap: https:\/\/www\.kaufmann-mayer\.de\/sitemap\.xml/.test(robots) && !/Disallow: \/\s*$/m.test(robots), "robots.txt verweist auf Sitemap, sperrt nichts");
 
+  // Jede Seite muss in tools/seiten.json stehen – daraus lesen alle Prüfungen, Screenshots, Lighthouse und
+  // die Vorschau. Eine neue Seite ohne Eintrag fiele sonst überall still heraus.
+  console.log("  -- Alle Seiten (tools/seiten.json)");
+  {
+    const dateien = fs.readdirSync(SITE).filter(f => f.endsWith(".html") && f !== "404.html").sort();
+    const eingetragen = SEITEN.map(x => x.datei).sort();
+    pruefe(dateien.join() === eingetragen.join(), `jede Seite in site/ steht in tools/seiten.json (Dateien: ${dateien.join(", ")})`);
+    const sitemap = await (await p.request.get(B + "/sitemap.xml")).text();
+    const llms = await (await p.request.get(B + "/llms.txt")).text();
+    const symbole = fs.readFileSync(path.join(SITE, "index.html"), "utf8");
+    const titel = new Set(), beschr = new Set();
+    for (const x of SEITEN) {
+      const q = await br.newPage();
+      const res = await q.goto(B + x.pfad, { waitUntil: "networkidle" });
+      const a = await q.evaluate(() => ({
+        lang: document.documentElement.lang, title: document.title, robots: document.querySelector('meta[name="robots"]')?.content || "",
+        desc: document.querySelector('meta[name="description"]')?.content || "", canonical: document.querySelector('link[rel="canonical"]')?.href,
+        h1: document.querySelectorAll("h1").length,
+        use: [...document.querySelectorAll("use")].map(u => u.getAttribute("href")).filter(h => !document.querySelector(h)),
+        anker: [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute("href")).filter(h => h.length > 1 && !document.querySelector(h)),
+        startAnker: [...document.querySelectorAll('a[href^="/#"]')].map(a => a.getAttribute("href").slice(1)),
+        tel: [...document.querySelectorAll('a[href^="tel:"]')].map(a => a.getAttribute("href")),
+      }));
+      const fehltStart = a.startAnker.filter(h => !symbole.includes(`id="${h.slice(1)}"`));
+      const ok = res.status() === 200 && a.lang === "de" && !a.robots && a.canonical === DOMAIN + x.pfad && a.h1 === 1 &&
+        a.desc.length >= 110 && a.desc.length <= 160 && !titel.has(a.title) && !beschr.has(a.desc) &&
+        a.use.length + a.anker.length + fehltStart.length === 0 && a.tel.every(t => t === TEL) &&
+        sitemap.includes(`<loc>${DOMAIN}${x.pfad}</loc>`) && llms.includes(DOMAIN + x.pfad);
+      pruefe(ok, `${x.pfad}: 200, Canonical, eine H1, eigene Title/Description, Sprungziele und Symbole da, in sitemap.xml und llms.txt` +
+        (ok ? "" : ` – ${JSON.stringify({ status: res.status(), canonical: a.canonical, h1: a.h1, desc: a.desc.length, robots: a.robots, use: a.use, anker: a.anker, startAnker: fehltStart })}`));
+      titel.add(a.title); beschr.add(a.desc);
+      await q.close();
+    }
+  }
+
   console.log("  -- Anfrage-Seite (/anfrage)");
   {
     const q = await br.newPage();
@@ -122,8 +159,6 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
     pruefe(cp && cp["@type"] === "ContactPage" && cp.mainEntity && cp.mainEntity.telephone === "+49 6145 938481", "JSON-LD gültig: ContactPage mit Telefon");
     const alt = await q.request.get(B + "/kontakt", { maxRedirects: 0 });
     pruefe(alt.status() === 301 && alt.headers()["location"] === "/anfrage", "alte Adresse /kontakt leitet per 301 auf /anfrage (site/_redirects)");
-    const sitemap = await (await q.request.get(B + "/sitemap.xml")).text();
-    pruefe(sitemap.includes("<loc>https://www.kaufmann-mayer.de/anfrage</loc>"), "in sitemap.xml eingetragen");
     await q.close();
   }
 
@@ -133,7 +168,7 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
     const h = crypto.createHash("sha256").update(s).digest("base64");
     pruefe(headers.includes(`'sha256-${h}'`), "Hash des Inline-Skripts steht in der CSP");
   }
-  for (const datei of ["index.html", "anfrage.html", "404.html"]) {
+  for (const datei of fs.readdirSync(SITE).filter(f => f.endsWith(".html"))) {
     const html = fs.readFileSync(path.join(SITE, datei), "utf8");
     const inline = [...html.matchAll(/<script>(.*?)<\/script>/gs)].map(m => m[1]);
     pruefe(inline.every(x => headers.includes(`'sha256-${crypto.createHash("sha256").update(x).digest("base64")}'`)), `${datei}: Hash jedes Inline-Skripts steht in der CSP`);

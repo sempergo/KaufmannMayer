@@ -1,0 +1,4 @@
+[
+  { "pfad": "/", "datei": "index.html", "name": "startseite", "vorschau": "kaufmann-mayer-startseite.html" },
+  { "pfad": "/anfrage", "datei": "anfrage.html", "name": "anfrage", "vorschau": "kaufmann-mayer-anfrage.html" }
+]

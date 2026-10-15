@@ -6,6 +6,7 @@
 //  - jede Klickfläche mindestens 44 x 44 px (Startseite und Anfrage-Seite)
 const { chromium } = require("playwright");
 const B = process.env.BASE || "http://localhost:8788";
+const SEITEN = require("../seiten.json").map(s => s.pfad);
 let fehler = 0;
 const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`); if (!ok) fehler++; };
 
@@ -13,7 +14,7 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   const br = await chromium.launch();
 
   console.log("  -- Breiten");
-  for (const [pfad, w] of [360, 390, 414, 768, 1024, 1280, 1440, 1920].flatMap(w => [["/", w], ["/anfrage", w]])) {
+  for (const [pfad, w] of [360, 390, 414, 768, 1024, 1280, 1440, 1920].flatMap(w => SEITEN.map(pfad => [pfad, w]))) {
     const p = await (await br.newContext({ viewport: { width: w, height: 800 } })).newPage();
     await p.goto(B + pfad, { waitUntil: "networkidle" });
     const r = await p.evaluate(() => {
@@ -24,12 +25,12 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
         const b = e.getBoundingClientRect(); return b.width && (b.right > innerWidth + 1 || b.left < -1) && !e.closest(".sprite,.skip-link,.visually-hidden,.hero__skyline,.buehne__skyline,.laufband__spur,.formular__falle");
       }).slice(0, 3).map(e => e.tagName + "." + (e.getAttribute("class") || ""));
       const bar = document.querySelector(".callbar");
-      return { sw: document.documentElement.scrollWidth, breit, bar: !!bar && getComputedStyle(bar).display !== "none",
+      return { sw: document.documentElement.scrollWidth, breit, hat: !!bar, bar: !!bar && getComputedStyle(bar).display !== "none",
         pad: parseFloat(getComputedStyle(document.body).paddingBottom), barH: bar ? bar.getBoundingClientRect().height : 0 };
     });
     pruefe(r.sw <= w && r.breit.length === 0, `${pfad} ${w}px: kein Überlauf (scrollWidth ${r.sw})${r.breit.length ? " " + r.breit.join(", ") : ""}`);
-    // die Schnellleiste gibt es nur auf der Startseite; die Anfrage-Seite hat Telefon im Kopf
-    if (pfad === "/") pruefe(w < 960 ? r.bar && r.pad >= r.barH - 1 : !r.bar, `${pfad} ${w}px: Schnellleiste ${w < 960 ? "sichtbar, Seite darunter frei" : "ausgeblendet"}`);
+    // Seiten mit Schnellleiste: nur mobil, und sie verdeckt nichts (die Anfrage-Seite hat Telefon im Kopf)
+    if (r.hat) pruefe(w < 960 ? r.bar && r.pad >= r.barH - 1 : !r.bar, `${pfad} ${w}px: Schnellleiste ${w < 960 ? "sichtbar, Seite darunter frei" : "ausgeblendet"}`);
     await p.context().close();
   }
 
@@ -58,7 +59,7 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   }
 
   console.log("  -- Fokus sichtbar (1440 px)");
-  for (const pfad of ["/", "/anfrage"]) {
+  for (const pfad of SEITEN) {
     const p = await (await br.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
     await p.goto(B + pfad, { waitUntil: "networkidle" });
     let ohne = [];
@@ -86,10 +87,10 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   }
 
   console.log("  -- Klickflächen ≥ 44 × 44 px");
-  for (const [pfad, w] of [["/", 390], ["/", 1440], ["/anfrage", 390], ["/anfrage", 1440]]) {
+  for (const [pfad, w] of SEITEN.flatMap(pfad => [[pfad, 390], [pfad, 1440]])) {
     const p = await (await br.newContext({ viewport: { width: w, height: 900 } })).newPage();
     await p.goto(B + pfad, { waitUntil: "networkidle" });
-    if (pfad === "/" && w < 1120) await p.click(".menu-toggle");
+    if (await p.isVisible(".menu-toggle")) await p.click(".menu-toggle");
     // Links im Fließtext (z. B. „Datenschutzerklärung“ im Hinweis) sind nach WCAG 2.5.8 ausgenommen
     const klein = await p.evaluate(() => [...document.querySelectorAll("a[href], button, label.wahl__chip, label.modus__wahl")].filter(e => {
       const b = e.getBoundingClientRect(); const s = getComputedStyle(e);

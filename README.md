@@ -103,6 +103,9 @@ python3 -I tools/vorschau.py          # Einzeldatei-Vorschau (Startseite und /an
 ```
 
 Was jede Prüfung abdeckt, steht im Skill `.claude/skills/aenderung-pruefen/`.
+Welche Seiten geprüft, fotografiert und in die Vorschau gebaut werden, steht in
+`tools/seiten.json`; `seo.js` wird rot, wenn eine Seite in `site/` dort fehlt
+(neue Seite: Skill `unterseite-anlegen`).
 `grafik.js` misst die Geometrie der Werterhalt-Grafik (Begriffe im Kreis,
 Titel in der Schnittmenge); `formular.js` prüft die Pages Function ohne Netz
 (Resend nachgebildet) und das Formular im Browser mit und ohne JavaScript. Die

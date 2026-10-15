@@ -1,4 +1,4 @@
-// Lighthouse mobil und Desktop gegen die Zielwerte aus dem Briefing, für Startseite und Anfrage-Seite.
+// Lighthouse mobil und Desktop gegen die Zielwerte aus dem Briefing, für jede Seite aus tools/seiten.json.
 // Jede Einstellung läuft LH_RUNS-mal (Standard 3), gewertet wird der Median der Leistung.
 // Berichte (HTML + JSON) landen in tools/berichte/ (nicht im Repo).
 //
@@ -15,7 +15,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
 let fehler = 0;
 const zeilen = [];
-for (const [seite, pfad] of [["startseite", "/"], ["anfrage", "/anfrage"]]) for (const modus of ["mobil", "desktop"]) {
+for (const { name: seite, pfad } of require("../seiten.json")) for (const modus of ["mobil", "desktop"]) {
   const laeufe = [];
   for (let i = 1; i <= RUNS; i++) {
     const basis = path.join(OUT, `lighthouse-${seite}-${modus}-${i}`);

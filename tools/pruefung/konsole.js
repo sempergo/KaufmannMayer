@@ -1,12 +1,13 @@
-// Konsolen- und Ladefehler auf Startseite und Anfrage-Seite (mobil und Desktop) und auf der 404-Seite.
+// Konsolen- und Ladefehler auf allen Seiten aus tools/seiten.json (mobil und Desktop) und auf der 404-Seite.
 const { chromium } = require("playwright");
 const B = process.env.BASE || "http://localhost:8788";
+const SEITEN = require("../seiten.json"); // alle Seiten der Website, eine Liste für alle Prüfungen
 // Bekannte, gewollte Meldungen: die 404-Seite meldet ihren eigenen Status in der Konsole.
 const BEKANNT = [/^error: Failed to load resource: the server responded with a status of 404/];
 let fehler = 0;
 (async () => {
   const br = await chromium.launch();
-  const faelle = [["/", 390, true], ["/", 1440, true], ["/anfrage", 390, true], ["/anfrage", 1440, true], ["/gibt-es-nicht", 390, false]];
+  const faelle = [...SEITEN.flatMap(s => [[s.pfad, 390, true], [s.pfad, 1440, true]]), ["/gibt-es-nicht", 390, false]];
   for (const [pfad, w, muss200] of faelle) {
     const p = await (await br.newContext({ viewport: { width: w, height: 900 } })).newPage();
     const probleme = [];
