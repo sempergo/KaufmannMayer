@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Nur Seiten, die es gibt. Leistungsseiten, /referenz-nls-78, /anfrage, /news,
+<!-- Nur Seiten, die es gibt. Leistungsseiten, /referenz-nls-78, /news,
      /kundenportal und die Rechtstexte hier eintragen, sobald sie gebaut sind (siehe README). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.kaufmann-mayer.de/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://www.kaufmann-mayer.de/anfrage</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
 </urlset>

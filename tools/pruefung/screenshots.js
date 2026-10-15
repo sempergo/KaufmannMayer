@@ -1,4 +1,4 @@
-// Ganzseitige Screenshots bei 390 und 1440 px (plus optional weitere Breiten).
+// Ganzseitige Screenshots von Startseite und Anfrage-Seite bei 390 und 1440 px (plus optional weitere Breiten).
 // Erwartet einen laufenden Server (node tools/server.js) oder BASE=…
 //   node tools/pruefung/screenshots.js [ziel-ordner] [breite ...]
 // Standardziel: tools/berichte/screenshots (nicht im Repo). Die Momentaufnahmen
@@ -14,13 +14,15 @@ const breiten = process.argv.slice(3).map(Number).filter(Boolean);
   for (const w of breiten.length ? breiten : [390, 1440]) {
     const ctx = await br.newContext({ viewport: { width: w, height: w < 800 ? 844 : 900 }, deviceScaleFactor: w < 800 ? 2 : 1, reducedMotion: "reduce" });
     const p = await ctx.newPage();
-    await p.goto(B + "/", { waitUntil: "networkidle" });
-    await p.evaluate(() => document.fonts.ready);
-    // einmal ans Ende scrollen, damit Bilder mit loading="lazy" geladen sind
-    await p.evaluate(async () => { window.scrollTo(0, document.body.scrollHeight); await new Promise(r => setTimeout(r, 400)); window.scrollTo(0, 0); });
-    await p.waitForLoadState("networkidle");
-    await p.screenshot({ path: path.join(ziel, `startseite-${w}-oben.png`) });
-    await p.screenshot({ path: path.join(ziel, `startseite-${w}.png`), fullPage: true });
+    for (const [name, pfad] of [["startseite", "/"], ["anfrage", "/anfrage"]]) {
+      await p.goto(B + pfad, { waitUntil: "networkidle" });
+      await p.evaluate(() => document.fonts.ready);
+      // einmal ans Ende scrollen, damit Bilder mit loading="lazy" geladen sind
+      await p.evaluate(async () => { window.scrollTo(0, document.body.scrollHeight); await new Promise(r => setTimeout(r, 400)); window.scrollTo(0, 0); });
+      await p.waitForLoadState("networkidle");
+      await p.screenshot({ path: path.join(ziel, `${name}-${w}-oben.png`) });
+      await p.screenshot({ path: path.join(ziel, `${name}-${w}.png`), fullPage: true });
+    }
     console.log("  " + w + " px gespeichert");
     await ctx.close();
   }

@@ -6,7 +6,9 @@ GitHub Pages zeigt die Seite unter einem Unterpfad (https://sempergo.github.io/K
 die Website verweist aber mit Wurzelpfaden (/css/…, /img/…, /fonts/…, /). Das Skript kopiert site/
 nach _pages/, setzt den Unterpfad vor alle Wurzelpfade in HTML (href, src, srcset) und CSS (url()),
 und sperrt die Kopie für Suchmaschinen (noindex, robots.txt) – sie ist eine Vorschau und soll der
-echten Domain keine Konkurrenz machen. _headers (nur Cloudflare) entfällt; ohne sie gilt dort keine CSP.
+echten Domain keine Konkurrenz machen. _headers und _redirects (nur Cloudflare) entfallen; ohne _headers gilt
+dort keine CSP. Functions (Anfrageformular) gibt es auf GitHub Pages nicht – das Formular bietet dann eine
+vorbereitete E-Mail an.
 """
 import re
 import shutil
@@ -29,6 +31,7 @@ def html(text):
 shutil.rmtree(ZIEL, ignore_errors=True)
 shutil.copytree(QUELLE, ZIEL)
 (ZIEL / "_headers").unlink(missing_ok=True)
+(ZIEL / "_redirects").unlink(missing_ok=True)
 for f in ZIEL.rglob("*.html"):
     f.write_text(html(f.read_text()))
 for f in ZIEL.rglob("*.css"):

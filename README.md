@@ -1,12 +1,13 @@
 # Kaufmann & Mayer – neue Startseite
 
-Entwurf der neuen Startseite für die Hausverwaltung Kaufmann & Mayer OHG,
+Entwurf der neuen Startseite und der Kontaktseite `/anfrage` für die Hausverwaltung Kaufmann & Mayer OHG,
 Frankfurt am Main. Gedacht als Pitch an den Inhaber: Er soll zeigen, dass ein
 schneller, logisch aufgebauter Auftritt mehr Reichweite bei Google und mehr
 Mandatsanfragen bringt als die heutige Wix-Seite.
 
-Statisches HTML und CSS, rund 6 KB JavaScript, kein Baukasten, kein
-Build-Schritt, deploybar auf Cloudflare Pages. Inhalte und Logo stammen von
+Statisches HTML und CSS, ein Skript (12 KB, komprimiert 4,6 KB), kein Baukasten, kein
+Build-Schritt, deploybar auf Cloudflare Pages; das Anfrageformular verschickt
+über eine Pages Function (Resend) E-Mails. Inhalte und Logo stammen von
 [kaufmann-mayer.de](https://www.kaufmann-mayer.de); Layout, Farben, Schriften
 und Bildsprache sind neu: hell und ruhig (Weiß und kühles Blau), dazu genau
 die Logofarben – Schiefer für Text und Buttons, Orange und Grün als Signalfarben
@@ -22,33 +23,38 @@ Grafiken) – übernommen wurde die Haltung, nicht die Gestaltung.
 Ganze Seite: [Desktop](screenshots/startseite-1440.webp) ·
 [Mobil](screenshots/startseite-390.webp)
 
+| Kontaktseite `/anfrage`, Desktop 1440 px | Mobil 390 px |
+|---|---|
+| ![Kontaktseite Desktop, ganze Seite](screenshots/anfrage-1440.webp) | ![Kontaktseite mobil, erster Bildschirm](screenshots/anfrage-390-oben.webp) |
+
 ## Lighthouse
 
-Gemessen am 14.10.2026 (aktueller Stand: Laufband, blaue Glas-Pillen, Skyline nach Vorlage, Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
+Gemessen am 15.10.2026 (aktueller Stand: Kontaktseite `/anfrage`, Laufband, blaue Glas-Pillen, Skyline nach Vorlage, Werterhalt-Animation) mit Lighthouse 12.8.2 (Chromium aus Playwright 1.56,
 simulierte Drosselung) gegen den lokalen Testserver, der Routing, Header und
 Komprimierung von Cloudflare Pages nachbildet. Je drei Läufe, angegeben ist der
 Median.
 
-| | Ziel | Mobil | Desktop |
-|---|---|---|---|
-| Leistung | ≥ 90 | **100** | **100** |
-| Barrierefreiheit | ≥ 95 | **100** | **100** |
-| Best Practices | – | 100 | 100 |
-| SEO | 100 | **100** | **100** |
-| Largest Contentful Paint | < 2,5 s | **1,52 s** | 0,34 s |
-| Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 |
-| First Contentful Paint | – | 1,02 s | 0,24 s |
-| Total Blocking Time | – | 2 ms | 0 ms |
-| Übertragene Daten | – | 102 KB | 98 KB |
+| | Ziel | Startseite mobil | Startseite Desktop | `/anfrage` mobil | `/anfrage` Desktop |
+|---|---|---|---|---|---|
+| Leistung | ≥ 90 | **100** | **100** | **100** | **100** |
+| Barrierefreiheit | ≥ 95 | **100** | **100** | **100** | **100** |
+| Best Practices | – | 100 | 100 | 100 | 100 |
+| SEO | 100 | **100** | **100** | **100** | **100** |
+| Largest Contentful Paint | < 2,5 s | **1,58 s** | 0,34 s | **1,51 s** | 0,37 s |
+| Cumulative Layout Shift | < 0,1 | **0,000** | 0,000 | **0,000** | 0,000 |
+| First Contentful Paint | – | 0,91 s | 0,27 s | 0,98 s | 0,26 s |
+| Total Blocking Time | – | 0 ms | 0 ms | 0 ms | 0 ms |
+| Übertragene Daten | – | 107 KB | 103 KB | 95 KB | 91 KB |
 
-Mobil schwankt die Leistung zwischen den Läufen leicht (beim ersten Entwurf
-einmal 97, zuletzt in einer Messreihe einmal 98 mit 107 ms Blockierzeit, die
-Wiederholung ergab 100/100/100). Live auf Cloudflare können die Werte etwas anders
+Mobil schwankt die Leistung der Startseite zwischen den Läufen leicht (zuletzt
+98, 100, 100; früher einmal 97). Live auf Cloudflare können die Werte etwas anders
 ausfallen; nach dem Livegang einmal mit PageSpeed Insights gegenprüfen.
 
 Zusätzlich grün: axe-core ohne Befund (WCAG 2.0–2.2 AA, mit offenem und
-geschlossenem Mobilmenü), kein waagerechtes Scrollen von 360 bis 1920 px, alle
-Klickflächen ≥ 44 × 44 px, kleinster gemessener Textkontrast 4,72:1.
+geschlossenem Mobilmenü, auf `/anfrage` in allen Zuständen des Formulars), kein
+waagerechtes Scrollen von 360 bis 1920 px, alle Klickflächen ≥ 44 × 44 px,
+kleinster gemessener Textkontrast 4,72:1 (Startseite) und 4,85:1 (`/anfrage`),
+Formular mit und ohne JavaScript bis zur versendeten Mail (32 Prüfpunkte).
 
 ## Starten
 
@@ -59,7 +65,9 @@ node tools/server.js            # http://localhost:8788
 ```
 
 Der Testserver bildet Cloudflare Pages nach: saubere URLs ohne `.html`,
-`404.html` für unbekannte Pfade, Header aus `site/_headers`, gzip. Ein
+`404.html` für unbekannte Pfade, Header aus `site/_headers`, gzip. Functions
+führt er nicht aus – das Formular bietet lokal deshalb die vorbereitete E-Mail
+an (wie auf GitHub Pages); die Function selbst prüft `formular.js`. Ein
 beliebiger anderer statischer Server (`npx serve site`) zeigt die Seite
 ebenfalls an, aber ohne diese Eigenschaften.
 
@@ -87,16 +95,19 @@ cd tools && npm ci && cd ..           # einmalig: axe-core, Lighthouse
 node tools/pruefung/alle.js           # alle Prüfungen inkl. Lighthouse, ca. 2 min
 node tools/pruefung/alle.js seo a11y  # nur einzelne
 node tools/server.js &                # für Bilder zum Ansehen:
-node tools/pruefung/screenshots.js    # ganze Seite, 390 und 1440 px
+node tools/pruefung/screenshots.js    # Startseite und /anfrage, 390 und 1440 px
 node tools/pruefung/ausschnitt.js .wh-venn --breiten 768,1024 --zeiten 300,2600   # ein Element, Hover, Animation
+node tools/pruefung/ausschnitt.js .formular-karte --pfad /anfrage --breiten 390,1024 # dasselbe auf /anfrage
 python3 -I tools/screenshots-webp.py  # Momentaufnahmen in screenshots/ erneuern
-python3 -I tools/vorschau.py          # Einzeldatei-Vorschau für den Auftraggeber
+python3 -I tools/vorschau.py          # Einzeldatei-Vorschau (Startseite und /anfrage) für den Auftraggeber
 ```
 
 Was jede Prüfung abdeckt, steht im Skill `.claude/skills/aenderung-pruefen/`.
 `grafik.js` misst die Geometrie der Werterhalt-Grafik (Begriffe im Kreis,
-Titel in der Schnittmenge); die Vorschau bettet Schriften, Bilder, CSS und
-JavaScript in eine Datei ein, die ohne Server im Browser läuft.
+Titel in der Schnittmenge); `formular.js` prüft die Pages Function ohne Netz
+(Resend nachgebildet) und das Formular im Browser mit und ohne JavaScript. Die
+Vorschau bettet Schriften, Bilder, CSS und JavaScript je Seite in eine Datei
+ein, die ohne Server im Browser läuft; die beiden Dateien verlinken einander.
 Lighthouse-Berichte (HTML und JSON) landen in `tools/berichte/`.
 
 ## Vorschau auf GitHub Pages
@@ -104,13 +115,15 @@ Lighthouse-Berichte (HTML und JSON) landen in `tools/berichte/`.
 Der Workflow `.github/workflows/pages.yml` veröffentlicht `site/` bei jedem Push
 auf den Arbeitsbranch (oder `main`) unter
 
-**https://sempergo.github.io/KaufmannMayer/**
+**https://sempergo.github.io/KaufmannMayer/** · Kontaktseite:
+**https://sempergo.github.io/KaufmannMayer/anfrage**
 
 `tools/pages.py` stellt dafür alle Wurzelpfade (`/css/…`, `/img/…`, `/`) auf den
 Unterpfad `/KaufmannMayer/` um und sperrt die Kopie für Suchmaschinen
 (`noindex`, `robots.txt`), damit sie der späteren Domain keine Konkurrenz macht.
-`_headers` gilt dort nicht (keine CSP) – maßgeblich für den Livegang bleibt
-Cloudflare Pages.
+`_headers` gilt dort nicht (keine CSP), und Functions gibt es dort nicht: Das
+Formular bietet nach dem Absenden die vorbereitete E-Mail an. Maßgeblich für
+den Livegang bleibt Cloudflare Pages.
 
 **Eingerichtet am 15.10.2026:** Repo öffentlich, *Settings → Pages → Build and
 deployment → Source: „GitHub Actions“* (öffentlich stellen allein schaltet Pages
@@ -135,13 +148,15 @@ wählen und einstellen:
 | Produktionszweig | `main` |
 
 Jeder Push auf `main` geht dann live, jeder andere Zweig bekommt eine
-Vorschau-URL.
+Vorschau-URL. Den Ordner `functions/` (Anfrageformular) findet Cloudflare im
+Repo-Wurzelverzeichnis von selbst; für den Mailversand einmalig Resend und die
+Variablen einrichten: **[ANFRAGE-SETUP.md](ANFRAGE-SETUP.md)**.
 
 **Variante B – Direkt-Upload** ohne Git-Anbindung:
 
 ```bash
 npx wrangler login
-npx wrangler pages deploy site --project-name=kaufmann-mayer
+npx wrangler pages deploy site --project-name=kaufmann-mayer   # aus dem Repo-Wurzelverzeichnis, dann kommt functions/ mit
 ```
 
 **Eigene Domain:** im Pages-Projekt unter *Benutzerdefinierte Domains*
@@ -154,22 +169,27 @@ auf `www` schicken (Canonical, Sitemap und strukturierte Daten nutzen `www`).
 > `/weg-verwaltung-frankfurt`, `/referenz-nls-78`, `/hausverwaltung-frankfurt`,
 > `/news`, `/kundenportal`, `/kontakt`, `/impressum`, `/datenschutz`,
 > `/cookies`. Bis dahin landen Links auf diese Seiten auf `404.html`.
+> `/kontakt` gehört per 301 auf die neue Kontaktseite `/anfrage`
+> (`/kontakt /anfrage 301` in `site/_redirects`).
 
 ## Aufbau
 
 ```
 site/                     Website (Ausgabeverzeichnis für Cloudflare Pages)
   index.html              Startseite
+  anfrage.html            Kontaktseite mit Formular (Termin oder Nachricht)
   404.html                Fehlerseite (noindex)
   css/site.css            Design-Tokens und alle Stile
-  js/site.js              Mobilmenü, aktiver Menüpunkt, Portal-Reiter, Werterhalt-Animation (einziges Skript)
+  js/site.js              Mobilmenü, aktiver Menüpunkt, Portal-Reiter, Werterhalt-Animation, Laufband, Anfrageformular (einziges Skript)
   fonts/                  Source Serif 4 (Display, 500), Instrument Sans (variabel), nur latin
   img/                    Logo 1x–3x als AVIF/WebP/PNG, Emblem für die Netzwerk-Grafik, og-image.jpg
   _headers                Sicherheits-Header (CSP) und Cache-Regeln
+  _redirects              301-Weiterleitungen alter Adressen (/kontakt → /anfrage)
   robots.txt, sitemap.xml, llms.txt, favicon.ico, apple-touch-icon.png
-quellen/                  Original-Logo von der Wix-Seite
+functions/api/anfrage.js  Pages Function: Formular → E-Mail über Resend (Einrichtung: ANFRAGE-SETUP.md)
+quellen/                  Original-Logo von der Wix-Seite, Skyline-Vorlage
 tools/                    Testserver, Prüfungen, Asset-Skripte (eigenes package.json)
-screenshots/              Momentaufnahmen bei 390 und 1440 px
+screenshots/              Momentaufnahmen bei 390 und 1440 px (Startseite, /anfrage)
 .claude/skills/           Skillbase aus dem 21Layer-Repo, siehe SKILLS.md
 ```
 
@@ -202,6 +222,28 @@ freistehende weiße Leiste unten hält „Anrufen“ und „Termin vereinbaren�
 Griff. Die Skyline liegt mobil hinter der Überschrift statt hinter dem
 Fließtext.
 
+### Kontaktseite `/anfrage`
+
+Aufbau nach dem 21Layer-Anfrageformular, Gestaltung und Inhalte von Kaufmann &
+Mayer. Die Texte links stammen von der heutigen Kontaktseite
+(kaufmann-mayer.de/kontakt): Antwort innerhalb eines Werktages, die
+Beratungsthemen, Prof. Dr. Jörg H. Mayer als Ansprechpartner, das Einsatzgebiet,
+neue Objekte ab 10 Wohneinheiten.
+
+| Bereich | Aufgabe |
+|---|---|
+| Kopf | freistehende Leiste mit Logo (zur Startseite) und Telefonnummer – keine Navigation, damit nichts vom Formular ablenkt |
+| Einleitung | Eyebrow „Kontakt“, H1 mit dem orangen K|M-Strich, Antwortzeit |
+| Formular | Umschalter **Termin vereinbaren / Nachricht senden**; Name, E-Mail (Pflicht), Telefon, „Sie sind“ (Eigentümer, Beirat, Vermieter), „Worum geht es?“ als Mehrfachauswahl (WEG-Verwaltung, Verwalterwechsel, Mietverwaltung, Hausmeister-Service, Bauleitung & Sanierung, Hausgeldabrechnung, Eigentümerversammlung), Lage des Objekts, Wohneinheiten; im Terminweg zusätzlich Gesprächsart und Wunschtermin; Nachricht |
+| Punkte | persönlicher Ansprechpartner, Beratungsthemen, Einsatzgebiet – als ↳-Liste wie in der Vorlage |
+| Direkt | Telefon, E-Mail, Adresse (Platzhalter) in einer kleinen Karte |
+| Fuß | „Zurück zur Startseite“, Impressum, Datenschutz |
+
+Ab 960 px links Text, rechts die hellblaue Fläche mit der Skyline und der
+weißen Glaskarte des Formulars; darunter untereinander: Einleitung, Formular,
+Punkte. „Termin vereinbaren“ auf der Startseite führt auf `/anfrage`,
+„Kontakt aufnehmen“ auf `/anfrage#nachricht` (öffnet den Weg „Nachricht“).
+
 ## Designsystem
 
 Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
@@ -225,6 +267,8 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 | `--r-sm` / `--r` / `--r-lg` / `--r-box` | 4 / 6 / 8 / 12 px | leicht abgerundete Ecken; 12 px für Boxen und Leisten |
 | `--box-pad` / `--box-gap` | 16–64 px / 12–20 px | Innenabstand der Boxen, Abstand zwischen ihnen |
 | `--glow` | weicher blauer Schein | hinter jeder Box, hinter der Kontakt-Box etwas kräftiger |
+| `--rand-feld` | `#8492a4` | Rand der Eingabefelder und Auswahlkästchen (3,2:1, WCAG 1.4.11) |
+| `--rot-700` | `#b42318` | Fehlerhinweise im Formular (6,6:1) |
 
 - **Struktur:** Hero ganzflächig im Blauverlauf; alle Abschnitte danach als
   leicht abgerundete Boxen auf weißem Grund mit leichtem Schein dahinter, im
@@ -298,6 +342,14 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   auf, im Kalender pulsiert der gewählte Tag einmal. Umgesetzt als Tabs nach
   WAI-ARIA (Rollen, aria-selected, wandernder Fokus); ohne JavaScript sind die
   Reiter deaktiviert und der erste Bereich steht da.
+- **Formular (`/anfrage`):** weiße Felder mit 6 px Rundung und kräftigerem
+  Rand (`--rand-feld`), beim Fokus blauer Rahmen mit weichem Hof. Auswahl als
+  Pillen mit echten Checkboxen bzw. Radioknöpfen darin: gewählt grün hinterlegt
+  mit grünem Häkchen (die Karte trägt `akzent-gruen`), beim Überfahren hebt
+  sich die Pille um 1 px. Der Umschalter Termin/Nachricht ist eine Glas-Pille,
+  der gewählte Teil sieht aus wie ein Primärbutton. Fehler: roter Rand, Hinweis
+  direkt unter dem Feld und eine Meldung am Knopf. Feldreihen richten sich nach
+  der Breite der Karte (Container Queries), nicht nach dem Fenster.
 - **Schrift:** Source Serif 4 (Display-Schnitt) für Überschriften und
   Kennzahlen, Instrument Sans für Fließtext und Bedienelemente. Selbst gehostet,
   zusammen 51 KB, beide vorgeladen. Lizenz: SIL Open Font License 1.1
@@ -317,7 +369,10 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   - Netzwerk-Grafik: Verbindung, Punkt und Knoten werden grün, der Knoten
     wächst;
   - Partner: gestrichelter Rahmen wird durchgezogen, ein Pfeil fährt ein;
-  - Kontaktdaten: Icon-Kreis wird orange (E-Mail grün) und kippt;
+  - Kontaktdaten: Icon-Kreis wird orange (E-Mail grün) und kippt (auf
+    `/anfrage` ebenso in der Karte „Lieber direkt?“);
+  - Auswahl-Pillen im Formular: Rand in Grün, Pille hebt sich um 1 px;
+  - „Zurück zur Startseite“: Pfeil rückt nach links;
   - Navigation (Desktop): Unterstrich wächst aus der Mitte;
   - Buttons und Pfeil-Links: Pfeil rückt nach rechts.
   Dazu sanftes Scrollen zu Sprungmarken, die Werterhalt-Animation und das
@@ -329,10 +384,15 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
 
 **Vom Inhaber zu liefern**
 
-- [ ] **Geschäftsadresse** bestätigen, dann an drei Stellen eintragen: Kontakt
+- [ ] **Geschäftsadresse** bestätigen, dann an vier Stellen eintragen: Kontakt
       (`index.html`, Sektion 9), Footer, JSON-LD (`"address"`, siehe Kommentar
-      im `<head>`). Die alte Seite nennt widersprüchliche Angaben, deshalb ist
-      sie bewusst leer.
+      im `<head>`), Karte „Lieber direkt?“ auf `/anfrage`. Die alte Seite nennt
+      widersprüchliche Angaben (Ransbach-Baumbach statt Rhein-Main, eine
+      Telefonnummer im Link, die nicht zur angezeigten passt), deshalb ist sie
+      bewusst leer.
+- [ ] **Anfrageformular** durchsehen: Auswahl „Worum geht es?“, „Sie sind“,
+      Stufen der Wohneinheiten und den Satz „Neue Objekte ab 10 Wohneinheiten“
+      (von der alten Kontaktseite) bestätigen; Empfängerpostfach festlegen.
 - [ ] **Fotos** (echte Aufnahmen, keine Stockfotos):
       Hero – beide Inhaber vor einem verwalteten Objekt in Frankfurt
       (Hochformat 4:5, mobil per `object-fit: cover` auf 3:2 beschnitten, mind. 1200 × 1500 px);
@@ -363,11 +423,18 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
       danach in `sitemap.xml` und `llms.txt` eintragen:
       `/weg-verwaltung-frankfurt`, `/mietverwaltung`, `/bauleitung`,
       `/hausmeister-service`, `/weiterbildung`, `/referenz-nls-78`,
-      `/anfrage`, `/news`, `/kundenportal`, `/impressum`, `/datenschutz`,
-      `/cookies`.
+      `/news`, `/kundenportal`, `/impressum`, `/datenschutz`,
+      `/cookies`. (`/anfrage` steht, `/kontakt` leitet dorthin weiter.)
+- [ ] **Mailversand des Formulars** einrichten: Resend-Konto (EU), Domain
+      `kaufmann-mayer.de` bestätigen, Secret `RESEND_API_KEY` und Variablen in
+      Cloudflare setzen – Schritt für Schritt in
+      [ANFRAGE-SETUP.md](ANFRAGE-SETUP.md). Bis dahin bietet das Formular nach
+      dem Absenden die vorbereitete E-Mail an.
 - [ ] Impressum, Datenschutzerklärung und Cookie-Seite übernehmen und
       anpassen. Die Seite setzt keine Cookies, lädt nichts von Dritten und
-      braucht daher kein Cookie-Banner.
+      braucht daher kein Cookie-Banner. In die Datenschutzerklärung gehört das
+      Anfrageformular mit Resend als Auftragsverarbeiter (AVV abschließen,
+      siehe ANFRAGE-SETUP.md).
 - [ ] Nach dem Livegang: Google Search Console verifizieren, Sitemap
       einreichen, Google-Unternehmensprofil mit identischem Namen, Telefon
       und Adresse pflegen.
@@ -405,6 +472,19 @@ Alle Werte stehen als CSS-Variablen am Anfang von `site/css/site.css`.
   Monat. Die Leiste trägt den Hinweis „Beispielansicht“.
 - **Leistungen** verlinken über den Titel der Kachel (statt „Mehr erfahren“) –
   der Linktext nennt die Leistung, das hilft Suchmaschinen und Screenreadern.
+- **Kontaktseite:** Von der heutigen Kontaktseite übernommen sind nur
+  Telefon 06145 938481 und jhmayer@t-online.de; die dort genannte Adresse
+  (Ransbach-Baumbach), das Fax und die zweite E-Mail-Adresse sind bewusst
+  weggelassen, solange die Angaben nicht bestätigt sind. Statt eines
+  Buchungskalenders (21Layer nutzt Cal.com) schickt der Terminweg einen
+  **Terminwunsch** mit Gesprächsart und Wunschzeit; bestätigt wird per Mail
+  oder Telefon – kein Drittanbieter, keine Cookies. Unter dem Knopf steht ein
+  Datenschutzhinweis statt einer Einwilligungs-Checkbox (Rechtsgrundlage
+  Art. 6 Abs. 1 lit. b DSGVO). Pflicht sind nur Name und E-Mail.
+- **Formular ohne JavaScript:** Der Umschalter arbeitet mit CSS (`:has`), das
+  Formular schickt normal ab, die Function leitet auf `#gesendet` zurück. Mit
+  JavaScript wird geprüft und als JSON gesendet; fehlt der Endpunkt, steht eine
+  fertige E-Mail mit allen Angaben bereit.
 - **Werterhalt-Animation:** „Werterhalt“ steht in Source Serif 4 statt in der
   kursiven Newsreader aus der Vorlage, damit keine dritte Schrift geladen werden
   muss.
@@ -490,6 +570,20 @@ Runde „Buttons dunkler, Laufband ohne Knopf“: Primärblau von #1f4f8f auf
 #1a4274, weiße Kante von 32 % auf 10 % Deckkraft, äußerer Ring weg, Schatten
 halb so groß. Der Pause-Knopf am Laufband ist entfernt; damit das Band
 anhaltbar bleibt, hält es jetzt auch beim Antippen und bei Tastaturfokus.
+
+Runde „Kontaktseite“: Bei 390 px brach der Umschalter „Termin vereinbaren“
+zweizeilig um, bei 1024 px ebenso – schmale Karten zeigen jetzt „Termin“ und
+„Nachricht“. Bei 1024 px lag die Karte mit rund 410 px Innenbreite knapp unter
+der Schwelle für zweispaltige Felder, die Seite war 1.656 px lang; die rechte Spalte
+hat jetzt eine feste Wunschbreite (`--rechts`), die Feldreihen hängen an der
+Kartenbreite (Container Queries), die Seite ist bei 1024 px 240 px kürzer. Der
+linke Text stand mittig in der hohen Seite und begann erst bei 395 px – jetzt
+oben bündig. Am Desktop stapelten sich die zwei Gesprächsart-Pillen in einer
+halben Spalte; die Reihe gibt ihnen jetzt ihre eigene Breite. Mobil stand die
+Fehlermeldung nur unter dem Knopf, weit weg vom markierten Feld – jetzt steht
+der Hinweis zusätzlich direkt unter dem Feld (per `aria-describedby` nur,
+solange er gilt). Die Skyline war unter der Karte kaum zu sehen; ihr Verlauf
+blasst auf dieser Seite weniger aus, und die Fläche hat unten mehr Raum.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

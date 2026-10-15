@@ -67,6 +67,8 @@
   --gruen-700: #35700d;  /* Grün als Text (dunkler Teil des Bogens) */
   --gruen-900: #174215;  /* Logo: Schattenseite des Bogens */
   --gruen-50: #eef6e1;
+  --rot-700: #b42318;    /* Fehlerhinweise im Formular (6,6:1 auf Weiß) */
+  --rand-feld: #8492a4;  /* Rand von Eingabefeldern (3,2:1 auf Weiß, WCAG 1.4.11) */
   /* Akzent eines Abschnitts – Standard Orange, mit .akzent-gruen Grün */
   --akzent: var(--orange-500);
   --akzent-text: var(--orange-700);
@@ -1184,6 +1186,314 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
 .page-404 { --topline-h: var(--float-gap); --header-h: calc(var(--topline-h) + var(--navbar-h)); padding-bottom: 0; }
 .page-404 .site-header { padding-top: var(--float-gap); }
 .page-404 main { min-height: 60vh; }
+
+/* 6.12 Anfrage-Seite (/anfrage) – Aufbau nach dem 21Layer-Anfrageformular: links Einleitung und Punkte,
+   rechts das Formular als weiße Glaskarte auf einer hellblauen Fläche mit der Skyline. Unter 960 px
+   untereinander (Einleitung, Formular, Punkte); ab 960 px stehen Kopf und Fuß über und unter der linken
+   Spalte, die Fläche rechts reicht über die ganze Höhe. Termin oder Nachricht wählt ein Umschalter aus
+   zwei Radioknöpfen – Felder und Texte des anderen Wegs blendet :has() aus, ganz ohne JavaScript. */
+.seite-anfrage { padding-bottom: 0; }
+.anfrage-kopf { position: relative; z-index: 2; padding: var(--float-gap) var(--gutter) 0; }
+.anfrage-kopf .navbar { padding-inline: var(--space-3) var(--space-2); }
+.anfrage-kopf .btn { flex: none; }
+/* schmal nur das Hörersymbol als runder Knopf, die Nummer bleibt für Screenreader im Link */
+@media (max-width: 29.99em) {
+  .anfrage-kopf .btn { width: 2.75rem; padding: 0; }
+  .anfrage-kopf__nummer { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
+.anfrage { display: flex; flex-direction: column; gap: var(--space-6); padding-block: var(--space-6) var(--space-5); }
+.anfrage__intro, .anfrage__mehr { padding-inline: calc(var(--gutter) + var(--space-2)); }
+.anfrage__titel {
+  position: relative;
+  padding-left: calc(var(--bar) + clamp(0.875rem, 0.4rem + 1.5vw, 1.25rem));
+  font-size: clamp(2rem, 1.45rem + 2.2vw, 3.25rem);
+  line-height: var(--lh-tight);
+  max-width: 12em;
+}
+.anfrage__titel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  bottom: 0.12em;
+  width: var(--bar);
+  background: var(--orange-500);
+}
+.anfrage__titel span { color: var(--blau-800); }
+.anfrage__lead { margin-top: var(--space-5); max-width: 34rem; font-size: var(--fs-lead); color: var(--slate-600); }
+
+.punkte { display: grid; gap: var(--space-5); max-width: 34rem; }
+.punkt { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); }
+.punkt__icon { width: 1.25rem; height: 1.25rem; margin-top: 0.15rem; color: var(--orange-500); stroke-width: 1.75; }
+.punkt__titel { font-weight: 600; font-size: 1.0625rem; line-height: 1.3; }
+.punkt__text { margin-top: var(--space-1); font-size: var(--fs-sm); line-height: 1.55; color: var(--slate-600); }
+.direkt {
+  max-width: 34rem;
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-blau);
+}
+.direkt__titel { font: 500 var(--fs-h3)/1.2 var(--font-serif); }
+.direkt__liste { display: grid; margin-top: var(--space-2); }
+.direkt__liste li, .direkt__liste a { display: flex; align-items: center; gap: var(--space-3); min-height: 2.75rem; }
+.direkt__liste a { font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.direkt__liste a:hover { text-decoration: underline; }
+.direkt .icon-dot { width: 2.25rem; height: 2.25rem; background: var(--white); transition: background-color 260ms var(--ease), color 260ms var(--ease), transform 260ms var(--ease); }
+@media (hover: hover) {
+  .direkt__liste a:hover .icon-dot { background: var(--orange-500); color: var(--schiefer-tief); transform: rotate(-10deg) scale(1.06); }
+}
+
+/* Fläche mit der Skyline und die Formularkarte */
+.anfrage__buehne {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  margin-inline: var(--gutter);
+  padding: clamp(0.75rem, 0.2rem + 2.4vw, 2rem) clamp(0.75rem, 0.2rem + 2.4vw, 2rem) clamp(4rem, 3rem + 6vw, 7rem);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-box);
+  background: linear-gradient(175deg, var(--hero-oben) 0%, #e3ecf7 55%, var(--bg-blau) 100%);
+  box-shadow: var(--glow);
+}
+.buehne__skyline {
+  position: absolute;
+  z-index: -1;
+  left: -10%;
+  bottom: 0;
+  width: 125%;
+  max-width: none;
+  pointer-events: none;
+}
+.formular-karte {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  max-width: 36rem;
+  padding: clamp(1.25rem, 0.75rem + 2vw, 2.25rem);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: var(--r-box);
+  background: rgb(255 255 255 / 0.86);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: inset 0 1px 0 var(--white), 0 1px 2px rgb(20 36 59 / 0.05), 0 30px 60px -34px rgb(20 36 59 / 0.45);
+}
+.formular { display: grid; gap: var(--space-4); }
+.formular fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.formular__titel { font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem); }
+.formular__sub { margin-top: calc(var(--space-2) - var(--space-4)); font-size: var(--fs-sm); color: var(--slate-600); }
+
+/* Umschalter Termin / Nachricht: zwei Radioknöpfe als Glas-Pille, der gewählte wie ein Primärbutton */
+.formular .modus {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin-bottom: var(--space-2);
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-blau);
+}
+.modus__wahl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--navy-700);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.modus__wahl input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.modus__wahl .icon { color: var(--orange-700); }
+.modus__wahl:has(input:checked) {
+  border-color: rgb(255 255 255 / 0.1);
+  background:
+    radial-gradient(120% 100% at 50% -35%, rgb(255 255 255 / 0.2), transparent 58%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(8 24 48 / 0.1))
+    rgb(26 66 116 / 0.92);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22), 0 6px 16px -10px rgb(26 66 116 / 0.6);
+  color: var(--white);
+}
+.modus__wahl:has(input:checked) .icon { color: var(--orange-400); }
+.modus__wahl:has(input:focus-visible) { outline: 2px solid var(--orange-700); outline-offset: 2px; }
+@media (hover: hover) {
+  .modus__wahl:not(:has(input:checked)):hover { background: var(--white); color: var(--schiefer); }
+}
+/* schmale Karte: kurze Beschriftung („Termin“, „Nachricht“), sonst bricht sie um */
+@container (max-width: 23.99rem) {
+  .modus__lang { display: none; }
+}
+.formular:has(#art-nachricht:checked) .nur-termin { display: none; }
+.formular:not(:has(#art-nachricht:checked)) .nur-nachricht { display: none; }
+
+/* Felder */
+.feld-reihe { display: grid; gap: var(--space-4); }
+@container (min-width: 25rem) {
+  .feld-reihe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feld-reihe--termin { grid-template-columns: minmax(0, 1fr); }
+}
+/* Gesprächsart so breit wie ihre zwei Chips, der Wunschtermin nimmt den Rest */
+@container (min-width: 30rem) {
+  .feld-reihe--termin { grid-template-columns: auto minmax(0, 1fr); }
+}
+.feld { display: grid; gap: 0.375rem; align-content: start; }
+.feld__label { padding: 0; font-size: var(--fs-xs); font-weight: 600; line-height: 1.4; color: var(--schiefer); }
+legend.feld__label { margin-bottom: 0.375rem; }
+.feld__opt { margin-left: 0.25rem; font-weight: 400; color: var(--slate-600); }
+.feld__eingabe {
+  width: 100%;
+  min-height: 2.875rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--rand-feld);
+  border-radius: var(--r);
+  background-color: var(--white);
+  color: var(--schiefer);
+  font: 400 1rem/1.4 var(--font-sans);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.feld__eingabe::placeholder { color: #647083; opacity: 1; }
+textarea.feld__eingabe { min-height: 7.5rem; resize: vertical; }
+.feld__auswahl {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.5rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c4266' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 0.875rem center / 1rem var(--white);
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .feld__eingabe:hover { border-color: var(--navy-700); }
+}
+.feld__eingabe:focus-visible { outline: 2px solid var(--blau-800); outline-offset: 0; border-color: var(--blau-800); box-shadow: 0 0 0 5px rgb(26 66 116 / 0.12); }
+.feld__eingabe[aria-invalid="true"] { border-color: var(--rot-700); box-shadow: 0 0 0 3px rgb(180 35 24 / 0.14); }
+.feld__eingabe[aria-invalid="true"]:focus-visible { outline-color: var(--rot-700); }
+.feld__fehler { display: none; font-size: var(--fs-xs); font-weight: 500; color: var(--rot-700); }
+.feld__eingabe[aria-invalid="true"] + .feld__fehler { display: block; }
+
+/* Auswahl-Chips (Anliegen, Gesprächsart): echte Checkboxen und Radioknöpfe, darüber die Pille */
+.wahl { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.wahl__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0.375rem 1rem 0.375rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--schiefer);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), transform 220ms var(--ease);
+}
+.wahl__chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.wahl__chip::before {
+  content: "";
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid var(--rand-feld);
+  border-radius: 50%;
+  background: var(--white) center / 0.75rem no-repeat;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.wahl__chip:has(input[type="checkbox"])::before { border-radius: var(--r-sm); }
+.wahl__chip:has(input:checked) { border-color: var(--akzent); background: var(--akzent-hell); }
+.wahl__chip:has(input:checked)::before { border-color: var(--akzent-text); background-color: var(--akzent-text); }
+.wahl__chip:has(input[type="checkbox"]:checked)::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+.wahl__chip:has(input[type="radio"]:checked)::before { box-shadow: inset 0 0 0 3px var(--white); }
+.wahl__chip:has(input:focus-visible) { outline: 2px solid var(--orange-700); outline-offset: 2px; }
+@media (hover: hover) {
+  .wahl__chip:hover { border-color: var(--akzent); transform: translateY(-1px); }
+}
+
+.formular__falle { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.formular__senden { width: 100%; margin-top: var(--space-2); }
+.formular__senden[disabled] { cursor: progress; opacity: 0.75; }
+.formular__status:empty { display: none; }
+.formular__status { padding: var(--space-3) var(--space-4); border-radius: var(--r); background: var(--bg-blau); font-size: var(--fs-sm); }
+.formular__status.ist-fehler { background: #fdecea; color: var(--rot-700); }
+.formular__status a { color: inherit; font-weight: 600; }
+.formular__hinweis { font-size: var(--fs-xs); text-align: center; color: var(--slate-600); }
+.formular__hinweis a { color: var(--schiefer); }
+
+/* Ergebnis: ohne JavaScript per Sprungziel (#gesendet, #nicht-gesendet), mit JavaScript per Klasse */
+.ergebnis { display: none; }
+.ergebnis:target, .ergebnis.ist-offen { display: grid; gap: var(--space-4); justify-items: start; }
+.ergebnis:focus { outline: none; }
+.formular-karte:has(.ergebnis:target) .formular, .formular-karte:has(.ergebnis.ist-offen) .formular { display: none; }
+.ergebnis p { color: var(--slate-600); }
+.ergebnis p a { color: var(--schiefer); font-weight: 600; }
+.ergebnis__icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; background: var(--akzent-hell); color: var(--akzent-text); }
+
+.anfrage-fuss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--space-5);
+  padding: var(--space-2) calc(var(--gutter) + var(--space-2)) var(--space-5);
+  font-size: var(--fs-sm);
+  color: var(--slate-600);
+}
+.anfrage-fuss a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 2.75rem; color: var(--slate-600); text-decoration: none; }
+.anfrage-fuss a:hover { color: var(--schiefer); text-decoration: underline; }
+a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
+.anfrage-fuss__zurueck .icon { color: var(--orange-700); transform: scaleX(-1); transition: transform 240ms var(--ease); }
+@media (hover: hover) {
+  .anfrage-fuss__zurueck:hover .icon { transform: scaleX(-1) translateX(3px); }
+}
+.anfrage-fuss__recht { display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
+
+@media (min-width: 60em) {
+  /* rechts so breit, dass die Karte zweispaltige Felder trägt; links der Rest */
+  .seite-anfrage {
+    --rechts: clamp(33rem, 22rem + 18vw, 46rem);
+    --links: calc(100% - var(--rechts));
+    --links-pad: clamp(2rem, -3rem + 7vw, 7rem);
+    --kopf-h: calc(var(--navbar-h) + var(--float-gap) + var(--space-5));
+    --fuss-h: 5rem;
+    position: relative;
+  }
+  .anfrage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--rechts);
+    /* Text oben bündig: die Formularkarte ist meist höher als das Fenster, mittig stünde er zu tief */
+    grid-template-rows: var(--kopf-h) clamp(1.5rem, 6vh, 4.5rem) auto auto 1fr var(--fuss-h);
+    gap: 0;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 0;
+  }
+  .anfrage__intro, .anfrage__mehr { grid-column: 1; padding-inline: var(--links-pad) clamp(2rem, 4vw, 4.5rem); }
+  .anfrage__intro { grid-row: 3; }
+  .anfrage__mehr { grid-row: 4; margin-top: var(--space-6); }
+  .anfrage__buehne {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    margin: var(--float-gap) var(--float-gap) var(--float-gap) 0;
+    padding: clamp(1.5rem, -1rem + 4vw, 4rem) clamp(1.5rem, -1rem + 4vw, 4rem) clamp(5rem, 1rem + 6vw, 8rem);
+  }
+  .anfrage-kopf { position: absolute; top: 0; left: 0; width: var(--links); padding: var(--float-gap) var(--float-gap) 0; }
+  .anfrage-fuss { position: absolute; left: 0; bottom: 0; width: var(--links); height: var(--fuss-h); padding: 0 clamp(2rem, 4vw, 4.5rem) 0 var(--links-pad); }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }

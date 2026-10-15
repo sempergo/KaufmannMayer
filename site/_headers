@@ -1,5 +1,5 @@
 # Cloudflare Pages – Antwort-Header. Der lokale Testserver (tools/server.js) wendet sie ebenfalls an.
-# Der Hash in script-src gehört zum Einzeiler im <head> von index.html und 404.html
+# Der Hash in script-src gehört zum Einzeiler im <head> von index.html, anfrage.html und 404.html
 # (setzt die Klasse "js"); bei Änderung neu berechnen – tools/pruefung/seo.js prüft das.
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self' 'sha256-cvlem2Rlcb+inScVb7910PMAU98gRDEfAIUVUKXOWd4='; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests

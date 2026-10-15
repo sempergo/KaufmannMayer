@@ -1,0 +1,3 @@
+# Cloudflare Pages – Weiterleitungen (Format: Quelle Ziel Status). Der lokale Testserver wendet sie ebenfalls an.
+# Alte, indexierte Adressen der Wix-Seite auf die neuen Seiten (siehe README, „Deployen“).
+/kontakt /anfrage 301

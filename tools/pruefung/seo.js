@@ -1,4 +1,4 @@
-// SEO- und Strukturprüfung der Startseite gegen die Vorgaben aus dem Briefing.
+// SEO- und Strukturprüfung der Startseite gegen die Vorgaben aus dem Briefing, dazu die Anfrage-Seite.
 const { chromium } = require("playwright");
 const crypto = require("crypto"), fs = require("fs"), path = require("path");
 const B = process.env.BASE || "http://localhost:8788";
@@ -80,17 +80,66 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   const robots = await (await p.request.get(B + "/robots.txt")).text();
   pruefe(/Sitemap: https:\/\/www\.kaufmann-mayer\.de\/sitemap\.xml/.test(robots) && !/Disallow: \/\s*$/m.test(robots), "robots.txt verweist auf Sitemap, sperrt nichts");
 
+  console.log("  -- Anfrage-Seite (/anfrage)");
+  {
+    const q = await br.newPage();
+    const res = await q.goto(B + "/anfrage", { waitUntil: "networkidle" });
+    const a = await q.evaluate(() => {
+      const meta = n => document.querySelector(`meta[name="${n}"], meta[property="${n}"]`)?.content || "";
+      const f = document.querySelector("form#formular");
+      return {
+        lang: document.documentElement.lang, title: document.title, desc: meta("description"),
+        canonical: document.querySelector('link[rel="canonical"]')?.href, robots: meta("robots"),
+        og: ["og:title", "og:description", "og:url", "og:image", "og:type", "og:locale", "twitter:card"].map(n => [n, meta(n)]),
+        h1: document.querySelectorAll("h1").length, heads: [...document.querySelectorAll("h1,h2,h3,h4")].filter(h => h.offsetParent).map(h => +h.tagName[1]),
+        landmarks: ["header", "main", "footer"].map(t => [t, document.querySelectorAll(t).length]),
+        tel: [...document.querySelectorAll('a[href^="tel:"]')].map(a => a.getAttribute("href")),
+        mail: [...document.querySelectorAll('a[href^="mailto:"]')].map(a => a.getAttribute("href")),
+        imgs: [...document.querySelectorAll("img")].map(i => ({ alt: i.getAttribute("alt"), w: i.getAttribute("width"), h: i.getAttribute("height") })),
+        anker: [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute("href")).filter(h => h.length > 1 && !document.querySelector(h)),
+        home: [...document.querySelectorAll('a[href="/"]')].length,
+        form: f && { action: f.getAttribute("action"), method: f.getAttribute("method"),
+          ohneLabel: [...f.querySelectorAll("input:not([type=radio]):not([type=checkbox]):not([name=website]), select, textarea")].filter(e => !e.labels.length).map(e => e.name),
+          pflicht: [...f.querySelectorAll("[required]")].map(e => e.name) },
+        jsonld: [...document.querySelectorAll('script[type="application/ld+json"]')].map(s => s.textContent),
+      };
+    });
+    pruefe(res.status() === 200, "/anfrage liefert 200 (saubere URL ohne .html)");
+    pruefe(a.lang === "de" && a.title === "Kontakt und Termin | Hausverwaltung Kaufmann & Mayer", `Title: ${a.title}`);
+    pruefe(a.desc.length >= 110 && a.desc.length <= 160, `Description ${a.desc.length} Zeichen`);
+    pruefe(a.canonical === "https://www.kaufmann-mayer.de/anfrage" && !a.robots, `Canonical ${a.canonical}, indexierbar`);
+    for (const [n, v] of a.og) pruefe(!!v, `${n} gesetzt`);
+    pruefe(a.h1 === 1 && a.heads[0] === 1 && a.heads.every((h, i) => !i || h <= a.heads[i - 1] + 1), "genau eine H1, Überschriften ohne Sprung");
+    for (const [t, n] of a.landmarks) pruefe(n === 1, `<${t}> genau einmal`);
+    pruefe(a.tel.length > 0 && a.tel.every(t => t === TEL), `alle ${a.tel.length} Telefonlinks = ${TEL}`);
+    pruefe(a.mail.every(m => m === "mailto:jhmayer@t-online.de"), "E-Mail-Links nur jhmayer@t-online.de");
+    pruefe(a.imgs.every(i => i.alt && i.w && i.h) && a.home >= 2, "Logo mit Alt-Text und Maßen, Weg zurück zur Startseite");
+    pruefe(a.anker.length === 0, "alle Sprungmarken haben ein Ziel" + (a.anker.length ? ": " + a.anker.join(", ") : ""));
+    pruefe(a.form && a.form.action === "/api/anfrage" && a.form.method === "post", "Formular schickt per POST an /api/anfrage (geht auch ohne JavaScript)");
+    pruefe(a.form && a.form.ohneLabel.length === 0, "jedes Feld hat ein Label" + (a.form && a.form.ohneLabel.length ? ": " + a.form.ohneLabel.join(", ") : ""));
+    pruefe(a.form && a.form.pflicht.join() === "name,email", `Pflichtfelder nur Name und E-Mail (${a.form && a.form.pflicht.join(", ")})`);
+    let cp = null; try { cp = JSON.parse(a.jsonld[0]); } catch (e) {}
+    pruefe(cp && cp["@type"] === "ContactPage" && cp.mainEntity && cp.mainEntity.telephone === "+49 6145 938481", "JSON-LD gültig: ContactPage mit Telefon");
+    const alt = await q.request.get(B + "/kontakt", { maxRedirects: 0 });
+    pruefe(alt.status() === 301 && alt.headers()["location"] === "/anfrage", "alte Adresse /kontakt leitet per 301 auf /anfrage (site/_redirects)");
+    const sitemap = await (await q.request.get(B + "/sitemap.xml")).text();
+    pruefe(sitemap.includes("<loc>https://www.kaufmann-mayer.de/anfrage</loc>"), "in sitemap.xml eingetragen");
+    await q.close();
+  }
+
   console.log("  -- Sicherheit");
   const headers = fs.readFileSync(path.join(SITE, "_headers"), "utf8");
   for (const s of d.inline) {
     const h = crypto.createHash("sha256").update(s).digest("base64");
     pruefe(headers.includes(`'sha256-${h}'`), "Hash des Inline-Skripts steht in der CSP");
   }
-  const r404 = fs.readFileSync(path.join(SITE, "404.html"), "utf8").match(/<script>(.*?)<\/script>/)[1];
-  pruefe(headers.includes(`'sha256-${crypto.createHash("sha256").update(r404).digest("base64")}'`), "Hash des Inline-Skripts der 404-Seite steht in der CSP");
-  const html = fs.readFileSync(path.join(SITE, "index.html"), "utf8");
-  pruefe(!/\sstyle="/.test(html), "keine style-Attribute (CSP style-src 'self')");
-  pruefe(!/https?:\/\/(fonts\.googleapis|fonts\.gstatic|cdn)/.test(html), "keine externen Schrift- oder CDN-Einbindungen");
+  for (const datei of ["index.html", "anfrage.html", "404.html"]) {
+    const html = fs.readFileSync(path.join(SITE, datei), "utf8");
+    const inline = [...html.matchAll(/<script>(.*?)<\/script>/gs)].map(m => m[1]);
+    pruefe(inline.every(x => headers.includes(`'sha256-${crypto.createHash("sha256").update(x).digest("base64")}'`)), `${datei}: Hash jedes Inline-Skripts steht in der CSP`);
+    pruefe(!/\sstyle="/.test(html), `${datei}: keine style-Attribute (CSP style-src 'self')`);
+    pruefe(!/https?:\/\/(fonts\.googleapis|fonts\.gstatic|cdn)/.test(html), `${datei}: keine externen Schrift- oder CDN-Einbindungen`);
+  }
 
   await br.close();
   console.log(fehler ? `\n  ${fehler} Fehler.` : "\n  Alles in Ordnung.");

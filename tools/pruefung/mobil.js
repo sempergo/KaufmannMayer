@@ -3,7 +3,7 @@
 //  - mobile Schnellleiste nur unter 960 px, verdeckt nichts
 //  - Menü: per Tastatur öffnen, Tab in die Links, Escape schließt, Fokus zurück
 //  - ohne JavaScript bleibt die Navigation erreichbar
-//  - jede Klickfläche mindestens 44 x 44 px
+//  - jede Klickfläche mindestens 44 x 44 px (Startseite und Anfrage-Seite)
 const { chromium } = require("playwright");
 const B = process.env.BASE || "http://localhost:8788";
 let fehler = 0;
@@ -13,21 +13,23 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   const br = await chromium.launch();
 
   console.log("  -- Breiten");
-  for (const w of [360, 390, 414, 768, 1024, 1280, 1440, 1920]) {
+  for (const [pfad, w] of [360, 390, 414, 768, 1024, 1280, 1440, 1920].flatMap(w => [["/", w], ["/anfrage", w]])) {
     const p = await (await br.newContext({ viewport: { width: w, height: 800 } })).newPage();
-    await p.goto(B + "/", { waitUntil: "networkidle" });
+    await p.goto(B + pfad, { waitUntil: "networkidle" });
     const r = await p.evaluate(() => {
       const breit = [...document.querySelectorAll("body *")].filter(e => {
         // .hero__skyline läuft gewollt über den Rand; der Hero schneidet sie ab (overflow: hidden).
-        // .laufband__spur ist gewollt breiter als das Fenster, das sie abschneidet.
-        const b = e.getBoundingClientRect(); return b.width && (b.right > innerWidth + 1 || b.left < -1) && !e.closest(".sprite,.skip-link,.visually-hidden,.hero__skyline,.laufband__spur");
+        // .laufband__spur ist gewollt breiter als das Fenster, das sie abschneidet; ebenso .buehne__skyline
+        // (Anfrage-Seite). .formular__falle liegt absichtlich außerhalb (Spam-Falle).
+        const b = e.getBoundingClientRect(); return b.width && (b.right > innerWidth + 1 || b.left < -1) && !e.closest(".sprite,.skip-link,.visually-hidden,.hero__skyline,.buehne__skyline,.laufband__spur,.formular__falle");
       }).slice(0, 3).map(e => e.tagName + "." + (e.getAttribute("class") || ""));
       const bar = document.querySelector(".callbar");
-      return { sw: document.documentElement.scrollWidth, breit, bar: getComputedStyle(bar).display !== "none",
-        pad: parseFloat(getComputedStyle(document.body).paddingBottom), barH: bar.getBoundingClientRect().height };
+      return { sw: document.documentElement.scrollWidth, breit, bar: !!bar && getComputedStyle(bar).display !== "none",
+        pad: parseFloat(getComputedStyle(document.body).paddingBottom), barH: bar ? bar.getBoundingClientRect().height : 0 };
     });
-    pruefe(r.sw <= w && r.breit.length === 0, `${w}px: kein Überlauf (scrollWidth ${r.sw})${r.breit.length ? " " + r.breit.join(", ") : ""}`);
-    pruefe(w < 960 ? r.bar && r.pad >= r.barH - 1 : !r.bar, `${w}px: Schnellleiste ${w < 960 ? "sichtbar, Seite darunter frei" : "ausgeblendet"}`);
+    pruefe(r.sw <= w && r.breit.length === 0, `${pfad} ${w}px: kein Überlauf (scrollWidth ${r.sw})${r.breit.length ? " " + r.breit.join(", ") : ""}`);
+    // die Schnellleiste gibt es nur auf der Startseite; die Anfrage-Seite hat Telefon im Kopf
+    if (pfad === "/") pruefe(w < 960 ? r.bar && r.pad >= r.barH - 1 : !r.bar, `${pfad} ${w}px: Schnellleiste ${w < 960 ? "sichtbar, Seite darunter frei" : "ausgeblendet"}`);
     await p.context().close();
   }
 
@@ -56,21 +58,22 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   }
 
   console.log("  -- Fokus sichtbar (1440 px)");
-  {
+  for (const pfad of ["/", "/anfrage"]) {
     const p = await (await br.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
-    await p.goto(B + "/", { waitUntil: "networkidle" });
+    await p.goto(B + pfad, { waitUntil: "networkidle" });
     let ohne = [];
     for (let i = 0; i < 60; i++) {
       await p.keyboard.press("Tab");
       const f = await p.evaluate(() => {
         const e = document.activeElement; if (!e || e === document.body) return null;
-        const s = getComputedStyle(e); const k = e.closest(".service");
-        const sichtbar = (s.outlineStyle !== "none" && parseFloat(s.outlineWidth) >= 2) || (k && getComputedStyle(k).outlineStyle !== "none");
+        // Kacheln (.service) und Auswahl-Chips (das Feld selbst ist unsichtbar) zeigen den Rahmen am Behälter
+        const s = getComputedStyle(e); const k = e.closest(".service, .wahl__chip, .modus__wahl");
+        const sichtbar = (s.outlineStyle !== "none" && parseFloat(s.outlineWidth) >= 2) || (k && getComputedStyle(k).outlineStyle !== "none" && parseFloat(getComputedStyle(k).outlineWidth) >= 2);
         return { t: (e.textContent || e.getAttribute("aria-label") || "").trim().slice(0, 30), sichtbar };
       });
       if (f && !f.sichtbar) ohne.push(f.t);
     }
-    pruefe(ohne.length === 0, "60 Tab-Schritte: jedes Element mit sichtbarem Fokusrahmen" + (ohne.length ? ": " + ohne.join(", ") : ""));
+    pruefe(ohne.length === 0, `${pfad}: 60 Tab-Schritte, jedes Element mit sichtbarem Fokusrahmen` + (ohne.length ? ": " + ohne.join(", ") : ""));
     await p.context().close();
   }
 
@@ -83,16 +86,18 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
   }
 
   console.log("  -- Klickflächen ≥ 44 × 44 px");
-  for (const w of [390, 1440]) {
+  for (const [pfad, w] of [["/", 390], ["/", 1440], ["/anfrage", 390], ["/anfrage", 1440]]) {
     const p = await (await br.newContext({ viewport: { width: w, height: 900 } })).newPage();
-    await p.goto(B + "/", { waitUntil: "networkidle" });
-    if (w < 1120) await p.click(".menu-toggle");
-    const klein = await p.evaluate(() => [...document.querySelectorAll("a[href], button")].filter(e => {
+    await p.goto(B + pfad, { waitUntil: "networkidle" });
+    if (pfad === "/" && w < 1120) await p.click(".menu-toggle");
+    // Links im Fließtext (z. B. „Datenschutzerklärung“ im Hinweis) sind nach WCAG 2.5.8 ausgenommen
+    const klein = await p.evaluate(() => [...document.querySelectorAll("a[href], button, label.wahl__chip, label.modus__wahl")].filter(e => {
       const b = e.getBoundingClientRect(); const s = getComputedStyle(e);
       if (!b.width || s.visibility === "hidden" || e.closest(".skip-link,.visually-hidden") || e.classList.contains("skip-link")) return false;
+      if (s.display === "inline" && e.parentElement.closest("p")) return false;
       return b.height < 44 - 0.5 || b.width < 44 - 0.5;
     }).map(e => `${e.textContent.trim().slice(0, 25)} (${Math.round(e.getBoundingClientRect().width)}×${Math.round(e.getBoundingClientRect().height)})`));
-    pruefe(klein.length === 0, `${w}px: alle Links und Knöpfe groß genug${klein.length ? ": " + klein.join("; ") : ""}`);
+    pruefe(klein.length === 0, `${pfad} ${w}px: alle Links, Knöpfe und Chips groß genug${klein.length ? ": " + klein.join("; ") : ""}`);
     await p.context().close();
   }
 

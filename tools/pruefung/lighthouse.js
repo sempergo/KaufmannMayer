@@ -1,4 +1,4 @@
-// Lighthouse mobil und Desktop gegen die Zielwerte aus dem Briefing.
+// Lighthouse mobil und Desktop gegen die Zielwerte aus dem Briefing, für Startseite und Anfrage-Seite.
 // Jede Einstellung läuft LH_RUNS-mal (Standard 3), gewertet wird der Median der Leistung.
 // Berichte (HTML + JSON) landen in tools/berichte/ (nicht im Repo).
 //
@@ -15,11 +15,11 @@ fs.mkdirSync(OUT, { recursive: true });
 
 let fehler = 0;
 const zeilen = [];
-for (const modus of ["mobil", "desktop"]) {
+for (const [seite, pfad] of [["startseite", "/"], ["anfrage", "/anfrage"]]) for (const modus of ["mobil", "desktop"]) {
   const laeufe = [];
   for (let i = 1; i <= RUNS; i++) {
-    const basis = path.join(OUT, `lighthouse-${modus}-${i}`);
-    const args = [CLI, B + "/", "--quiet", "--output=json", "--output=html", `--output-path=${basis}`,
+    const basis = path.join(OUT, `lighthouse-${seite}-${modus}-${i}`);
+    const args = [CLI, B + pfad, "--quiet", "--output=json", "--output=html", `--output-path=${basis}`,
       "--only-categories=performance,accessibility,best-practices,seo",
       "--chrome-flags=--headless=new --no-sandbox --disable-dev-shm-usage"];
     if (modus === "desktop") args.push("--preset=desktop");
@@ -41,11 +41,11 @@ for (const modus of ["mobil", "desktop"]) {
   const m = laeufe[Math.floor(laeufe.length / 2)];
   const ok = m.performance >= ZIEL.performance && m.seo >= ZIEL.seo && m.accessibility >= ZIEL.accessibility && m.lcp < ZIEL.lcp && m.cls < ZIEL.cls;
   if (!ok) fehler++;
-  console.log(`  ${modus.padEnd(8)} ${ok ? "ok  " : "FEHL"} Leistung ${m.performance} · Barrierefreiheit ${m.accessibility} · Best Practices ${m.bestPractices} · SEO ${m.seo}`);
-  console.log(`           FCP ${(m.fcp / 1000).toFixed(2)} s · LCP ${(m.lcp / 1000).toFixed(2)} s · TBT ${Math.round(m.tbt)} ms · CLS ${m.cls.toFixed(3)} · Speed Index ${(m.si / 1000).toFixed(2)} s · ${Math.round(m.bytes / 1024)} KB`);
-  console.log(`           Leistung je Lauf: ${laeufe.map(l => l.performance).join(", ")}`);
-  if (m.fails.length) console.log(`           nicht volle Punktzahl: ${m.fails.join(", ")}`);
-  zeilen.push({ modus, ...m, laeufe: laeufe.map(l => l.performance) });
+  console.log(`  ${(pfad + " " + modus).padEnd(17)} ${ok ? "ok  " : "FEHL"} Leistung ${m.performance} · Barrierefreiheit ${m.accessibility} · Best Practices ${m.bestPractices} · SEO ${m.seo}`);
+  console.log(`                    FCP ${(m.fcp / 1000).toFixed(2)} s · LCP ${(m.lcp / 1000).toFixed(2)} s · TBT ${Math.round(m.tbt)} ms · CLS ${m.cls.toFixed(3)} · Speed Index ${(m.si / 1000).toFixed(2)} s · ${Math.round(m.bytes / 1024)} KB`);
+  console.log(`                    Leistung je Lauf: ${laeufe.map(l => l.performance).join(", ")}`);
+  if (m.fails.length) console.log(`                    nicht volle Punktzahl: ${m.fails.join(", ")}`);
+  zeilen.push({ seite: pfad, modus, ...m, laeufe: laeufe.map(l => l.performance) });
 }
 fs.writeFileSync(path.join(OUT, "lighthouse-zusammenfassung.json"), JSON.stringify({ datum: new Date().toISOString(), basis: B, zeilen }, null, 2));
 process.exit(fehler ? 1 : 0);

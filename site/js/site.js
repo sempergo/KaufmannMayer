@@ -1,4 +1,4 @@
-// Kaufmann & Mayer – das einzige Skript der Seite (ohne Abhängigkeiten).
+// Kaufmann & Mayer – das einzige Skript der Website (ohne Abhängigkeiten), für alle Seiten.
 // 1 Mobiles Menü als Disclosure: Knopf mit aria-expanded steuert die Navigation,
 //   Escape und Klick außerhalb schließen, der Fokus kehrt zum Knopf zurück.
 //   Ohne JavaScript bleibt die Navigation sichtbar (Klasse no-js im HTML).
@@ -6,6 +6,7 @@
 // 3 Portal-Fenster: Reiter (Tabs) wählen den Bereich beim Überfahren, Antippen und per Pfeiltasten.
 // 4 Werterhalt-Animation: läuft einmal, sobald die Grafik zur Hälfte im Bild ist.
 // 5 Laufband der Vertrauensleiste.
+// 6 Anfrageformular auf /anfrage: Prüfung, Versand als JSON, E-Mail als Rückfall.
 (function () {
   var toggle = document.querySelector(".menu-toggle");
   var nav = document.getElementById("hauptnavigation");
@@ -148,5 +149,101 @@
     band.tabIndex = 0;
     band.addEventListener("click", function () { band.classList.toggle("ist-angehalten"); });
     band.classList.add("laeuft");
+  }
+
+  // 6 Anfrageformular (/anfrage). Ohne JavaScript geht es per POST an die Pages Function, die auf
+  //   #gesendet oder #nicht-gesendet zurückleitet. Mit JavaScript: Prüfung mit Hinweis am Feld, Versand als
+  //   JSON, Dank in der Karte. Fehlt der Endpunkt (GitHub-Pages-Vorschau, Einzeldatei) oder klemmt der
+  //   Versand, steht eine fertige E-Mail mit allen Angaben bereit – keine Anfrage geht verloren.
+  //   /anfrage#nachricht (Buttons „Kontakt aufnehmen“) öffnet direkt den Weg „Nachricht senden“.
+  var formular = document.getElementById("formular");
+  if (formular) {
+    var POSTFACH = "jhmayer@t-online.de";
+    var meldung = formular.querySelector(".formular__status");
+    var senden = formular.querySelector(".formular__senden");
+    var PFLICHT = [["f-name", "Name"], ["f-email", "E-Mail"]];
+    if (location.hash === "#nachricht") document.getElementById("art-nachricht").checked = true;
+    formular.noValidate = true;
+
+    // Meldung aus Textstücken und Links (DOM statt innerHTML: die Angaben stammen aus dem Formular)
+    var melde = function (teile, art) {
+      meldung.textContent = "";
+      meldung.className = "formular__status" + (art ? " ist-" + art : "");
+      [].concat(teile).forEach(function (t) { meldung.appendChild(typeof t === "string" ? document.createTextNode(t) : t); });
+    };
+    var link = function (href, text) {
+      var a = document.createElement("a");
+      a.href = href;
+      a.textContent = text;
+      return a;
+    };
+    var angaben = function () {
+      var d = { anliegen: [] };
+      Array.prototype.forEach.call(formular.elements, function (el) {
+        if (!el.name || el.disabled || ((el.type === "checkbox" || el.type === "radio") && !el.checked)) return;
+        if (el.name === "anliegen") d.anliegen.push(el.value); else d[el.name] = el.value.trim();
+      });
+      if (d.art !== "termin") { delete d.gespraech; delete d.wunschtermin; }
+      d.seite = location.href;
+      return d;
+    };
+    // Fallback: dieselben Angaben als E-Mail (Zeilenumbruch %0D%0A nach RFC 6068)
+    var alsMail = function (d) {
+      var zeilen = [["Name", d.name], ["E-Mail", d.email], ["Telefon", d.telefon], ["Sie sind", d.rolle],
+        ["Anliegen", d.anliegen.join(", ")], ["Lage des Objekts", d.objekt], ["Wohneinheiten", d.einheiten],
+        ["Gespräch", d.gespraech], ["Wunschtermin", d.wunschtermin]]
+        .filter(function (z) { return z[1]; }).map(function (z) { return z[0] + ": " + z[1]; });
+      if (d.nachricht) zeilen.push("", d.nachricht);
+      return link("mailto:" + POSTFACH + "?subject=" + encodeURIComponent((d.art === "termin" ? "Terminwunsch" : "Anfrage") + " über die Website") +
+        "&body=" + encodeURIComponent(zeilen.join("\r\n")), "vorbereitete E-Mail mit Ihren Angaben");
+    };
+
+    // Hinweis unter dem Feld; aria-describedby nur, solange er gilt (sonst läse der Screenreader ihn immer)
+    var markiere = function (feld, falsch) {
+      if (falsch) { feld.setAttribute("aria-invalid", "true"); feld.setAttribute("aria-describedby", feld.id + "-fehler"); }
+      else { feld.removeAttribute("aria-invalid"); feld.removeAttribute("aria-describedby"); }
+    };
+
+    formular.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (senden.disabled) return;
+      var falsch = PFLICHT.filter(function (p) {
+        var feld = document.getElementById(p[0]);
+        var gut = feld.value.trim() !== "" && feld.checkValidity();
+        markiere(feld, !gut);
+        return !gut;
+      });
+      if (falsch.length) {
+        melde("Bitte " + falsch.map(function (p) { return p[1]; }).join(" und ") + " ergänzen.", "fehler");
+        document.getElementById(falsch[0][0]).focus();
+        return;
+      }
+      var d = angaben();
+      senden.disabled = true;
+      melde("Wird gesendet …");
+      fetch(formular.getAttribute("action"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(d)
+      })
+        .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+        .then(function (antwort) {
+          if (!antwort || !antwort.ok) throw new Error("nicht gesendet");
+          var dank = document.getElementById("gesendet");
+          dank.classList.add("ist-offen");
+          dank.focus();
+        })
+        .catch(function () {
+          senden.disabled = false;
+          melde(["Ihre Anfrage konnte gerade nicht gesendet werden. Senden Sie uns die ", alsMail(d), " oder rufen Sie an: ",
+            link("tel:+496145938481", "06145\u00a0938481"), "."], "fehler");
+        });
+    });
+    formular.addEventListener("input", function (e) {
+      if (e.target.getAttribute("aria-invalid") === "true" && e.target.value.trim() && e.target.checkValidity()) markiere(e.target, false);
+    });
+    formular.addEventListener("change", function (e) {
+      if (e.target.name === "art") melde("");
+    });
   }
 })();
