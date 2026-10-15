@@ -828,7 +828,7 @@ strong { font-weight: 600; }
   position: relative;
   margin-top: var(--space-5);
   padding-left: calc(var(--bar) + var(--space-4));
-  font: 500 var(--fs-statement)/1.35 var(--font-serif);
+  font: 500 var(--fs-lead)/1.5 var(--font-serif);
   color: var(--navy-700);
 }
 .statement::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px; background: var(--akzent); }
