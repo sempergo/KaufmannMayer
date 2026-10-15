@@ -137,6 +137,34 @@ const pruefe = (ok, text) => { console.log(`  ${ok ? "ok  " : "FEHL"} ${text}`);
     await p.context().close();
   }
 
+  // Wunsch des Auftraggebers: am Desktop alles auf einem Bildschirm, das Formular beginnt in der Mitte,
+  // keine Navigationsleiste – oben links nur das Logo. Beide Wege (Termin, Nachricht), mit Fehlerhinweisen.
+  console.log("  -- Ein Bildschirm (Desktop)");
+  // Fensterhöhen statt Bildschirmhöhen: Tabs und Leisten des Browsers nehmen rund 100 px weg
+  for (const [w, h] of [[1280, 800], [1440, 800], [1440, 900], [1920, 960]]) {
+    const p = await (await br.newContext({ viewport: { width: w, height: h } })).newPage();
+    await p.goto(B + "/anfrage", { waitUntil: "networkidle" });
+    await p.evaluate(() => document.fonts.ready);
+    const mass = () => p.evaluate(() => {
+      const b = document.querySelector(".anfrage__buehne").getBoundingClientRect();
+      const logo = document.querySelector(".anfrage-kopf img").getBoundingClientRect();
+      return { sh: document.documentElement.scrollHeight, links: Math.round(b.left), navbar: !!document.querySelector(".navbar"),
+        logo: [Math.round(logo.left), Math.round(logo.top)] };
+    });
+    let m = await mass();
+    pruefe(m.sh <= h, `${w}×${h} Termin: passt auf einen Bildschirm (Seitenhöhe ${m.sh})`);
+    pruefe(Math.abs(m.links - w / 2) <= 2, `${w}×${h}: Formularfläche beginnt in der Mitte (${m.links} px)`);
+    pruefe(!m.navbar && m.logo[0] <= w * 0.08 && m.logo[1] <= 48, `${w}×${h}: keine Leiste, Logo oben links (${m.logo.join(", ")})`);
+    await p.click("label:has(#art-nachricht)");
+    await p.click(".formular__senden");
+    m = await mass();
+    pruefe(m.sh <= h, `${w}×${h} Nachricht mit Fehlerhinweisen: passt auf einen Bildschirm (Seitenhöhe ${m.sh})`);
+    await p.click("label:has(#art-termin)");
+    m = await mass();
+    pruefe(m.sh <= h, `${w}×${h} Termin mit Fehlerhinweisen: passt auf einen Bildschirm (Seitenhöhe ${m.sh})`);
+    await p.context().close();
+  }
+
   await br.close();
   console.log(fehler ? `\n  ${fehler} Fehler.` : "\n  Alles in Ordnung.");
   process.exit(fehler ? 1 : 0);

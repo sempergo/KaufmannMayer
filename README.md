@@ -105,7 +105,7 @@ python3 -I tools/vorschau.py          # Einzeldatei-Vorschau (Startseite und /an
 Was jede Prüfung abdeckt, steht im Skill `.claude/skills/aenderung-pruefen/`.
 Welche Seiten geprüft, fotografiert und in die Vorschau gebaut werden, steht in
 `tools/seiten.json`; `seo.js` wird rot, wenn eine Seite in `site/` dort fehlt
-(neue Seite: Skill `unterseite-anlegen`).
+(neue Seite dort eintragen).
 `grafik.js` misst die Geometrie der Werterhalt-Grafik (Begriffe im Kreis,
 Titel in der Schnittmenge); `formular.js` prüft die Pages Function ohne Netz
 (Resend nachgebildet) und das Formular im Browser mit und ohne JavaScript. Die
@@ -235,16 +235,20 @@ neue Objekte ab 10 Wohneinheiten.
 
 | Bereich | Aufgabe |
 |---|---|
-| Kopf | freistehende Leiste mit Logo (zur Startseite) und Telefonnummer – keine Navigation, damit nichts vom Formular ablenkt |
+| Kopf | nur das Logo oben links (zur Startseite) – keine Leiste, keine Navigation, damit nichts vom Formular ablenkt |
 | Einleitung | Eyebrow „Kontakt“, H1 mit dem orangen K|M-Strich, Antwortzeit |
 | Formular | Umschalter **Termin vereinbaren / Nachricht senden**; Name, E-Mail (Pflicht), Telefon, „Sie sind“ (Eigentümer, Beirat, Vermieter), „Worum geht es?“ als Mehrfachauswahl (WEG-Verwaltung, Verwalterwechsel, Mietverwaltung, Hausmeister-Service, Bauleitung & Sanierung, Hausgeldabrechnung, Eigentümerversammlung), Lage des Objekts, Wohneinheiten; im Terminweg zusätzlich Gesprächsart und Wunschtermin; Nachricht |
 | Punkte | persönlicher Ansprechpartner, Beratungsthemen, Einsatzgebiet – als ↳-Liste wie in der Vorlage |
 | Direkt | Telefon, E-Mail, Adresse (Platzhalter) in einer kleinen Karte |
 | Fuß | „Zurück zur Startseite“, Impressum, Datenschutz |
 
-Ab 960 px links Text, rechts die hellblaue Fläche mit der Skyline und der
-weißen Glaskarte des Formulars; darunter untereinander: Einleitung, Formular,
-Punkte. „Termin vereinbaren“ auf der Startseite führt auf `/anfrage`,
+Ab 960 px steht alles auf einem Bildschirm (geprüft bei Fensterhöhen ab
+800 px: 1280 × 800, 1440 × 800/900, 1920 × 960): links Text, rechts ab genau der
+Mitte die hellblaue Fläche mit der Skyline und der weißen Glaskarte des
+Formulars, Felder zu dritt in einer Reihe. Bei niedrigen Fenstern bleibt die
+Zwischenüberschrift der Karte nur für Screenreader stehen, Fehlerhinweise
+stehen neben dem Label statt darunter. Schmaler (Tablet, Handy) untereinander:
+Einleitung, Formular, Punkte. „Termin vereinbaren“ auf der Startseite führt auf `/anfrage`,
 „Kontakt aufnehmen“ auf `/anfrage#nachricht` (öffnet den Weg „Nachricht“).
 
 ## Designsystem
@@ -587,6 +591,14 @@ Fehlermeldung nur unter dem Knopf, weit weg vom markierten Feld – jetzt steht
 der Hinweis zusätzlich direkt unter dem Feld (per `aria-describedby` nur,
 solange er gilt). Die Skyline war unter der Karte kaum zu sehen; ihr Verlauf
 blasst auf dieser Seite weniger aus, und die Fläche hat unten mehr Raum.
+
+Runde „Kontaktseite auf einem Bildschirm“: zuerst eine Prüfung geschrieben
+(`formular.js`, „Ein Bildschirm“), die rot war – Seite bis 1.475 px hoch,
+Formular nicht in der Mitte, Leiste vorhanden. Gelöst mit zwei gleichen
+Hälften, Logo statt Leiste, drei Feldern pro Reihe, kürzeren Texten links und
+Abständen, die mit der Fensterhöhe schrumpfen. Drei Felder pro Reihe erst ab
+28 rem Kartenbreite: bei 1024 px wurden „Bitte wählen“ und Platzhalter sonst
+abgeschnitten; dort (1024 × 768, Tablet) scrollt die Seite deshalb um rund 290 px.
 
 Bleibt bewusst offen: Solange echte Fotos fehlen, wirken die großen
 Platzhalterflächen nüchtern – die Seite ist auf Fotos angelegt und gewinnt mit

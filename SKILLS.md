@@ -35,25 +35,16 @@ Videos). Übernommen wurden Ablauf und Regeln – Prüfen im Verhältnis zur
 für diese Seite neu geschrieben (`tools/pruefung/`); der Testserver
 `tools/server.js` ist aus `tools/pruefung/server.js` übernommen.
 
-## Eigene Skills dieses Projekts
+## Werkzeuge zum Prüfen
 
-Auf Wunsch des Auftraggebers (14.10.2026) entstehen bei der Arbeit eigene
-Skills, wenn sie künftige Ergebnisse verbessern (Regel in `CLAUDE.md`). Jeder
-wurde vorher mit einem Vergleichslauf ohne Skill getestet und danach mit Skill
-gegengeprüft.
+Zu `aenderung-pruefen` gehören die Werkzeuge in `tools/`: `vorschau.py`
+(Einzeldatei-Vorschau je Seite), `pruefung/ausschnitt.js` (Bilder eines
+Elements), `pruefung/grafik.js` (Geometrie der Werterhalt-Grafik),
+`pruefung/formular.js` (Anfrageformular und Pages Function), `seiten.json`
+(Seitenliste für alle Prüfungen) und `screenshots-webp.py`.
 
-| Skill | Wofür | Lücke, die der Vergleichslauf ohne Skill zeigte |
-|---|---|---|
-| `aenderungswunsch-umsetzen` | Ablauf einer Änderungsrunde vom Chat-Wunsch bis zur Übergabe | Keine ansehbare Vorschau für den Auftraggeber (stattdessen „lokal Server starten“ oder eine nicht vorhandene Branch-Vorschau); Sichtkontrolle nur bei 390/1440 px, obwohl Fehler bei 960–1200 px lagen |
-| `gestaltung-kaufmann-mayer` | Geschmack des Auftraggebers, Logofarben, Box- und Akzent-Logik, CSP/DSGVO-Leitplanken, Umgang mit gelieferten Vorlagen | Vorlieben nur indirekt aus dem README erschlossen; Ergebnis-Übergabe ohne Vorschau-Datei |
-| `unterseite-anlegen` | Checkliste und Fallen für jede neue Seite (Leistungsseiten, Referenz, Rechtstexte, Formulare) | Zwei Läufe ohne Skill (WEG-Verwaltung, Referenz NLS 78) planten gut, brauchten aber je 170.000–190.000 Tokens Suche und fanden jeweils nur einen Teil: der eine flache Datei statt Ordner und den Schnellleisten-Abstand, der andere `aria-current` und feste Weiterleitungsziele der Function. Beide hielten sieben getrennte Seitenlisten in den Prüfungen für die größte Fehlerquelle – deshalb jetzt automatisiert: `tools/seiten.json`, `seo.js` wird rot, wenn eine Seite fehlt. Mit Skill deckten beide Gegenläufe (WEG-Verwaltung, Impressum) alle Punkte ab, mit weniger Suche (140.000–165.000 Tokens); drei neue Fallen daraus stehen im Skill |
-
-Dazu gehören die Werkzeuge `tools/vorschau.py` (Einzeldatei-Vorschau je Seite),
-`tools/pruefung/ausschnitt.js` (Bilder eines Elements: Breiten, Hover,
-Animation), `tools/pruefung/grafik.js` (Geometrie der Werterhalt-Grafik),
-`tools/pruefung/formular.js` (Anfrageformular und Pages Function),
-`tools/seiten.json` (die Seitenliste für alle Prüfungen) und
-`tools/screenshots-webp.py`. `aenderung-pruefen` ist um diese ergänzt.
+Eigene Skills legt dieses Projekt nicht an (Wunsch des Auftraggebers,
+15.10.2026); die zwischenzeitlich gebauten sind wieder entfernt.
 
 ## Nicht übernommen
 

@@ -34,8 +34,8 @@ Text wie Cloudflare. Functions führt er nicht aus – `formular.js` fängt
 `/api/anfrage` ab und reicht es an `functions/api/anfrage.js`.
 
 Welche Seiten geprüft werden, steht in `tools/seiten.json`; Konsole, axe, Mobil,
-Kontrast, Lighthouse und Screenshots laufen über alle Einträge. Neue Seite:
-Skill `unterseite-anlegen`.
+Kontrast, Lighthouse und Screenshots laufen über alle Einträge; eine neue Seite
+dort eintragen, sonst wird `seo.js` rot.
 
 ## Die Prüfungen
 

@@ -4,14 +4,9 @@ Statische Website in `site/`, kein Build-Schritt, Cloudflare Pages (Ausgabeverze
 Arbeitsbranch: `claude/festive-wozniak-w5apvu`. Stand, Designsystem und offene Punkte: `README.md`.
 
 ## Regeln
-- **Skills mitschreiben (Wunsch des Auftraggebers, 14.10.2026):** Bei jeder Aufgabe prüfen, ob ein
-  neuer oder verbesserter Skill unter `.claude/skills/` künftige Ergebnisse besser macht – ein Ablauf,
-  der wiederkommt, ein Fehler, der wieder passieren kann, Wissen, das nicht im Code steht. Wenn ja:
-  im selben Zug anlegen oder ergänzen (Skill `superpowers:writing-skills`, mit Vergleichslauf ohne
-  und mit Skill), in `SKILLS.md` eintragen und mitcommitten.
-- Änderungswünsche aus dem Chat: Skill `aenderungswunsch-umsetzen`. Gestaltung, Grafiken, Vorlagen:
-  Skill `gestaltung-kaufmann-mayer`. Neue Seite: Skill `unterseite-anlegen` (jede Seite steht in
-  `tools/seiten.json`). Prüfen vor jedem Commit: Skill `aenderung-pruefen`.
+- Skills: nur die aus dem 21Layer-Repo (siehe `SKILLS.md`), keine eigenen anlegen (Wunsch des
+  Auftraggebers, 15.10.2026). Prüfen vor jedem Commit: Skill `aenderung-pruefen`.
+- Jede Seite steht in `tools/seiten.json`; daraus lesen alle Prüfungen, Screenshots und die Vorschau.
 - Anfrageformular: `functions/api/anfrage.js` braucht das Secret `RESEND_API_KEY`, das nur im
   Cloudflare-Dashboard liegt – nie ins Repo schreiben (Einrichtung: `ANFRAGE-SETUP.md`).
 - Nach jeder abgeschlossenen Änderung committen und pushen, Conventional Commits auf Deutsch.

@@ -64,26 +64,23 @@
 </svg>
 <a class="skip-link" href="#formular">Zum Formular springen</a>
 
-<!-- Aufbau nach dem 21Layer-Anfrageformular: links Text, rechts das Formular auf eigener Fläche.
-     Ab 960 px stehen Kopf und Fuß über bzw. unter der linken Spalte (css/site.css, 6.12). -->
+<!-- Aufbau nach dem 21Layer-Anfrageformular: links Text, rechts ab der Mitte das Formular auf eigener Fläche,
+     am Desktop alles auf einem Bildschirm. Oben links nur das Logo, keine Navigationsleiste (css/site.css, 6.12). -->
 <header class="anfrage-kopf">
-  <div class="navbar">
-    <a class="brand" href="/">
-      <picture>
-        <source type="image/avif" srcset="/img/logo-hell-1x.avif 1x, /img/logo-hell-2x.avif 2x, /img/logo-hell-3x.avif 3x">
-        <source type="image/webp" srcset="/img/logo-hell-1x.webp 1x, /img/logo-hell-2x.webp 2x, /img/logo-hell-3x.webp 3x">
-        <img src="/img/logo-hell-2x.png" width="267" height="44" alt="Kaufmann &amp; Mayer – zur Startseite">
-      </picture>
-    </a>
-    <a class="btn btn--outline btn--sm" href="tel:+496145938481"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg><span class="anfrage-kopf__nummer">06145&nbsp;938481</span></a>
-  </div>
+  <a class="brand" href="/">
+    <picture>
+      <source type="image/avif" srcset="/img/logo-hell-1x.avif 1x, /img/logo-hell-2x.avif 2x, /img/logo-hell-3x.avif 3x">
+      <source type="image/webp" srcset="/img/logo-hell-1x.webp 1x, /img/logo-hell-2x.webp 2x, /img/logo-hell-3x.webp 3x">
+      <img src="/img/logo-hell-2x.png" width="267" height="44" alt="Kaufmann &amp; Mayer – zur Startseite">
+    </picture>
+  </a>
 </header>
 
 <main id="inhalt" class="anfrage">
   <div class="anfrage__intro">
     <p class="eyebrow">Kontakt</p>
     <h1 class="anfrage__titel">Sprechen Sie mit uns über <span>Ihre Immobilie</span></h1>
-    <p class="anfrage__lead">Ob Verwalterwechsel, Mietverwaltung oder eine Frage zur Hausgeldabrechnung: Schildern Sie uns kurz Ihr Anliegen. Wir melden uns in der Regel innerhalb eines Werktages.</p>
+    <p class="anfrage__lead">Schildern Sie uns kurz Ihr Anliegen – wir melden uns in der Regel innerhalb eines Werktages.</p>
   </div>
 
   <div class="anfrage__buehne">
@@ -102,25 +99,25 @@
         </fieldset>
 
         <h2 id="formular-titel" class="formular__titel"><span class="nur-termin">Gesprächstermin anfragen</span><span class="nur-nachricht">Nachricht an uns</span></h2>
-        <p class="formular__sub"><span class="nur-termin">Sagen Sie uns, worum es geht und wann es Ihnen passt. Wir melden uns mit einem Terminvorschlag.</span><span class="nur-nachricht">Schildern Sie kurz Ihr Anliegen. Wir antworten in der Regel innerhalb eines Werktages.</span></p>
+        <p class="formular__sub"><span class="nur-termin">Sagen Sie uns, worum es geht – wir melden uns mit einem Terminvorschlag.</span><span class="nur-nachricht">Wir antworten in der Regel innerhalb eines Werktages.</span></p>
 
-        <div class="feld-reihe">
+        <div class="feld-reihe feld-reihe--drei">
           <div class="feld">
             <label class="feld__label" for="f-name">Name</label>
             <input class="feld__eingabe" id="f-name" name="name" type="text" autocomplete="name" maxlength="120" required>
-            <p class="feld__fehler" id="f-name-fehler">Bitte geben Sie Ihren Namen an.</p>
+            <p class="feld__fehler" id="f-name-fehler">Bitte angeben</p>
           </div>
           <div class="feld">
             <label class="feld__label" for="f-email">E-Mail</label>
             <input class="feld__eingabe" id="f-email" name="email" type="email" autocomplete="email" maxlength="160" placeholder="name@beispiel.de" required>
-            <p class="feld__fehler" id="f-email-fehler">Bitte eine gültige E-Mail-Adresse angeben.</p>
+            <p class="feld__fehler" id="f-email-fehler">Adresse prüfen</p>
           </div>
-        </div>
-        <div class="feld-reihe">
           <div class="feld">
             <label class="feld__label" for="f-telefon">Telefon <span class="feld__opt">optional</span></label>
             <input class="feld__eingabe" id="f-telefon" name="telefon" type="tel" autocomplete="tel" maxlength="60">
           </div>
+        </div>
+        <div class="feld-reihe feld-reihe--drei">
           <div class="feld">
             <label class="feld__label" for="f-rolle">Sie sind</label>
             <select class="feld__eingabe feld__auswahl" id="f-rolle" name="rolle">
@@ -129,6 +126,20 @@
               <option>Verwaltungsbeirat</option>
               <option>Vermieter oder Hauseigentümer</option>
               <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="feld">
+            <label class="feld__label" for="f-objekt">Lage des Objekts</label>
+            <input class="feld__eingabe" id="f-objekt" name="objekt" type="text" maxlength="120" placeholder="Ort oder PLZ">
+          </div>
+          <div class="feld">
+            <label class="feld__label" for="f-einheiten">Wohneinheiten</label>
+            <select class="feld__eingabe feld__auswahl" id="f-einheiten" name="einheiten">
+              <option value="">Bitte wählen</option>
+              <option>1 bis 9</option>
+              <option>10 bis 30</option>
+              <option>31 bis 70</option>
+              <option>mehr als 70</option>
             </select>
           </div>
         </div>
@@ -146,23 +157,6 @@
           </div>
         </fieldset>
 
-        <div class="feld-reihe">
-          <div class="feld">
-            <label class="feld__label" for="f-objekt">Lage des Objekts <span class="feld__opt">Ort oder PLZ</span></label>
-            <input class="feld__eingabe" id="f-objekt" name="objekt" type="text" maxlength="120" placeholder="z.&nbsp;B. Frankfurt-Höchst">
-          </div>
-          <div class="feld">
-            <label class="feld__label" for="f-einheiten">Wohneinheiten</label>
-            <select class="feld__eingabe feld__auswahl" id="f-einheiten" name="einheiten">
-              <option value="">Bitte wählen</option>
-              <option>1 bis 9</option>
-              <option>10 bis 30</option>
-              <option>31 bis 70</option>
-              <option>mehr als 70</option>
-            </select>
-          </div>
-        </div>
-
         <div class="feld-reihe feld-reihe--termin nur-termin">
           <fieldset class="feld">
             <legend class="feld__label">Gespräch</legend>
@@ -179,7 +173,7 @@
 
         <div class="feld">
           <label class="feld__label" for="f-nachricht"><span class="nur-termin">Was sollen wir vorab wissen?</span><span class="nur-nachricht">Ihre Nachricht</span> <span class="feld__opt nur-termin">optional</span></label>
-          <textarea class="feld__eingabe" id="f-nachricht" name="nachricht" rows="4" maxlength="5000" placeholder="z.&nbsp;B. Größe der Gemeinschaft, Zeitpunkt des Wechsels, offene Fragen"></textarea>
+          <textarea class="feld__eingabe" id="f-nachricht" name="nachricht" rows="3" maxlength="5000" placeholder="z.&nbsp;B. Zeitpunkt des Wechsels, offene Fragen"></textarea>
         </div>
 
         <!-- Falle für Spam-Programme: Menschen sehen das Feld nicht, Programme füllen es aus -->
@@ -189,7 +183,7 @@
 
         <button class="btn btn--primary btn--lg formular__senden" type="submit"><span class="nur-termin">Terminwunsch senden</span><span class="nur-nachricht">Nachricht senden</span><svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></button>
         <p class="formular__status" role="status"></p>
-        <p class="formular__hinweis">Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+        <p class="formular__hinweis">Ihre Angaben nutzen wir nur für die Antwort – mehr in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
       </form>
 
       <div id="gesendet" class="ergebnis" tabindex="-1">
@@ -212,21 +206,21 @@
         <svg class="icon punkt__icon" aria-hidden="true"><use href="#i-abzweig"/></svg>
         <div>
           <p class="punkt__titel">Persönlich statt anonym</p>
-          <p class="punkt__text">Ihr Ansprechpartner ist Prof. Dr. Jörg H. Mayer, zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG. Inhabergeführt, mit über 25&nbsp;Jahren Erfahrung.</p>
+          <p class="punkt__text">Prof. Dr. Jörg H. Mayer, zertifizierter Verwalter nach §&nbsp;26a&nbsp;WEG – inhabergeführt, über 25&nbsp;Jahre Erfahrung.</p>
         </div>
       </li>
       <li class="punkt">
         <svg class="icon punkt__icon" aria-hidden="true"><use href="#i-abzweig"/></svg>
         <div>
           <p class="punkt__titel">Beratung für Eigentümer</p>
-          <p class="punkt__text">Zur Übernahme der WEG-Verwaltung, zur Mietverwaltung für Einzeleigentümer und Vermieter, zu Bauleitung und Sanierungsplanung, zu Hausgeldabrechnung und Eigentümerversammlung.</p>
+          <p class="punkt__text">WEG- und Mietverwaltung, Bauleitung und Sanierung, Hausgeldabrechnung und Eigentümerversammlung.</p>
         </div>
       </li>
       <li class="punkt">
         <svg class="icon punkt__icon" aria-hidden="true"><use href="#i-abzweig"/></svg>
         <div>
           <p class="punkt__titel">In Frankfurt und Rhein-Main</p>
-          <p class="punkt__text">Von Frankfurt-Höchst und Hattersheim bis Bad Homburg, Königstein und Rüsselsheim. Neue Objekte ab 10&nbsp;Wohneinheiten.</p>
+          <p class="punkt__text">Von Höchst bis Bad Homburg, von Rüsselsheim bis Königstein. Neue Objekte ab 10&nbsp;Wohneinheiten.</p>
         </div>
       </li>
     </ul>
