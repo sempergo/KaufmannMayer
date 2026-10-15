@@ -85,12 +85,12 @@
   --font-sans: "Instrument Sans", "Sans Ersatz", system-ui, sans-serif;
   --fs-xs: 0.875rem;
   --fs-sm: 0.9375rem;
-  --fs-body: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
-  --fs-lead: clamp(1.125rem, 1.04rem + 0.4vw, 1.3125rem);
-  --fs-h3: clamp(1.3125rem, 1.15rem + 0.6vw, 1.5rem);
-  --fs-h2: clamp(1.875rem, 1.3rem + 2.2vw, 3rem);
-  --fs-h1: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
-  --fs-statement: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  --fs-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --fs-h3: clamp(1.1875rem, 1.05rem + 0.5vw, 1.375rem);
+  --fs-h2: clamp(1.625rem, 1.15rem + 1.9vw, 2.625rem);
+  --fs-h1: clamp(1.875rem, 1.3rem + 2.2vw, 3.125rem);
+  --fs-statement: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
   --fs-figure: clamp(4rem, 3rem + 4.5vw, 7rem);
   --lh-tight: 1.08;
   --lh-head: 1.15;
@@ -988,7 +988,7 @@ strong { font-weight: 600; }
   /* Text bis zur Mitte, Leistungen in der rechten Hälfte */
   .reference__kopf { grid-column: 1 / span 6; }
   /* Titel zweizeilig: „Niederräder Landstraße 78,“ passt in die halbe Breite */
-  .reference__kopf h2 { font-size: min(var(--fs-h2), 2.625rem); }
+  .reference__kopf h2 { font-size: min(var(--fs-h2), 2.375rem); }
   .reference__leistungen { grid-column: 7 / span 6; align-self: center; }
   /* alle Zeilen gleich hoch: so hoch wie die längste, Inhalt mittig */
   .reference__leistungen .leistung-liste { display: grid; grid-auto-rows: 1fr; }
