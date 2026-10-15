@@ -955,22 +955,31 @@ strong { font-weight: 600; }
 .reference__media { aspect-ratio: 16 / 9; min-height: 0; }
 .reference__body h2 { font-size: var(--fs-h2); }
 .reference__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--slate-600); max-width: 36rem; }
-.figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-5); }
-.figure { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-2); padding: var(--space-3) var(--space-4); box-shadow: none; }
-.figure dt { font-size: var(--fs-sm); font-weight: 600; color: var(--slate-600); }
-.figure dd { font: 500 clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem)/1 var(--font-serif); }
-.figure--main { grid-column: 1 / -1; border-left: 3px solid var(--akzent); }
-.figure--main dd { font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem); line-height: 0.9; letter-spacing: -0.03em; }
-.figure--main dt { color: var(--schiefer); }
-.figure .tbd { font: 400 var(--fs-sm)/1.4 var(--font-sans); display: inline-block; }
-.checklist { margin-top: var(--space-5); display: grid; gap: var(--space-2); }
-.checklist li { display: flex; gap: var(--space-3); align-items: flex-start; text-wrap: pretty; }
-.checklist .icon { color: var(--akzent); margin-top: 0.2rem; }
-.reference__body .more { margin-top: var(--space-4); }
-@media (min-width: 30em) {
-  .figures { grid-template-columns: 1.3fr 1fr 1fr; }
-  .figure--main { grid-column: auto; }
+/* Kennzahl dezent als kleine Marke unter dem Titel */
+.reference__fakt {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: 0.3rem 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-blau);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--slate-600);
 }
+.reference__fakt strong { font: 500 1.375rem/1 var(--font-serif); color: var(--akzent-text); }
+/* Leistungen am Objekt: Liste mit feinen Trennlinien, Häkchen im Akzentkreis */
+.leistung-liste { margin-top: var(--space-5); border-top: 1px solid var(--line); }
+.leistung-liste li { display: flex; gap: var(--space-4); align-items: flex-start; padding-block: var(--space-3); border-bottom: 1px solid var(--line); }
+.leistung-liste p { color: var(--slate-600); text-wrap: pretty; }
+.leistung-liste strong { color: var(--schiefer); }
+.leistung-liste__ico { display: grid; place-items: center; flex: none; width: 1.75rem; height: 1.75rem; margin-top: -0.05rem; border-radius: 50%; background: var(--akzent-hell); color: var(--akzent-text); transition: background-color 240ms var(--ease), color 240ms var(--ease); }
+@media (hover: hover) {
+  .leistung-liste li:hover .leistung-liste__ico { background: var(--akzent); color: var(--schiefer-tief); }
+}
+.reference__body .more { margin-top: var(--space-4); }
 @media (min-width: 60em) {
   .reference { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: stretch; }
   .reference__media { grid-column: 1 / span 5; aspect-ratio: auto; min-height: 22rem; }
