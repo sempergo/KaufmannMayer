@@ -1357,15 +1357,9 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
     linear-gradient(160deg, #22374e 0%, var(--dunkelblau) 55%, #16253a 100%);
   box-shadow: 0 0 60px -14px rgb(28 47 68 / 0.45), 0 24px 48px -30px rgb(20 36 59 / 0.55);
 }
-.buehne__skyline {
-  position: absolute;
-  z-index: -1;
-  left: -58%;   /* 50 % − 0,54 × 200 % */
-  bottom: 0;
-  width: 200%;
-  max-width: none;
-  pointer-events: none;
-}
+/* Stadtmodell als Hintergrund, füllt die Fläche (Ausschnitt mittig) */
+.buehne__bild { position: absolute; z-index: -1; inset: 0; pointer-events: none; }
+.buehne__bild img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 .formular-karte {
   container-type: inline-size;
   position: relative;
