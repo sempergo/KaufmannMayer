@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016u">
+<link rel="stylesheet" href="/css/site.css?v=20261016v">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -97,7 +97,7 @@
         </fieldset>
 
         <h2 id="formular-titel" class="formular__titel"><span class="nur-termin">Gesprächstermin anfragen</span><span class="nur-nachricht">Nachricht an uns</span></h2>
-        <p class="formular__sub"><span class="nur-termin">Wir melden uns mit einem Terminvorschlag.</span><span class="nur-nachricht">Wir antworten in der Regel innerhalb eines Werktages.</span></p>
+        <p class="formular__sub"><span class="nur-termin">Wir melden uns mit einem Terminvorschlag.</span><span class="nur-nachricht">Wir antworten innerhalb eines Werktages.</span></p>
 
         <!-- zwei Spalten; Termin und Nachricht haben dieselbe Kartenhöhe: im Nachrichtenmodus legt sich das
              Nachrichtenfeld über die Terminfelder (css/site.css, 6.12, .formular__wechsel) -->
@@ -162,10 +162,10 @@
               <input class="feld__eingabe feld__datum" id="f-termin" name="wunschtermin" type="date">
             </div>
             <fieldset class="feld">
-              <legend class="feld__label">Tageszeit</legend>
+              <legend class="feld__label">Tageszeit <span class="feld__opt">Mehrfachauswahl</span></legend>
               <div class="wahl wahl--zwei">
-                <label class="wahl__chip"><input type="radio" name="tageszeit" value="vormittags" checked>Vormittag</label>
-                <label class="wahl__chip"><input type="radio" name="tageszeit" value="nachmittags">Nachmittag</label>
+                <label class="wahl__chip"><input type="checkbox" name="tageszeit" value="vormittags">Vormittag</label>
+                <label class="wahl__chip"><input type="checkbox" name="tageszeit" value="nachmittags">Nachmittag</label>
               </div>
             </fieldset>
             <fieldset class="feld feld--breit">
@@ -247,6 +247,6 @@
   </ul>
 </footer>
 
-<script src="/js/site.js?v=20261016u" defer></script>
+<script src="/js/site.js?v=20261016v" defer></script>
 </body>
 </html>

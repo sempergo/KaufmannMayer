@@ -198,7 +198,9 @@
       var d = { anliegen: [] };
       Array.prototype.forEach.call(formular.elements, function (el) {
         if (!el.name || el.disabled || ((el.type === "checkbox" || el.type === "radio") && !el.checked)) return;
-        if (el.name === "anliegen") d.anliegen.push(el.value); else d[el.name] = el.value.trim();
+        if (el.name === "anliegen") d.anliegen.push(el.value);
+        else if (el.type === "checkbox") d[el.name] = d[el.name] ? d[el.name] + " oder " + el.value : el.value;
+        else d[el.name] = el.value.trim();
       });
       if (d.art !== "termin") { delete d.gespraech; delete d.wunschtermin; delete d.tageszeit; }
       d.seite = location.href;
@@ -208,7 +210,7 @@
     var alsMail = function (d) {
       var zeilen = [["Name", d.name], ["E-Mail", d.email], ["Telefon", d.telefon], ["Sie sind", d.rolle],
         ["Anliegen", d.anliegen.join(", ")], ["Lage des Objekts", d.objekt], ["Wohneinheiten", d.einheiten],
-        ["Gespräch", d.gespraech], ["Wunschtermin", d.wunschtermin && (d.wunschtermin.split("-").reverse().join(".") + ", " + d.tageszeit)]]
+        ["Gespräch", d.gespraech], ["Wunschtermin", d.wunschtermin && [d.wunschtermin.split("-").reverse().join("."), d.tageszeit].filter(Boolean).join(", ")]]
         .filter(function (z) { return z[1]; }).map(function (z) { return z[0] + ": " + z[1]; });
       if (d.nachricht) zeilen.push("", d.nachricht);
       return link("mailto:" + POSTFACH + "?subject=" + encodeURIComponent((d.art === "termin" ? "Terminwunsch" : "Anfrage") + " über die Website") +

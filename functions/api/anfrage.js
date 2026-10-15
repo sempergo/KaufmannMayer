@@ -46,7 +46,7 @@ export async function onRequestPost({ request, env }) {
   const gespraech = art === "termin" ? clean(daten.gespraech, 40) : "";
   // Datum aus dem Kalenderfeld (JJJJ-MM-TT) als TT.MM.JJJJ, dazu Vormittag oder Nachmittag
   const tag = clean(daten.wunschtermin, 40).split("-").reverse().join(".");
-  const wunschtermin = art === "termin" && tag ? [tag, clean(daten.tageszeit, 20)].filter(Boolean).join(", ") : "";
+  const wunschtermin = art === "termin" && tag ? [tag, clean(Array.isArray(daten.tageszeit) ? daten.tageszeit.join(" oder ") : daten.tageszeit, 40)].filter(Boolean).join(", ") : "";
   const nachricht = clean(daten.nachricht, 5000);
   const seite = clean(daten.seite, 300);
   const anliegen = (Array.isArray(daten.anliegen) ? daten.anliegen : [daten.anliegen])
@@ -97,6 +97,7 @@ export async function onRequestPost({ request, env }) {
 function formularDaten(fd) {
   const d = { anliegen: fd.getAll("anliegen") };
   for (const [k, v] of fd) if (k !== "anliegen") d[k] = v;
+  d.tageszeit = fd.getAll("tageszeit").join(" oder ");
   return d;
 }
 function antwort(alsJson, status, fehler, mehr) {
