@@ -771,7 +771,7 @@ strong { font-weight: 600; }
   }
   .hero__text .actions { grid-row: 4; align-self: start; }
   .hero__media { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; }
-  .laufband {
+  .hero .laufband {
     grid-column: 1 / -1;
     grid-row: 2;
     margin-top: clamp(1.25rem, 0.25rem + 1.5vw, 2rem);
@@ -951,9 +951,8 @@ strong { font-weight: 600; }
 @media (min-width: 64em) { .services { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* 6.6 Referenz – kompakt: Bild links, Text mit Kennzahlen in einer Reihe rechts */
-.reference { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem); }
-.reference__media { aspect-ratio: 16 / 9; min-height: 0; }
-.reference__body h2 { font-size: var(--fs-h2); }
+.reference { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.reference__kopf h2 { font-size: var(--fs-h2); }
 .reference__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--slate-600); max-width: 36rem; }
 /* Kennzahl dezent als kleine Marke unter dem Titel */
 .reference__fakt {
@@ -979,12 +978,24 @@ strong { font-weight: 600; }
 @media (hover: hover) {
   .leistung-liste li:hover .leistung-liste__ico { background: var(--akzent); color: var(--schiefer-tief); }
 }
-.reference__body .more { margin-top: var(--space-4); }
+.reference__kopf .more { margin-top: var(--space-4); }
+.reference__leistungen .leistung-liste { margin-top: 0; }
 @media (min-width: 60em) {
-  .reference { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: stretch; }
-  .reference__media { grid-column: 1 / span 5; aspect-ratio: auto; min-height: 22rem; }
-  .reference__body { grid-column: 6 / span 7; align-self: center; }
+  .reference { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
+  .reference__kopf { grid-column: 1 / span 5; }
+  .reference__leistungen { grid-column: 7 / span 6; align-self: center; }
+  .karussell { grid-column: 1 / -1; }
 }
+/* Bildband unter dem Text: reicht bis an den Boxrand, läuft langsam nach links und blendet an den
+   Kanten aus (Mechanik wie die Vertrauensleiste). Abstand per margin-right statt gap, damit die
+   verdoppelte Liste genau um die Hälfte verschoben nahtlos weiterläuft. */
+.karussell { margin: var(--space-2) calc(var(--box-pad) * -1) calc(var(--box-pad) * -0.4); }
+.karussell .laufband__fenster { overflow-x: auto; scrollbar-width: none; }
+.karussell.laeuft .laufband__fenster { overflow: hidden; }
+.karussell__liste { display: flex; width: max-content; padding-inline: var(--box-pad) 0; }
+.karussell.laeuft .karussell__liste { padding-inline: 0; }
+.karussell__bild { flex: none; width: clamp(15rem, 11rem + 12vw, 23rem); aspect-ratio: 4 / 3; min-height: 0; margin-right: var(--space-4); }
+.karussell.laeuft .laufband__spur { animation-duration: 70s; }
 
 /* 6.7 Eigentümerportal mit interaktivem Portal-Fenster (schematisch, keine echten Daten) */
 .portal { display: grid; gap: clamp(2rem, 1rem + 3vw, 3.5rem); }

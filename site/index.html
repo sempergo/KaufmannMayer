@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016l">
+<link rel="stylesheet" href="/css/site.css?v=20261016m">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -469,17 +469,15 @@
   <section id="referenz" class="section" aria-labelledby="referenz-titel">
     <div class="wrap">
       <div class="box box--weiss reference">
-        <figure class="ph reference__media">
-          <figcaption class="ph__caption">
-            <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
-            <span><strong>Foto-Platzhalter</strong>Wohnanlage Niederräder Landstraße&nbsp;78, Außenansicht</span>
-          </figcaption>
-        </figure>
-        <div class="reference__body">
+        <!-- oben der Text (links Titel und Einleitung, rechts die Leistungen), darunter das Bildband -->
+        <div class="reference__kopf">
           <p class="eyebrow">Referenzobjekt</p>
           <h2 id="referenz-titel">Niederräder Landstraße&nbsp;78, Frankfurt-Niederrad</h2>
           <p class="reference__fakt"><strong>71</strong> Wohneinheiten</p>
           <p class="reference__lead">Wir übersetzen Bautechnik in Entscheidungsoptionen – von der Mängelfeststellung bis zum Sanierungsbeschluss.</p>
+          <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="reference__leistungen">
           <h3 class="visually-hidden">Unsere Leistungen für das Objekt</h3>
           <ul class="leistung-liste">
             <li><span class="leistung-liste__ico" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-check"/></svg></span><p><strong>Neubauübernahme nach Bauträgerinsolvenz</strong> – vollständige Dokumentation und Mängelmanagement</p></li>
@@ -488,7 +486,20 @@
             <li><span class="leistung-liste__ico" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-check"/></svg></span><p><strong>Digitale Eigentümerkommunikation</strong> via Portal24</p></li>
             <li><span class="leistung-liste__ico" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-check"/></svg></span><p><strong>Transparente Buchhaltung</strong> via Immoware24</p></li>
           </ul>
-          <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <!-- Bildband: läuft langsam nach links (js/site.js, Laufband), hält beim Überfahren und Antippen an;
+             ohne JavaScript und bei reduzierter Bewegung waagerecht scrollbar -->
+        <div class="laufband karussell" data-name="Bilder der Wohnanlage Niederräder Landstraße 78">
+          <div class="laufband__fenster">
+            <ul class="laufband__spur karussell__liste">
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Außenansicht der Wohnanlage</span></p></li>
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Eingangsbereich</span></p></li>
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Innenhof mit Grünanlage</span></p></li>
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Treppenhaus</span></p></li>
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Fassade nach der Sanierung</span></p></li>
+              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Tiefgarage</span></p></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -683,6 +694,6 @@
   <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
-<script src="/js/site.js?v=20261016l" defer></script>
+<script src="/js/site.js?v=20261016m" defer></script>
 </body>
 </html>

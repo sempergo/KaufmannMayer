@@ -138,17 +138,28 @@
   //   von selbst startet, muss anhaltbar sein (WCAG 2.2.2) – ohne sichtbaren Knopf (Wunsch des Auftraggebers):
   //   Überfahren hält an (CSS), Antippen schaltet um, mit der Tastatur ist das Band ein Tab-Halt und steht,
   //   solange es den Fokus hat. Bei reduzierter Bewegung bleibt alles stehen.
-  var band = document.querySelector(".laufband");
-  if (band && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var spur = band.querySelector(".laufband__spur");
-    var kopie = spur.querySelector(".trust").cloneNode(true);
-    kopie.setAttribute("aria-hidden", "true");
-    spur.appendChild(kopie);
-    band.setAttribute("role", "group");
-    band.setAttribute("aria-label", "Bewertung und Auszeichnungen – angehalten, solange ausgewählt");
-    band.tabIndex = 0;
-    band.addEventListener("click", function () { band.classList.toggle("ist-angehalten"); });
-    band.classList.add("laeuft");
+  // Gilt für die Vertrauensleiste im Hero und das Bildband der Referenz (.karussell, Bilder statt Liste).
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    Array.prototype.forEach.call(document.querySelectorAll(".laufband"), function (band) {
+      var spur = band.querySelector(".laufband__spur");
+      var liste = spur.querySelector(".trust");
+      if (liste) {
+        var kopie = liste.cloneNode(true);
+        kopie.setAttribute("aria-hidden", "true");
+        spur.appendChild(kopie);
+      } else {
+        Array.prototype.slice.call(spur.children).forEach(function (el) {
+          var k = el.cloneNode(true);
+          k.setAttribute("aria-hidden", "true");
+          spur.appendChild(k);
+        });
+      }
+      band.setAttribute("role", "group");
+      band.setAttribute("aria-label", (band.getAttribute("data-name") || "Bewertung und Auszeichnungen") + " – angehalten, solange ausgewählt");
+      band.tabIndex = 0;
+      band.addEventListener("click", function () { band.classList.toggle("ist-angehalten"); });
+      band.classList.add("laeuft");
+    });
   }
 
   // 6 Anfrageformular (/anfrage). Ohne JavaScript geht es per POST an die Pages Function, die auf
