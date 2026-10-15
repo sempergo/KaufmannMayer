@@ -1367,7 +1367,7 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   max-width: 36rem;
   padding: clamp(1.25rem, 0.75rem + 2vw, 2.25rem);
   border: 1px solid rgb(255 255 255 / 0.55);
-  border-radius: var(--r-box);
+  border-radius: 1.25rem;
   /* leicht durchscheinend: die Skyline schimmert durch, Felder bleiben weiß und gut lesbar */
   background: rgb(236 242 250 / 0.8);
   -webkit-backdrop-filter: blur(9px) saturate(130%);
@@ -1428,6 +1428,9 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
 .formular:has(#art-nachricht:checked) .nur-termin { display: none; }
 .formular:not(:has(#art-nachricht:checked)) .nur-nachricht { display: none; }
 
+/* Felder leicht durchscheinend – weniger als die Karte (0,8), damit Eingaben gut lesbar bleiben */
+.formular { --feld-bg: rgb(255 255 255 / 0.88); }
+.formular .feld__eingabe, .formular .wahl__chip:not(:has(input:checked)) { background-color: var(--feld-bg); }
 /* Felder: zwei Spalten, breite Felder über beide */
 .formular { --feld-gap: 0.375rem; --label-h: calc(var(--fs-xs) * 1.4); --ta-h: 7.5rem; }
 .feld-reihe { display: grid; gap: var(--space-4); }
