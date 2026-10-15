@@ -758,19 +758,19 @@ strong { font-weight: 600; }
 @media (min-width: 60em) {
   .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center; }
   /* Text oben bündig mit dem Foto: der orange Strich an der H1 beginnt auf Höhe der Fotokante */
-  /* Buttons bleiben, wo sie bei mittig stehendem Text waren: der freie Raum teilt sich zu gleichen Teilen
-     über und unter den Buttons auf (Zeilen 3 und 5) */
   .hero__text {
     grid-column: 1 / span 7;
     grid-row: 1;
     align-self: stretch;
     display: grid;
-    grid-template-rows: auto auto 1fr auto 1fr;
-    /* oben um den Strich-Versatz höher, unten ebenso tiefer – so bleibt die Mitte und damit die Buttonhöhe gleich */
-    margin-block: calc(var(--fs-h1) * -0.12);
+    grid-template-rows: auto auto 1fr auto;
+    /* oben um den Strich-Versatz höher, damit der Strich an der H1 auf Höhe der Fotokante beginnt */
+    margin-block: calc(var(--fs-h1) * -0.12) 0;
   }
-  .hero__text .actions { grid-row: 4; align-self: start; }
-  .hero__media { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; }
+  .hero__text .actions { grid-row: 4; align-self: end; }
+  /* Foto endet unten auf Höhe der Buttons: Seitenverhältnis so gewählt, dass die Buttons an derselben
+     Stelle bleiben; wird der Text höher (schmale Fenster), wächst das Foto mit */
+  .hero__media { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 20 / 21; align-self: stretch; }
   .hero .laufband {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -868,9 +868,15 @@ strong { font-weight: 600; }
 }
 @media (min-width: 60em) {
   .usp__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
-  .usp__text { grid-column: 1 / span 5; }
-  .netz { grid-column: 7 / span 6; }
+  /* Überschrift zweizeilig (Umbruch vor „in Frankfurt“), Grafik oben bündig, Karten rücken näher heran */
+  .usp__head { align-items: start; margin-bottom: clamp(1.5rem, 0.5rem + 1.5vw, 2.5rem); }
+  .usp__text { grid-column: 1 / span 6; }
+  .usp__text h2 .zeile { display: block; }
+  .usp__text h2 { white-space: nowrap; }
+  .netz { grid-column: 7 / span 6; margin-top: calc(var(--space-6) * -1); }
   .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pillar { padding: clamp(1.25rem, 0.8rem + 0.8vw, 1.625rem); }
+  .pillar .icon-dot { width: 2.75rem; height: 2.75rem; margin-bottom: var(--space-4); }
 }
 
 /* 6.5 Leistungen – kompakte Kacheln: Icon, Titel (Link über die ganze Kachel), Pfeil; Text darunter */
