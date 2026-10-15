@@ -1774,6 +1774,23 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   .netz__arm:hover .netz__knoten { transform: scale(1.14); }
   .netz__arm:hover .netz__knoten circle { fill: var(--akzent-hell); stroke: var(--akzent); }
   .netz__arm:hover .netz__knoten use { color: var(--akzent-text); }
-  .netz__arm:hover .netz__punkt { transform: scale(1.6); }
   .netz__arm:hover text { fill: var(--akzent-text); }
+}
+/* Grüne Punkte laufen von der Mitte zum Knoten außen, jeder Arm in eigenem Takt.
+   Ausgangslage im SVG: 112,8 Einheiten vom Mittelpunkt; der Lauf geht von 70 (Rand der Mitte)
+   bis 146 (vor dem Knoten), also −42,8 bis +33,2 entlang des Arms (--x, --y = Richtung). */
+@media (prefers-reduced-motion: no-preference) {
+  .netz__punkt { animation: netz-lauf var(--dauer, 3s) linear var(--verzug, 0s) infinite both; }
+  g.netz__arm:nth-of-type(1) .netz__punkt { --x: 0; --y: -1; --dauer: 2.6s; --verzug: -0.4s; }
+  g.netz__arm:nth-of-type(2) .netz__punkt { --x: 0.866; --y: -0.5; --dauer: 3.4s; --verzug: -1.9s; }
+  g.netz__arm:nth-of-type(3) .netz__punkt { --x: 0.866; --y: 0.5; --dauer: 2.2s; --verzug: -1.1s; }
+  g.netz__arm:nth-of-type(4) .netz__punkt { --x: 0; --y: 1; --dauer: 3.1s; --verzug: -2.6s; }
+  g.netz__arm:nth-of-type(5) .netz__punkt { --x: -0.866; --y: 0.5; --dauer: 3.8s; --verzug: -0.9s; }
+  g.netz__arm:nth-of-type(6) .netz__punkt { --x: -0.866; --y: -0.5; --dauer: 2.8s; --verzug: -2.1s; }
+}
+@keyframes netz-lauf {
+  0% { transform: translate(calc(var(--x) * -42.8px), calc(var(--y) * -42.8px)); opacity: 0; }
+  15% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(calc(var(--x) * 33.2px), calc(var(--y) * 33.2px)); opacity: 0; }
 }
