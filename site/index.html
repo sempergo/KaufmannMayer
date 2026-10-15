@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016b">
+<link rel="stylesheet" href="/css/site.css?v=20261016c">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -186,11 +186,10 @@
       </button>
       <nav id="hauptnavigation" class="nav" aria-label="Hauptnavigation">
         <ul class="nav__list">
-          <li><a href="#leistungen">Leistungen</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li><a href="/referenz-nls-78">Referenz NLS&nbsp;78</a></li>
           <li><a href="/news">Aktuelles</a></li>
-          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="/anfrage#nachricht">Kontakt</a></li>
         </ul>
         <a class="btn btn--primary nav__cta" href="/anfrage#nachricht">Kontakt aufnehmen</a>
       </nav>
@@ -417,7 +416,7 @@
   </section>
 
   <!-- 5 Leistungen – Aufgabe: Leistung erklären, interne Links auf die Leistungsseiten (SEO) -->
-  <section id="leistungen" class="section" aria-labelledby="leistungen-titel">
+  <section id="leistungen" class="section" hidden aria-labelledby="leistungen-titel">
     <div class="wrap">
       <div class="box box--weiss">
         <div class="section-head section-head--split">
@@ -471,7 +470,7 @@
   <!-- 6 Referenz – Aufgabe: Vertrauen durch ein konkretes, großes Objekt -->
   <section id="referenz" class="section" aria-labelledby="referenz-titel">
     <div class="wrap">
-      <div class="box akzent-gruen reference">
+      <div class="box box--weiss reference">
         <figure class="ph reference__media">
           <figcaption class="ph__caption">
             <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
@@ -501,7 +500,7 @@
   <!-- 7 Eigentümerportal – Aufgabe: Bestandskunden schnell ans Ziel, zeigt digitale Arbeitsweise -->
   <section id="eigentuemerportal" class="section" aria-labelledby="portal-titel">
     <div class="wrap">
-      <div class="box box--weiss akzent-gruen portal">
+      <div class="box akzent-gruen portal">
         <div class="portal__text">
           <p class="eyebrow">Für Eigentümer</p>
           <h2 id="portal-titel">Eigentümerportal</h2>
@@ -573,7 +572,7 @@
   </section>
 
   <!-- 8 Servicepartner – Aufgabe: Vertrauen durch regionale Partner -->
-  <section class="section" aria-labelledby="partner-titel">
+  <section class="section" aria-labelledby="partner-titel" hidden>
     <div class="wrap">
       <div class="box box--slim akzent-gruen partners">
         <h2 id="partner-titel">Unsere Servicepartner</h2>
@@ -588,7 +587,7 @@
   </section>
 
   <!-- 9 Anfrage – Aufgabe: zur Anfrage führen -->
-  <section id="kontakt" class="section" aria-labelledby="kontakt-titel">
+  <section id="kontakt" class="section" hidden aria-labelledby="kontakt-titel">
     <div class="wrap">
       <div class="box box--cta contact">
         <div class="contact__main">
@@ -689,6 +688,6 @@
   <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
-<script src="/js/site.js?v=20261016b" defer></script>
+<script src="/js/site.js?v=20261016c" defer></script>
 </body>
 </html>
