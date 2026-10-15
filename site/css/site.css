@@ -1505,6 +1505,10 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   .direkt__liste a { white-space: nowrap; }
   .direkt .icon-dot { width: 2rem; height: 2rem; }
 
+  /* Einpassen in die Fensterhöhe: js/site.js setzt die Faktoren (1 = keine Verkleinerung) */
+  .formular-karte { zoom: var(--zoom-karte, 1); }
+  .anfrage__intro, .anfrage__mehr { zoom: var(--zoom-text, 1); }
+
   /* Formular dicht: kleinere Abstände und Felder, Klickflächen der Auswahl bleiben 44 px */
   .formular-karte { max-width: 40rem; padding: clamp(1rem, 2.6vh, 2rem) clamp(1.25rem, 2.2vw, 2rem); }
   .formular { gap: clamp(0.5rem, 1.2vh, 0.875rem); }
