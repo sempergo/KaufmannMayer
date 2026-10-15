@@ -148,11 +148,14 @@
         kopie.setAttribute("aria-hidden", "true");
         spur.appendChild(kopie);
       } else {
-        Array.prototype.slice.call(spur.children).forEach(function (el) {
+        // Bildband: zwei Kopien (drei Sätze), damit auch breite Fenster nie eine Lücke zeigen
+        var bilder = Array.prototype.slice.call(spur.children);
+        for (var n = 0; n < 2; n++) bilder.forEach(function (el) {
           var k = el.cloneNode(true);
           k.setAttribute("aria-hidden", "true");
           spur.appendChild(k);
         });
+        spur.style.setProperty("--saetze", "3");
       }
       band.setAttribute("role", "group");
       band.setAttribute("aria-label", (band.getAttribute("data-name") || "Bewertung und Auszeichnungen") + " – angehalten, solange ausgewählt");

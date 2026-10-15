@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261016m">
+<link rel="stylesheet" href="/css/site.css?v=20261016n">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -471,9 +471,11 @@
       <div class="box box--weiss reference">
         <!-- oben der Text (links Titel und Einleitung, rechts die Leistungen), darunter das Bildband -->
         <div class="reference__kopf">
-          <p class="eyebrow">Referenzobjekt</p>
+          <div class="reference__oben">
+            <p class="eyebrow">Referenzobjekt</p>
+            <p class="reference__fakt"><strong>71</strong> Wohneinheiten</p>
+          </div>
           <h2 id="referenz-titel">Niederräder Landstraße&nbsp;78, Frankfurt-Niederrad</h2>
-          <p class="reference__fakt"><strong>71</strong> Wohneinheiten</p>
           <p class="reference__lead">Wir übersetzen Bautechnik in Entscheidungsoptionen – von der Mängelfeststellung bis zum Sanierungsbeschluss.</p>
           <a class="more" href="/referenz-nls-78">Zur Referenz Niederräder Landstraße&nbsp;78<svg class="icon icon--sm icon--pfeil" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
@@ -487,17 +489,16 @@
             <li><span class="leistung-liste__ico" aria-hidden="true"><svg class="icon icon--sm"><use href="#i-check"/></svg></span><p><strong>Transparente Buchhaltung</strong> via Immoware24</p></li>
           </ul>
         </div>
-        <!-- Bildband: läuft langsam nach links (js/site.js, Laufband), hält beim Überfahren und Antippen an;
+        <!-- Bildband (Bilder des Auftraggebers, quellen/referenz/): läuft langsam nach links (js/site.js, Laufband),
+             hält beim Überfahren und Antippen an;
              ohne JavaScript und bei reduzierter Bewegung waagerecht scrollbar -->
         <div class="laufband karussell" data-name="Bilder der Wohnanlage Niederräder Landstraße 78">
           <div class="laufband__fenster">
             <ul class="laufband__spur karussell__liste">
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Außenansicht der Wohnanlage</span></p></li>
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Eingangsbereich</span></p></li>
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Innenhof mit Grünanlage</span></p></li>
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Treppenhaus</span></p></li>
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Fassade nach der Sanierung</span></p></li>
-              <li class="ph karussell__bild"><p class="ph__caption"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg><span><strong>Foto-Platzhalter</strong>Tiefgarage</span></p></li>
+              <li class="karussell__bild"><picture><source type="image/avif" srcset="/img/referenz-1-480.avif 480w, /img/referenz-1-960.avif 960w" sizes="23rem"><source type="image/webp" srcset="/img/referenz-1-480.webp 480w, /img/referenz-1-960.webp 960w" sizes="23rem"><img src="/img/referenz-1-960.webp" width="960" height="720" alt="Wohnanlage mit umlaufenden Balkonen im Abendlicht, von vorn" loading="lazy" decoding="async"></picture></li>
+              <li class="karussell__bild"><picture><source type="image/avif" srcset="/img/referenz-2-480.avif 480w, /img/referenz-2-960.avif 960w" sizes="23rem"><source type="image/webp" srcset="/img/referenz-2-480.webp 480w, /img/referenz-2-960.webp 960w" sizes="23rem"><img src="/img/referenz-2-960.webp" width="960" height="720" alt="Wohnanlage mit Eingangsbereich, Fahrradstellplätzen und Grünflächen" loading="lazy" decoding="async"></picture></li>
+              <li class="karussell__bild"><picture><source type="image/avif" srcset="/img/referenz-3-480.avif 480w, /img/referenz-3-960.avif 960w" sizes="23rem"><source type="image/webp" srcset="/img/referenz-3-480.webp 480w, /img/referenz-3-960.webp 960w" sizes="23rem"><img src="/img/referenz-3-960.webp" width="960" height="720" alt="Wohnanlage zwischen Bäumen bei Sonnenuntergang" loading="lazy" decoding="async"></picture></li>
+              <li class="karussell__bild"><picture><source type="image/avif" srcset="/img/referenz-4-480.avif 480w, /img/referenz-4-960.avif 960w" sizes="23rem"><source type="image/webp" srcset="/img/referenz-4-480.webp 480w, /img/referenz-4-960.webp 960w" sizes="23rem"><img src="/img/referenz-4-960.webp" width="960" height="720" alt="Gartenseite mit Terrassen, Rasen und Palmen" loading="lazy" decoding="async"></picture></li>
             </ul>
           </div>
         </div>
@@ -694,6 +695,6 @@
   <a class="btn btn--primary" href="/anfrage">Termin vereinbaren</a>
 </nav>
 
-<script src="/js/site.js?v=20261016m" defer></script>
+<script src="/js/site.js?v=20261016n" defer></script>
 </body>
 </html>
