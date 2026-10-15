@@ -1349,8 +1349,8 @@ body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-
   display: grid;
   place-items: center;
   padding: clamp(0.75rem, 0.2rem + 2.4vw, 2rem) clamp(0.75rem, 0.2rem + 2.4vw, 2rem) clamp(4rem, 3rem + 6vw, 7rem);
-  /* bis an die Seitenränder, nur die Ecke oben links stark gerundet */
-  border-radius: clamp(1.75rem, 1rem + 2.5vw, 3.5rem) 0 0 0;
+  /* bis an die Seitenränder, nur die beiden linken Ecken gerundet */
+  border-radius: clamp(1.25rem, 0.75rem + 1.25vw, 2rem) 0 0 clamp(1.25rem, 0.75rem + 1.25vw, 2rem);
   /* Dunkelblau wie „Unsere Stärken“ und „Eigentümerportal“ auf der Startseite */
   background:
     radial-gradient(44rem 26rem at 100% 0%, rgb(62 98 140 / 0.35), transparent 70%),
