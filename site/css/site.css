@@ -1476,7 +1476,8 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   .anfrage {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: var(--kopf-h) 1fr auto auto 1fr var(--fuss-h);
+    /* Einleitung oben, Punkte und Kontaktkarte darunter – die freien Abstände teilen sich die Höhe */
+    grid-template-rows: var(--kopf-h) minmax(1rem, 1fr) auto minmax(1.25rem, 1.4fr) auto minmax(1rem, 1fr) var(--fuss-h);
     gap: 0;
     min-height: 100vh;
     min-height: 100svh;
@@ -1484,12 +1485,12 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   }
   .anfrage__intro, .anfrage__mehr { grid-column: 1; padding-inline: var(--links-pad) clamp(2rem, 4vw, 4.5rem); }
   .anfrage__intro { grid-row: 3; }
-  .anfrage__mehr { grid-row: 4; margin-top: clamp(1.25rem, 3.5vh, 2.5rem); }
+  .anfrage__mehr { grid-row: 5; }
   .anfrage__buehne {
     grid-column: 2;
     grid-row: 1 / -1;
     margin: var(--float-gap) var(--float-gap) var(--float-gap) 0;
-    padding: clamp(0.75rem, 2.5vh, 2rem) clamp(1rem, 2vw, 3rem) clamp(2.5rem, 6vh, 6rem);
+    padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 2vw, 3rem);
   }
   .anfrage-kopf { position: absolute; top: 0; left: 0; display: flex; align-items: center; height: var(--kopf-h); padding: 0 0 0 var(--links-pad); }
   .anfrage-fuss { position: absolute; left: 0; bottom: 0; width: 50%; height: var(--fuss-h); padding: 0 clamp(2rem, 4vw, 4.5rem) 0 var(--links-pad); }

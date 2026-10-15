@@ -260,8 +260,8 @@
       if (!desktop.matches) return;
       var h = window.innerHeight;
       var platzKarte = h - px(buehne, "marginTop") - px(buehne, "marginBottom") - px(buehne, "paddingTop") - px(buehne, "paddingBottom");
-      var platzText = h - px(document.querySelector(".anfrage-kopf"), "height") - px(document.querySelector(".anfrage-fuss"), "height") - 32;
-      var hoeheText = text[0].offsetHeight + text[1].offsetHeight + px(text[1], "marginTop");
+      var platzText = h - px(document.querySelector(".anfrage-kopf"), "height") - px(document.querySelector(".anfrage-fuss"), "height") - 56; // Mindestabstände der Zeilen
+      var hoeheText = text[0].offsetHeight + text[1].offsetHeight;
       // 4 px Luft gegen Rundung beim Verkleinern
       wurzel.style.setProperty("--zoom-karte", Math.min(1, (platzKarte - 4) / karte.offsetHeight).toFixed(3));
       wurzel.style.setProperty("--zoom-text", Math.min(1, (platzText - 4) / hoeheText).toFixed(3));
