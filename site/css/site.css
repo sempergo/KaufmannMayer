@@ -708,7 +708,8 @@ strong { font-weight: 600; }
 .laeuft:focus-visible { outline-offset: 2px; border-radius: var(--r); }
 @media (min-width: 60em) {
   .hero__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); align-items: center; }
-  .hero__text { grid-column: 1 / span 7; grid-row: 1; }
+  /* Text oben bündig mit dem Foto: der orange Strich an der H1 beginnt auf Höhe der Fotokante */
+  .hero__text { grid-column: 1 / span 7; grid-row: 1; align-self: start; margin-top: calc(var(--fs-h1) * -0.12); }
   .hero__media { grid-column: 8 / span 5; grid-row: 1; aspect-ratio: 4 / 5; }
   .laufband {
     grid-column: 1 / -1;
