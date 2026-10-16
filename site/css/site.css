@@ -871,7 +871,8 @@ strong { font-weight: 600; }
   .usp__text { grid-column: 1 / span 6; }
   .usp__text h2 .zeile { display: block; }
   .usp__text h2 { white-space: nowrap; }
-  .netz { grid-column: 7 / span 6; margin-top: calc(var(--space-6) * -1); }
+  /* Grafik nur wenig höher als der Text daneben (Zeichnung 640 × 540, Beschriftungen ragen etwas über) */
+  .netz { grid-column: 7 / span 6; justify-self: center; width: min(100%, 25rem); margin-top: calc(var(--space-3) * -1); }
   .pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .pillar { padding: clamp(1.25rem, 0.8rem + 0.8vw, 1.625rem); }
   .pillar .icon-dot { width: 2.75rem; height: 2.75rem; margin-bottom: var(--space-4); }
@@ -1780,7 +1781,7 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
 
 /* Regional vernetzt */
 .netz__svg { width: 100%; height: auto; overflow: visible; }
-.netz text { font: 600 22px var(--font-sans); fill: var(--schiefer); }
+.netz text { font: 600 27px var(--font-sans); fill: var(--schiefer); }
 .netz__bahn { fill: none; stroke: rgb(20 36 59 / 0.16); stroke-width: 1.5; stroke-dasharray: 2 7; stroke-linecap: round; }
 .netz__bahn--innen { stroke: rgb(20 36 59 / 0.09); }
 .netz__linie { stroke: rgb(20 36 59 / 0.22); stroke-width: 1.25; }
