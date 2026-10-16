@@ -49,7 +49,7 @@
   --bg-soft: #f4f7fb;    /* kühles Off-White für jede zweite Sektion */
   --bg-tint: #eaf1fa;    /* helles Blau: Kontakt, Icon-Kreise */
   --bg-blau: #eef3fa;    /* blaue Boxen, Kacheln in weißen Boxen */
-  --hero-oben: #d6e3f3;  /* Hero-Verlauf oben */
+  --hero-oben: #eef2f7;  /* Hero-Verlauf oben: fast Weiß mit einem Hauch Blau */
   --schiefer: #28353e;   /* Logo: Schriftzug und Haus – Text, Überschriften, Buttons */
   --schiefer-hell: #3a4853; /* Hover */
   --schiefer-tief: #1c262d; /* Schrift auf Orange und Grün */
@@ -644,7 +644,7 @@ strong { font-weight: 600; }
   position: relative;
   overflow: hidden;
   margin-top: calc(var(--header-h) * -1);
-  background: linear-gradient(180deg, var(--hero-oben) 0%, #e6eef8 62%, var(--white) 100%);
+  background: linear-gradient(180deg, var(--hero-oben) 0%, #f4f6fa 62%, var(--white) 100%);
   padding-block: calc(var(--header-h) + clamp(2rem, 1.25rem + 3vw, 4.5rem)) clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
 }
 /* Frankfurter Skyline: blaue Silhouette nach der gelieferten Vorlage, groß hinter Text und Foto,
