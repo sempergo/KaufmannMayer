@@ -1757,7 +1757,8 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
 .wh-schein { fill: url(#wh-gc); opacity: calc(var(--c) * 0.9); }
 .wh-puls { fill: none; stroke: var(--blue-600); stroke-width: 2.5; transform-box: view-box; transform-origin: 690px 340px; transform: scale(calc(0.75 + var(--pr) * 0.75)); opacity: var(--po); }
 
-.wh-anchor { position: absolute; transform: translate(calc(-50% + var(--m) * var(--dx)), -50%); }
+/* width: max-content – sonst rechnet Safari die Pillen am rechten Rand schmaler als ihren Text */
+.wh-anchor { position: absolute; width: max-content; transform: translate(calc(-50% + var(--m) * var(--dx)), -50%); }
 .wh-l { left: 15.04%; --dx: 11.96cqw; --accent: var(--gruen-700); --strich: var(--gruen-500); --tint: var(--gruen-50); --bd: #d9e9c0; --sh: rgb(97 162 16 / 0.24); }
 .wh-r { left: 84.96%; --dx: -11.96cqw; --accent: var(--orange-700); --strich: var(--orange-500); --tint: #fdeadb; --bd: #f4d6bd; --sh: rgb(236 114 15 / 0.24); }
 .wh-y1 { top: 33.5%; } .wh-y2 { top: 45.5%; } .wh-y3 { top: 56.5%; } .wh-y4 { top: 67.5%; }
@@ -1791,7 +1792,9 @@ a.anfrage-fuss__zurueck { color: var(--schiefer); font-weight: 600; }
   transform: translateY(calc((1 - var(--v)) * 2cqw)) scale(calc(0.9 + var(--v) * 0.1));
   filter: blur(calc((1 - var(--v)) * 5px));
 }
-.wh-chip .icon { width: 1.5em; height: 1.5em; padding: 0.3em; border-radius: 50%; background: var(--tint); color: var(--accent); stroke-width: 1.8; }
+.wh-chip { width: max-content; }
+.wh-chip > span { flex: none; }
+.wh-chip .icon { flex: none; width: 1.5em; height: 1.5em; padding: 0.3em; border-radius: 50%; background: var(--tint); color: var(--accent); stroke-width: 1.8; }
 .wh-center {
   position: absolute;
   left: 50%;
