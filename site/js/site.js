@@ -39,6 +39,18 @@
     else desktop.addListener(onChange);
   }
 
+  // 1b Kopfzeile mobil: beim Runterscrollen ausblenden, beim Hochscrollen wieder zeigen (nicht bei offenem Menü)
+  if (header) {
+    var mobil = window.matchMedia("(max-width: 59.99em)");
+    var zuletzt = window.scrollY;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      var offen = toggle && toggle.getAttribute("aria-expanded") === "true";
+      if (!mobil.matches || offen || y < 80) { header.classList.remove("ist-weg"); zuletzt = y; }
+      else if (Math.abs(y - zuletzt) > 8) { header.classList.toggle("ist-weg", y > zuletzt); zuletzt = y; }
+    }, { passive: true });
+  }
+
   // 2 Scrollspy
   if ("IntersectionObserver" in window) {
     var links = Array.prototype.slice.call(document.querySelectorAll('.nav__list a[href^="#"]'));

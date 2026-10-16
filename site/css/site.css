@@ -129,7 +129,6 @@
   --navbar-h: 4rem;
   --float-gap: 0.625rem; /* Abstand der freistehenden Leisten zum Fensterrand */
   --header-h: calc(var(--topline-h) + var(--navbar-h));
-  --callbar-h: 4.5rem;
 }
 @media (min-width: 40em) {
   :root { --navbar-h: 4.5rem; --float-gap: 0.75rem; }
@@ -481,6 +480,10 @@ strong { font-weight: 600; }
   pointer-events: none;
 }
 .site-header a, .site-header button, .navbar { pointer-events: auto; }
+@media (max-width: 59.99em) {
+  .site-header { transition: transform 320ms var(--ease); }
+  .site-header.ist-weg { transform: translateY(-110%); }
+}
 .topline { font-size: var(--fs-xs); color: var(--slate-600); }
 .topline__inner {
   height: var(--topline-h);
@@ -685,6 +688,25 @@ strong { font-weight: 600; }
 }
 /* ohne JavaScript ist die Leiste mobil höher – dann kein Überlappen */
 .no-js .hero { margin-top: 0; padding-top: clamp(2rem, 1.25rem + 3vw, 4.5rem); }
+/* Mobil (Wunsch des Auftraggebers): Überschrift, darunter die Skyline, dann Text und Buttons; kein Foto */
+@media (max-width: 59.99em) {
+  .hero__grid { row-gap: 0; }
+  .hero__text { display: contents; }
+  .hero__title { grid-row: 1; position: relative; z-index: 1; }
+  .hero__skyline {
+    grid-row: 2;
+    align-self: auto;
+    width: calc(100% + 2 * var(--gutter));
+    /* unten blasst die Skyline aus – der Text rückt in den hellen Teil hinein */
+    margin: var(--space-3) 0 calc(var(--space-6) * -1) calc(var(--gutter) * -1);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hero__lead { grid-row: 3; margin-top: var(--space-4); }
+  .hero__text .actions { grid-row: 4; margin-top: var(--space-6); }
+  .hero .laufband { grid-row: 5; margin-top: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
+  .hero .hero__media { display: none; }
+}
 /* minmax(0, 1fr): sonst dehnt die breite Laufband-Spur die einzige Spalte */
 .hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
 .hero__text .chip { margin-bottom: clamp(1.25rem, 0.8rem + 1.5vw, 1.75rem); }
@@ -831,6 +853,22 @@ strong { font-weight: 600; }
 }
 .statement::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px; background: var(--akzent); }
 .pillars { display: grid; gap: var(--gap); }
+/* Mobil: Karten nebeneinander zum Wischen, die nächste schaut am Rand hervor */
+@media (max-width: 59.99em) {
+  .pillars {
+    display: flex;
+    gap: var(--space-3);
+    margin-inline: calc(var(--box-pad) * -1);
+    padding: var(--space-1) var(--box-pad) var(--space-2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--box-pad);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .pillars::-webkit-scrollbar { display: none; }
+  .pillar { flex: 0 0 min(82%, 22rem); scroll-snap-align: start; }
+}
 .pillar { overflow: hidden; }
 .pillar .icon-dot { margin-bottom: var(--space-5); }
 .pillar h3 { font-size: var(--fs-h3); }
@@ -1262,31 +1300,8 @@ strong { font-weight: 600; }
 @media (min-width: 40em) { .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 60em) { .footer__grid { grid-template-columns: 4fr 2.5fr 2.5fr 3fr; } }
 
-/* 6.11 Mobile Schnellleiste */
-.callbar {
-  position: fixed;
-  left: var(--gutter);
-  right: var(--gutter);
-  bottom: calc(var(--float-gap) + env(safe-area-inset-bottom));
-  z-index: 40;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--space-2);
-  padding: var(--space-2);
-  border: 1px solid var(--line);
-  border-radius: var(--r-box);
-  background: var(--white);
-  box-shadow: 0 1px 2px rgb(20 36 59 / 0.05), 0 12px 32px -12px rgb(20 36 59 / 0.35);
-}
-.callbar .btn { min-height: 3.25rem; padding-inline: var(--space-3); }
-body { padding-bottom: calc(var(--callbar-h) + var(--float-gap) + env(safe-area-inset-bottom)); }
-@media (min-width: 60em) {
-  .callbar { display: none; }
-  body { padding-bottom: 0; }
-}
-
-/* 404-Seite: ohne Infozeile und ohne Schnellleiste – der Abstand über der Leiste ersetzt die Infozeile */
-.page-404 { --topline-h: var(--float-gap); --header-h: calc(var(--topline-h) + var(--navbar-h)); padding-bottom: 0; }
+/* 404-Seite: ohne Infozeile – der Abstand über der Leiste ersetzt die Infozeile */
+.page-404 { --topline-h: var(--float-gap); --header-h: calc(var(--topline-h) + var(--navbar-h)); }
 .page-404 .site-header { padding-top: var(--float-gap); }
 .page-404 main { min-height: 60vh; }
 
