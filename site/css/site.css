@@ -863,7 +863,6 @@ strong { font-weight: 600; }
     display: flex;
     gap: var(--space-3);
     margin-inline: calc(var(--box-pad) * -1);
-    padding: var(--space-1) var(--box-pad) var(--space-2);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: var(--box-pad);
@@ -871,6 +870,10 @@ strong { font-weight: 600; }
     scrollbar-width: none;
   }
   .pillars::-webkit-scrollbar { display: none; }
+  /* Abstand vor der ersten und nach der letzten Karte als Platzhalter – Innenabstand am Ende einer
+     Scrollfläche lässt Safari weg, und ul[class] setzt padding ohnehin auf 0 */
+  ul.pillars { padding-block: var(--space-1) var(--space-2); }
+  .pillars::before, .pillars::after { content: ""; flex: 0 0 calc(var(--box-pad) - var(--space-3)); }
   .pillar { flex: 0 0 min(82%, 22rem); scroll-snap-align: start; }
 }
 .pillar { overflow: hidden; }
