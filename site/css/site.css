@@ -690,7 +690,9 @@ strong { font-weight: 600; }
 .no-js .hero { margin-top: 0; padding-top: clamp(2rem, 1.25rem + 3vw, 4.5rem); }
 /* Mobil (Wunsch des Auftraggebers): Überschrift, darunter die Skyline, dann Text und Buttons; kein Foto */
 @media (max-width: 59.99em) {
-  .hero__grid { row-gap: 0; }
+  /* kompakt, damit die Buttons auf dem ersten Bildschirm stehen */
+  .hero { padding-top: calc(var(--header-h) + 1.25rem); }
+  .hero .hero__grid { row-gap: 0; }
   .hero__text { display: contents; }
   .hero__title { grid-row: 1; position: relative; z-index: 1; }
   .hero__skyline {
@@ -698,12 +700,14 @@ strong { font-weight: 600; }
     align-self: auto;
     width: calc(100% + 2 * var(--gutter));
     /* unten blasst die Skyline aus – der Text rückt in den hellen Teil hinein */
-    margin: var(--space-3) 0 calc(var(--space-6) * -1) calc(var(--gutter) * -1);
+    /* oben schiebt sich der leere Himmel hinter die Überschrift, unten blasst die Skyline aus –
+       der Text rückt in den hellen Teil hinein */
+    margin: -2.5rem 0 calc(var(--space-6) * -1) calc(var(--gutter) * -1);
     -webkit-mask-image: none;
     mask-image: none;
   }
   .hero__lead { grid-row: 3; margin-top: var(--space-4); }
-  .hero__text .actions { grid-row: 4; margin-top: var(--space-6); }
+  .hero__text .actions { grid-row: 4; margin-top: var(--space-5); }
   .hero .laufband { grid-row: 5; margin-top: clamp(1.75rem, 1rem + 2.4vw, 3rem); }
   .hero .hero__media { display: none; }
 }
