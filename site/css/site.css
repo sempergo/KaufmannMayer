@@ -259,7 +259,7 @@ strong { font-weight: 600; }
   color: var(--white);
 }
 .box--dunkel .eyebrow { color: var(--akzent-leucht); }
-.box--dunkel .statement { color: #e3ebf5; }
+.box--dunkel .statement { color: var(--slate-300); }
 .box--dunkel .portal__text p:not(.eyebrow) { color: var(--slate-300); }
 .box--dunkel .netz circle[fill="url(#netz-schein)"] { opacity: 0.18; }
 .box--dunkel :focus-visible { outline-color: var(--orange-400); }
@@ -825,7 +825,8 @@ strong { font-weight: 600; }
   position: relative;
   margin-top: var(--space-5);
   padding-left: calc(var(--bar) + var(--space-4));
-  font: 500 var(--fs-lead)/1.5 var(--font-serif);
+  /* Schrift wie der Text beim Eigentümerportal – Serife wirkte bei gleicher Größe kleiner */
+  font: 400 var(--fs-lead)/1.6 var(--font-sans);
   color: var(--navy-700);
 }
 .statement::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 2px; background: var(--akzent); }
