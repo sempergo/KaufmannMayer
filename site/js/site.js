@@ -171,6 +171,18 @@
   //   Versand, steht eine fertige E-Mail mit allen Angaben bereit – keine Anfrage geht verloren.
   //   /anfrage#nachricht (Buttons „Kontakt aufnehmen“) öffnet direkt den Weg „Nachricht senden“.
   var formular = document.getElementById("formular");
+  // „Worum geht es?“: gewählte Punkte in die Zeile schreiben, Liste beim Klick daneben oder mit Escape schließen
+  Array.prototype.forEach.call(document.querySelectorAll(".mehrfach"), function (feld) {
+    var text = feld.querySelector(".mehrfach__text");
+    var leer = text.textContent;
+    feld.addEventListener("change", function () {
+      var gewaehlt = Array.prototype.map.call(feld.querySelectorAll("input:checked"), function (el) { return el.parentNode.textContent.trim(); });
+      text.textContent = gewaehlt.length ? gewaehlt.join(", ") : leer;
+      feld.classList.toggle("ist-gewaehlt", gewaehlt.length > 0);
+    });
+    document.addEventListener("click", function (e) { if (feld.open && !feld.contains(e.target)) feld.open = false; });
+    feld.addEventListener("keydown", function (e) { if (e.key === "Escape" && feld.open) { feld.open = false; feld.querySelector("summary").focus(); } });
+  });
   // Kalender ab heute
   var tagFeld = document.getElementById("f-termin");
   if (tagFeld) tagFeld.min = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);

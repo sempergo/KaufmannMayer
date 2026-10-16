@@ -10,7 +10,7 @@
 <script>document.documentElement.className="js"</script>
 <link rel="preload" href="/fonts/source-serif-4-display-500-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/instrument-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=20261017d">
+<link rel="stylesheet" href="/css/site.css?v=20261017e">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -143,20 +143,24 @@
               <option>mehr als 70</option>
             </select>
           </div>
-          <div class="feld feld--breit">
-            <label class="feld__label" for="f-anliegen">Worum geht es?</label>
-            <select class="feld__eingabe feld__auswahl" id="f-anliegen" name="anliegen">
-              <option value="">Bitte wählen</option>
-              <option>WEG-Verwaltung</option>
-              <option>Verwalterwechsel</option>
-              <option>Mietverwaltung</option>
-              <option>Hausmeister-Service</option>
-              <option value="Bauleitung und Sanierung">Bauleitung &amp; Sanierung</option>
-              <option>Hausgeldabrechnung</option>
-              <option>Eigentümerversammlung</option>
-              <option>Sonstiges</option>
-            </select>
-          </div>
+          <!-- Mehrfachauswahl im Look einer Auswahlliste: <details> klappt die Liste auf, js/site.js schreibt
+               die gewählten Punkte in die Zeile und schließt beim Klick daneben -->
+          <fieldset class="feld feld--breit">
+            <legend class="feld__label">Worum geht es? <span class="feld__opt">Mehrfachauswahl</span></legend>
+            <details class="mehrfach">
+              <summary class="feld__eingabe feld__auswahl mehrfach__knopf"><span class="mehrfach__text">Bitte wählen</span></summary>
+              <div class="mehrfach__liste">
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="WEG-Verwaltung">WEG-Verwaltung</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Verwalterwechsel">Verwalterwechsel</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Mietverwaltung">Mietverwaltung</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Hausmeister-Service">Hausmeister-Service</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Bauleitung und Sanierung">Bauleitung &amp; Sanierung</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Hausgeldabrechnung">Hausgeldabrechnung</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Eigentümerversammlung">Eigentümerversammlung</label>
+                <label class="mehrfach__punkt"><input type="checkbox" name="anliegen" value="Sonstiges">Sonstiges</label>
+              </div>
+            </details>
+          </fieldset>
         </div>
         <div class="formular__wechsel">
           <div class="feld-reihe nur-termin">
@@ -250,6 +254,6 @@
   </ul>
 </footer>
 
-<script src="/js/site.js?v=20261017d" defer></script>
+<script src="/js/site.js?v=20261017e" defer></script>
 </body>
 </html>
